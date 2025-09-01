@@ -56,6 +56,15 @@
   color: var(--foreground);
   margin: 0;
   line-height: 1.2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titleLine {
+  display: block;
+  text-align: center;
 }
 
 .highlight {
@@ -71,8 +80,17 @@
   color: var(--foreground);
   opacity: 0.8;
   margin: 0;
-  max-width: 600px;
+  max-width: 800px;
   line-height: 1.6;
+  text-align: left;
+}
+
+.subtitle p {
+  margin: 0 0 1.5rem 0;
+}
+
+.subtitle p:last-child {
+  margin-bottom: 0;
 }
 
 
@@ -144,6 +162,7 @@ a.secondary {
 
   .title {
     font-size: 2.5rem;
+    text-align: center;
   }
 
   .subtitle {

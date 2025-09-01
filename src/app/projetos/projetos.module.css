@@ -1,0 +1,382 @@
+/* src/app/projetos/projetos.module.css */
+.page {
+  display: grid;
+  grid-template-rows: 20px 1fr 20px;
+  align-items: center;
+  justify-items: center;
+  min-height: 100svh;
+  padding: 80px 80px 80px 120px;
+  gap: 64px;
+  font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  grid-row-start: 2;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.highlight {
+  color: #013750;
+  background: linear-gradient(35deg, #ff701e, #9c2801);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  color: var(--foreground);
+  opacity: 0.8;
+  margin: 0;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.projetosGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 48px;
+  width: 100%;
+}
+
+.projetoCard {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.projetoCard:hover {
+  transform: translateY(-8px);
+  border-color: var(--button-secondary-hover);
+  box-shadow: 0 16px 48px rgba(var(--button-secondary-hover), 0.2);
+}
+
+.projetoCard.destaque {
+  border-color: var(--header-color);
+  box-shadow: 0 8px 32px rgba(255, 136, 0, 0.2);
+}
+
+.projetoCard.destaque:hover {
+  box-shadow: 0 20px 60px rgba(255, 136, 0, 0.3);
+}
+
+.projetoImagem {
+  position: relative;
+  width: 100%;
+  height: 250px;
+  overflow: hidden;
+}
+
+.imagem {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.projetoCard:hover .imagem {
+  transform: scale(1.05);
+}
+
+.badgeDestaque {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: linear-gradient(35deg, #ff701e, #9c2801);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(255, 136, 0, 0.3);
+}
+
+.tipoBadge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  background: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.projetoConteudo {
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.projetoTitulo {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.projetoDescricao {
+  font-size: 1rem;
+  color: var(--foreground);
+  opacity: 0.8;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.tecnologias {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.techTag {
+  background: rgba(255, 136, 0, 0.1);
+  color: var(--header-color);
+  padding: 6px 12px;
+  border-radius: 16px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border: 1px solid rgba(255, 136, 0, 0.2);
+  transition: all 0.2s ease;
+}
+
+.techTag:hover {
+  background: rgba(255, 136, 0, 0.2);
+  border-color: var(--header-color);
+}
+
+.projetoLinks {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.linkButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.linkButton {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--foreground);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.linkButton:hover {
+  transform: translateY(-2px);
+}
+
+/* Botão Frontend - Cor Laranja */
+.frontendButton {
+  background: var(--header-color);
+  color: var(--background);
+  border-color: var(--header-color);
+}
+
+.frontendButton:hover {
+  background: #ff9a00;
+  box-shadow: 0 8px 24px rgba(255, 136, 0, 0.3);
+}
+
+/* Botão Backend - Cor Azul */
+.backendButton {
+  background: #3b82f6;
+  color: white;
+  border-color: #3b82f6;
+}
+
+.backendButton:hover {
+  background: #2563eb;
+  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
+}
+
+/* Botão Demo - Cor Verde */
+.demoButton {
+  background: #10b981;
+  color: white;
+  border-color: #10b981;
+}
+
+.demoButton:hover {
+  background: #059669;
+  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
+}
+
+.ctaSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  text-align: center;
+  padding: 48px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+}
+
+.ctaText {
+  font-size: 1.125rem;
+  color: var(--foreground);
+  opacity: 0.9;
+  margin: 0;
+  line-height: 1.6;
+}
+
+.ctaButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--foreground);
+  color: var(--background);
+  padding: 16px 32px;
+  border-radius: 128px;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.ctaButton:hover {
+  background: var(--button-primary-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(192, 1, 42, 0.3);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .page {
+    padding: 32px 32px 80px 48px;
+  }
+
+  .main {
+    gap: 48px;
+  }
+
+  .title {
+    font-size: 2.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+  }
+
+  .projetosGrid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+
+  .projetoCard {
+    max-width: 100%;
+  }
+
+  .projetoConteudo {
+    padding: 24px;
+    gap: 20px;
+  }
+
+  .projetoTitulo {
+    font-size: 1.25rem;
+  }
+
+  .projetoDescricao {
+    font-size: 0.9rem;
+  }
+
+  .projetoLinks {
+    flex-direction: column;
+  }
+
+  .linkButton {
+    justify-content: center;
+    padding: 14px 20px;
+  }
+
+  .ctaSection {
+    padding: 32px 24px;
+  }
+
+  .ctaButton {
+    padding: 14px 28px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page {
+    padding: 24px 24px 80px 32px;
+  }
+
+  .main {
+    gap: 40px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .projetosGrid {
+    gap: 24px;
+  }
+
+  .projetoConteudo {
+    padding: 20px;
+    gap: 16px;
+  }
+
+  .tecnologias {
+    gap: 6px;
+  }
+
+  .techTag {
+    font-size: 0.8rem;
+    padding: 4px 10px;
+  }
+}
+

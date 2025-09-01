@@ -18,11 +18,24 @@ export default function Home() {
           </div>
           <div className={styles.textContent}>
             <h1 className={styles.title}>
-              Olá, eu sou <span className={styles.highlight}>Rudio</span>
+              <div className={styles.titleLine}>Olá,</div>
+              <div className={styles.titleLine}>
+                Eu sou <span className={styles.highlight}>Rudio</span>
+              </div>
             </h1>
-            <p className={styles.subtitle}>
-              Desenvolvedor Full Stack.
-            </p>
+            <div className={styles.subtitle}>
+              <p>
+                Com uma sólida experiência em desenvolvimento Full Stack, atuo na criação de aplicações escaláveis, seguras e centradas no usuário. Nos últimos anos, participei do design e implementação de funcionalidades inovadoras tanto no front-end quanto no back-end, garantindo performance, manutenção simples e experiências fluídas.
+              </p>
+              
+              <p>
+                Tenho domínio em tecnologias como C#, .NET, PHP, Laravel, React, Node.js e bancos de dados SQL/NoSQL, além de experiência com desenvolvimento de APIs, autenticação e integração em nuvem. Meu foco é entregar soluções digitais confiáveis e eficientes, sempre aplicando boas práticas e qualidade de código.
+              </p>
+              
+              <p>
+                Movido por curiosidade e aprendizado contínuo, meu objetivo é desenvolver soluções que conectem pessoas e tecnologia de forma efetiva e impactante.
+              </p>
+            </div>
           </div>
         </div>
         
