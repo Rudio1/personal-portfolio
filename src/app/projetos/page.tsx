@@ -171,8 +171,8 @@ export default function Projetos() {
           <p className={styles.ctaText}>
             Interessado em colaborar em um projeto?
           </p>
-          <a href="/curriculo" className={styles.ctaButton}>
-            Entre em Contato
+          <a href="/curriculo/Curriculo - Rudio.pdf" target="_blank" rel="noopener noreferrer" className={styles.ctaButton}>
+            Currículo
             <ExternalLink size={16} />
           </a>
         </div>

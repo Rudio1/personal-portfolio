@@ -16,7 +16,7 @@ const menu = [
   },
   {
     label: 'Currículo',
-    href: '/curriculo',
+    href: '/curriculo/Curriculo - Rudio.pdf',
   },
 ];
 
@@ -66,9 +66,20 @@ export default function Header() {
           <ul className={styles.navList}>
             {menu.map((item) => (
               <li key={item.href}>
-                <Link href={item.href} className={styles.navLink}>
-                  {item.label}
-                </Link>
+                {item.href.includes('.pdf') ? (
+                  <a 
+                    href={item.href} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className={styles.navLink}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link href={item.href} className={styles.navLink}>
+                    {item.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
@@ -100,13 +111,25 @@ export default function Header() {
           <ul className={styles.mobileNavList}>
             {menu.map((item) => (
               <li key={item.href}>
-                <Link 
-                  href={item.href} 
-                  className={styles.mobileNavLink}
-                  onClick={closeMenu}
-                >
-                  {item.label}
-                </Link>
+                {item.href.includes('.pdf') ? (
+                  <a 
+                    href={item.href} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className={styles.mobileNavLink}
+                    onClick={closeMenu}
+                  >
+                    {item.label}
+                  </a>
+                ) : (
+                  <Link 
+                    href={item.href} 
+                    className={styles.mobileNavLink}
+                    onClick={closeMenu}
+                  >
+                    {item.label}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>

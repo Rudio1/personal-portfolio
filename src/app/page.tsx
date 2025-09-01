@@ -43,7 +43,7 @@ export default function Home() {
           <a href="/projetos" className={styles.primary}>
             Ver Projetos
           </a>
-          <a href="/curriculo" className={styles.secondary}>
+          <a href="/curriculo/Curriculo - Rudio.pdf" target="_blank" rel="noopener noreferrer" className={styles.secondary}>
             Currículo
           </a>
         </div>
