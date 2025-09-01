@@ -1,0 +1,68 @@
+{
+  "navigation": {
+    "about": "Sobre",
+    "projects": "Projetos",
+    "resume": "Currículo"
+  },
+  "language": {
+    "switch": "EN",
+    "current": "PT"
+  },
+  "home": {
+    "title": "Olá, Eu sou Rudio",
+    "subtitle": "Com uma sólida experiência em desenvolvimento Full Stack, atuo na criação de aplicações escaláveis, seguras e centradas no usuário. Nos últimos anos, participei do design e implementação de funcionalidades inovadoras tanto no front-end quanto no back-end, garantindo performance, manutenção simples e experiências fluídas.",
+    "description": "Tenho domínio em tecnologias como C#, .NET, PHP, Laravel, React, Node.js e bancos de dados SQL/NoSQL, além de experiência com desenvolvimento de APIs, autenticação e integração em nuvem. Meu foco é entregar soluções digitais confiáveis e eficientes, sempre aplicando boas práticas e qualidade de código.",
+    "objective": "Movido por curiosidade e aprendizado contínuo, meu objetivo é desenvolver soluções que conectem pessoas e tecnologia de forma efetiva e impactante.",
+    "cta": {
+      "projects": "Ver Projetos",
+      "resume": "Currículo"
+    }
+  },
+  "projects": {
+    "title": "Projetos",
+    "subtitle": "Alguns dos projetos que desenvolvi",
+    "items": {
+      "vegeta": {
+        "title": "Vegeta Final PI - API Mobile",
+        "description": "API Laravel para backend de aplicativo mobile de pedais de guitarra. Sistema completo com autenticação, gestão de produtos, avaliações, comentários e transferência de produtos entre usuários."
+      },
+      "cybergallery": {
+        "title": "Cyber Gallery",
+        "description": "Galeria de fotos moderna e responsiva com design cyberpunk. Interface elegante para exibição de imagens com efeitos visuais e navegação intuitiva."
+      },
+      "refeicoes": {
+        "title": "Sistema de Gestão de Refeições",
+        "description": "Aplicação web para gerenciamento de refeições com frontend e backend. Sistema completo para controle de cardápios, ingredientes e planejamento alimentar."
+      },
+      "tarefas": {
+        "title": "Sistema de Gerenciamento de Tarefas",
+        "description": "Sistema web completo para gerenciamento de tarefas com frontend e backend separados. Interface moderna e intuitiva para criação, edição e acompanhamento de tarefas."
+      },
+      "brunelly": {
+        "title": "Website Brunelly Baiocco",
+        "description": "Website profissional desenvolvido para Brunelly Baiocco. Design elegante e responsivo com foco em apresentação pessoal e portfólio."
+      },
+      "agcustom": {
+        "title": "Website AG Custom",
+        "description": "Website corporativo para AG Custom com design moderno e funcional. Interface profissional para apresentação de serviços e produtos da empresa."
+      }
+    },
+    "types": {
+      "backend": "Backend",
+      "frontend": "Frontend",
+      "fullstack": "Full Stack"
+    },
+    "buttons": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "demo": "Demo"
+    },
+    "badges": {
+      "destaque": "Destaque"
+    },
+    "cta": {
+      "text": "Interessado em colaborar em um projeto?",
+      "resume": "Currículo"
+    }
+  }
+}

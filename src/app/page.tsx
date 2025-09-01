@@ -1,7 +1,13 @@
+'use client';
+
 import Image from 'next/image';
 import styles from "./page.module.css";
+import { useTranslations } from '../contexts/TranslationContext';
+import { LoadingText, LoadingSkeleton } from '../components/LoadingSkeleton';
 
 export default function Home() {
+  const { t, isLoading } = useTranslations();
+  
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -18,34 +24,48 @@ export default function Home() {
           </div>
           <div className={styles.textContent}>
             <h1 className={styles.title}>
-              <div className={styles.titleLine}>Olá,</div>
               <div className={styles.titleLine}>
-                Eu sou <span className={styles.highlight}>Rudio</span>
+                {isLoading ? <LoadingText className={styles.titleSkeleton} /> : t('home.title')}
               </div>
             </h1>
             <div className={styles.subtitle}>
-              <p>
-                Com uma sólida experiência em desenvolvimento Full Stack, atuo na criação de aplicações escaláveis, seguras e centradas no usuário. Nos últimos anos, participei do design e implementação de funcionalidades inovadoras tanto no front-end quanto no back-end, garantindo performance, manutenção simples e experiências fluídas.
-              </p>
-              
-              <p>
-                Tenho domínio em tecnologias como C#, .NET, PHP, Laravel, React, Node.js e bancos de dados SQL/NoSQL, além de experiência com desenvolvimento de APIs, autenticação e integração em nuvem. Meu foco é entregar soluções digitais confiáveis e eficientes, sempre aplicando boas práticas e qualidade de código.
-              </p>
-              
-              <p>
-                Movido por curiosidade e aprendizado contínuo, meu objetivo é desenvolver soluções que conectem pessoas e tecnologia de forma efetiva e impactante.
-              </p>
+              {isLoading ? (
+                <LoadingSkeleton lines={3} />
+              ) : (
+                <>
+                  <p>
+                    {t('home.subtitle')}
+                  </p>
+                  
+                  <p>
+                    {t('home.description')}
+                  </p>
+                  
+                  <p>
+                    {t('home.objective')}
+                  </p>
+                </>
+              )}
             </div>
           </div>
         </div>
         
         <div className={styles.ctas}>
-          <a href="/projetos" className={styles.primary}>
-            Ver Projetos
-          </a>
-          <a href="/curriculo/Curriculo - Rudio.pdf" target="_blank" rel="noopener noreferrer" className={styles.secondary}>
-            Currículo
-          </a>
+          {isLoading ? (
+            <div className={styles.ctasSkeleton}>
+              <div className={styles.skeletonButton}></div>
+              <div className={styles.skeletonButton}></div>
+            </div>
+          ) : (
+            <>
+              <a href="/projetos" className={styles.primary}>
+                {t('home.cta.projects')}
+              </a>
+              <a href="/curriculo/Curriculo - Rudio.pdf" target="_blank" rel="noopener noreferrer" className={styles.secondary}>
+                {t('home.cta.resume')}
+              </a>
+            </>
+          )}
         </div>
       </main>
     </div>

@@ -380,3 +380,97 @@
   }
 }
 
+/* Loading Skeleton Styles */
+.titleSkeleton {
+  width: 300px;
+  height: 3.5rem;
+}
+
+.subtitleSkeleton {
+  width: 500px;
+  height: 2.5rem;
+}
+
+.projetoTituloSkeleton {
+  width: 200px;
+  height: 1.5rem;
+}
+
+.projetoDescricaoSkeleton {
+  width: 100%;
+  height: 4.5rem;
+}
+
+.badgeSkeleton {
+  width: 80px;
+  height: 1rem;
+}
+
+.buttonSkeleton {
+  width: 100px;
+  height: 1rem;
+}
+
+.ctaTextSkeleton {
+  width: 400px;
+  height: 2rem;
+}
+
+.ctaButtonSkeleton {
+  width: 150px;
+  height: 1rem;
+}
+
+/* Responsive skeleton adjustments */
+@media (max-width: 768px) {
+  .titleSkeleton {
+    width: 250px;
+    height: 2.5rem;
+  }
+  
+  .subtitleSkeleton {
+    width: 300px;
+    height: 2rem;
+  }
+  
+  .projetoTituloSkeleton {
+    width: 150px;
+    height: 1.25rem;
+  }
+  
+  .projetoDescricaoSkeleton {
+    height: 3.5rem;
+  }
+  
+  .ctaTextSkeleton {
+    width: 250px;
+    height: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .titleSkeleton {
+    width: 200px;
+    height: 2rem;
+  }
+  
+  .subtitleSkeleton {
+    width: 250px;
+    height: 1.5rem;
+  }
+  
+  .projetoTituloSkeleton {
+    width: 120px;
+    height: 1rem;
+  }
+  
+  .projetoDescricaoSkeleton {
+    height: 3rem;
+  }
+  
+  .ctaTextSkeleton {
+    width: 200px;
+    height: 1.25rem;
+  }
+}
+

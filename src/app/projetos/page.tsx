@@ -1,96 +1,96 @@
 // src/app/projetos/page.tsx
+'use client';
+
 import Image from 'next/image';
-import { ExternalLink, Github, Globe, Database, Smartphone, Monitor } from 'lucide-react';
+import { ExternalLink, Github, Globe, Database, Monitor } from 'lucide-react';
 import styles from './projetos.module.css';
+import { useTranslations } from '../../contexts/TranslationContext';
+import { LoadingSkeleton } from '../../components/LoadingSkeleton';
 
 // Dados dos projetos baseados nos repositórios reais
 const projetos = [
   {
     id: 1,
-    titulo: 'Vegeta Final PI - API Mobile',
-    descricao: 'API Laravel para backend de aplicativo mobile de pedais de guitarra. Sistema completo com autenticação, gestão de produtos, avaliações, comentários e transferência de produtos entre usuários.',
+    key: 'vegeta',
     tecnologias: ['Laravel', 'PHP', 'MySQL', 'API REST', 'JWT'],
     imagem: '/vegeta.png',
     github: 'https://github.com/frotaitalo/vegeta-final-pi',
     demo: null,
     destaque: true,
-    tipo: 'Backend',
+    tipo: 'backend',
     icone: <Database size={20} />
   },
   {
     id: 2,
-    titulo: 'Cyber Gallery',
-    descricao: 'Galeria de fotos moderna e responsiva com design cyberpunk. Interface elegante para exibição de imagens com efeitos visuais e navegação intuitiva.',
+    key: 'cybergallery',
     tecnologias: ['Next.js', 'TypeScript', 'Responsive Design', 'AWS S3 Bucket', 'GSAP'],
     imagem: '/cybergallery.png',
     github: 'https://github.com/Rudio1/cyberGallery',
     demo: null,
     destaque: true,
-    tipo: 'Frontend',
+    tipo: 'frontend',
     icone: <Globe size={20} />
   },
   {
     id: 3,
-    titulo: 'Sistema de Gestão de Refeições',
-    descricao: 'Aplicação web para gerenciamento de refeições com frontend e backend. Sistema completo para controle de cardápios, ingredientes e planejamento alimentar.',
+    key: 'refeicoes',
     tecnologias: ['React', 'Node.js', 'Express', 'TypeScript', 'Next.js', 'SQL Server', 'JWT'],
     imagem: '/refeicoes.png',
     github: 'https://github.com/Rudio1/front-meals',
     githubBackend: 'https://github.com/Rudio1/api-meals',
     demo: null,
     destaque: true,
-    tipo: 'Full Stack',
+    tipo: 'fullstack',
     icone: <Monitor size={20} />
   },
   {
     id: 4,
-    titulo: 'Sistema de Gerenciamento de Tarefas',
-    descricao: 'Sistema web completo para gerenciamento de tarefas com frontend e backend separados. Interface moderna e intuitiva para criação, edição e acompanhamento de tarefas.',
+    key: 'tarefas',
     tecnologias: ['C#', '.NET', 'SQL Server', 'Entity Framework', 'JWT'],
     imagem: '/tarefas.png',
     github: 'https://github.com/Rudio1/FrontEndTaskAPI',
     githubBackend: 'https://github.com/Rudio1/CrudTaskAPI',
     demo: null,
     destaque: false,
-    tipo: 'Full Stack',
+    tipo: 'fullstack',
     icone: <Monitor size={20} />
   },
   {
     id: 5,
-    titulo: 'Website Brunelly Baiocco',
-    descricao: 'Website profissional desenvolvido para Brunelly Baiocco. Design elegante e responsivo com foco em apresentação pessoal e portfólio.',
+    key: 'brunelly',
     tecnologias: ['Next.js', 'Responsive Design'],
     imagem: '/brunelly.png',
     github: 'https://github.com/Rudio1/website_brunelly_baiocco',
     demo: null,
     destaque: false,
-    tipo: 'Frontend',
+    tipo: 'frontend',
     icone: <Globe size={20} />
   },
   {
     id: 6,
-    titulo: 'Website AG Custom',
-    descricao: 'Website corporativo para AG Custom com design moderno e funcional. Interface profissional para apresentação de serviços e produtos da empresa.',
+    key: 'agcustom',
     tecnologias: ['HTML', 'CSS', 'JavaScript', 'Responsive Design'],
     imagem: '/ag-custom.png',
     github: 'https://github.com/Rudio1/website_AG-Custom',
     demo: null,
     destaque: false,
-    tipo: 'Frontend',
+    tipo: 'frontend',
     icone: <Globe size={20} />
   }
 ];
 
 export default function Projetos() {
+  const { t, isLoading } = useTranslations();
+  
   return (
     <div className={styles.page}>
       <main className={styles.main}>
         <div className={styles.header}>
           <h1 className={styles.title}>
-            Meus <span className={styles.highlight}>Projetos</span>
+            {isLoading ? <LoadingSkeleton lines={1} className={styles.titleSkeleton} /> : t('projects.title')}
           </h1>
           <p className={styles.subtitle}>
-            Uma seleção dos projetos que desenvolvi, demonstrando minhas habilidades técnicas e criatividade.
+            {isLoading ? <LoadingSkeleton lines={2} className={styles.subtitleSkeleton} /> : t('projects.subtitle')}
           </p>
         </div>
         
@@ -100,7 +100,7 @@ export default function Projetos() {
               <div className={styles.projetoImagem}>
                 <Image
                   src={projeto.imagem}
-                  alt={`${projeto.titulo} - Screenshot do projeto`}
+                  alt={`${projeto.key} - Screenshot do projeto`}
                   width={400}
                   height={250}
                   className={styles.imagem}
@@ -108,18 +108,22 @@ export default function Projetos() {
                 />
                 {projeto.destaque && (
                   <div className={styles.badgeDestaque}>
-                    <span>Destaque</span>
+                    <span>{isLoading ? <LoadingSkeleton lines={1} className={styles.badgeSkeleton} /> : t('projects.badges.destaque')}</span>
                   </div>
                 )}
                 <div className={styles.tipoBadge}>
                   {projeto.icone}
-                  <span>{projeto.tipo}</span>
+                  <span>{isLoading ? <LoadingSkeleton lines={1} className={styles.badgeSkeleton} /> : t(`projects.types.${projeto.tipo}`)}</span>
                 </div>
               </div>
               
               <div className={styles.projetoConteudo}>
-                <h3 className={styles.projetoTitulo}>{projeto.titulo}</h3>
-                <p className={styles.projetoDescricao}>{projeto.descricao}</p>
+                <h3 className={styles.projetoTitulo}>
+                  {isLoading ? <LoadingSkeleton lines={1} className={styles.projetoTituloSkeleton} /> : t(`projects.items.${projeto.key}.title`)}
+                </h3>
+                <p className={styles.projetoDescricao}>
+                  {isLoading ? <LoadingSkeleton lines={3} className={styles.projetoDescricaoSkeleton} /> : t(`projects.items.${projeto.key}.description`)}
+                </p>
                 
                 <div className={styles.tecnologias}>
                   {projeto.tecnologias.map((tech) => (
@@ -137,7 +141,7 @@ export default function Projetos() {
                     className={`${styles.linkButton} ${styles.frontendButton}`}
                   >
                     <Github size={16} />
-                    Frontend
+                    {isLoading ? <LoadingSkeleton lines={1} className={styles.buttonSkeleton} /> : t('projects.buttons.frontend')}
                   </a>
                   {projeto.githubBackend && (
                     <a 
@@ -147,7 +151,7 @@ export default function Projetos() {
                       className={`${styles.linkButton} ${styles.backendButton}`}
                     >
                       <Database size={16} />
-                      Backend
+                      {isLoading ? <LoadingSkeleton lines={1} className={styles.buttonSkeleton} /> : t('projects.buttons.backend')}
                     </a>
                   )}
                   {projeto.demo && (
@@ -158,7 +162,7 @@ export default function Projetos() {
                       className={`${styles.linkButton} ${styles.demoButton}`}
                     >
                       <Globe size={16} />
-                      Demo
+                      {isLoading ? <LoadingSkeleton lines={1} className={styles.buttonSkeleton} /> : t('projects.buttons.demo')}
                     </a>
                   )}
                 </div>
@@ -169,10 +173,10 @@ export default function Projetos() {
         
         <div className={styles.ctaSection}>
           <p className={styles.ctaText}>
-            Interessado em colaborar em um projeto?
+            {isLoading ? <LoadingSkeleton lines={2} className={styles.ctaTextSkeleton} /> : t('projects.cta.text')}
           </p>
           <a href="/curriculo/Curriculo - Rudio.pdf" target="_blank" rel="noopener noreferrer" className={styles.ctaButton}>
-            Currículo
+            {isLoading ? <LoadingSkeleton lines={1} className={styles.ctaButtonSkeleton} /> : t('projects.cta.resume')}
             <ExternalLink size={16} />
           </a>
         </div>

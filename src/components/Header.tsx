@@ -1,27 +1,46 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ChevronDown } from 'lucide-react';
+import { useTranslations } from '../contexts/TranslationContext';
 import styles from './Header.module.css';
 
-const menu = [
+const menuItems = [
   {
-    label: 'Sobre',
+    key: 'about',
     href: '/',
   },
   {
-    label: 'Projetos',
+    key: 'projects',
     href: '/projetos',
   },
   {
-    label: 'Currículo',
+    key: 'resume',
     href: '/curriculo/Curriculo - Rudio.pdf',
   },
 ];
 
+// Componente de Bandeira usando SVGs
+const FlagIcon = ({ country }: { country: 'br' | 'us' }) => {
+  const flagSrc = country === 'br' ? '/brazil.svg' : '/usa.svg';
+  
+  return (
+    <Image 
+      src={flagSrc} 
+      alt={`${country === 'br' ? 'Brasil' : 'Estados Unidos'} flag`}
+      width={20}
+      height={15}
+      className={styles.flagImage}
+    />
+  );
+};
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
+  const { locale, changeLocale, t, isLoading } = useTranslations();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -31,11 +50,21 @@ export default function Header() {
     setIsMenuOpen(false);
   };
 
+  const switchLanguage = (newLocale: string) => {
+    changeLocale(newLocale);
+    setIsLanguageDropdownOpen(false);
+  };
+
+  const toggleLanguageDropdown = () => {
+    setIsLanguageDropdownOpen(!isLanguageDropdownOpen);
+  };
+
   // Fechar menu ao pressionar ESC
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         closeMenu();
+        setIsLanguageDropdownOpen(false);
       }
     };
 
@@ -52,6 +81,24 @@ export default function Header() {
     };
   }, [isMenuOpen]);
 
+  // Fechar dropdown ao clicar fora
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as Element;
+      if (isLanguageDropdownOpen && !target.closest(`.${styles.languageDropdown}`)) {
+        setIsLanguageDropdownOpen(false);
+      }
+    };
+
+    if (isLanguageDropdownOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isLanguageDropdownOpen]);
+
   return (
     <header className={styles.header}>
       <div className={styles.container}>
@@ -64,7 +111,7 @@ export default function Header() {
         {/* Menu Desktop */}
         <nav className={styles.navigation}>
           <ul className={styles.navList}>
-            {menu.map((item) => (
+            {menuItems.map((item) => (
               <li key={item.href}>
                 {item.href.includes('.pdf') ? (
                   <a 
@@ -73,15 +120,58 @@ export default function Header() {
                     rel="noopener noreferrer"
                     className={styles.navLink}
                   >
-                    {item.label}
+                    {isLoading ? (
+                      <div className={`${styles.navSkeleton} ${styles[`navSkeleton${item.key.charAt(0).toUpperCase() + item.key.slice(1)}`]}`}>
+                        <div className={styles.skeletonLine}></div>
+                      </div>
+                    ) : (
+                      t(`navigation.${item.key}`)
+                    )}
                   </a>
                 ) : (
                   <Link href={item.href} className={styles.navLink}>
-                    {item.label}
+                    {isLoading ? (
+                      <div className={`${styles.navSkeleton} ${styles[`navSkeleton${item.key.charAt(0).toUpperCase() + item.key.slice(1)}`]}`}>
+                        <div className={styles.skeletonLine}></div>
+                      </div>
+                    ) : (
+                      t(`navigation.${item.key}`)
+                    )}
                   </Link>
                 )}
               </li>
             ))}
+            <li className={styles.languageDropdown}>
+              <button 
+                onClick={toggleLanguageDropdown}
+                className={styles.languageButton}
+                aria-label="Select language"
+                aria-expanded={isLanguageDropdownOpen}
+              >
+                <FlagIcon country={locale === 'pt' ? 'br' : 'us'} />
+                <span>{locale === 'pt' ? 'PT' : 'EN'}</span>
+                <ChevronDown size={14} className={`${styles.chevron} ${isLanguageDropdownOpen ? styles.chevronOpen : ''}`} />
+              </button>
+              
+              {isLanguageDropdownOpen && (
+                <div className={styles.languageDropdownMenu}>
+                  <button 
+                    onClick={() => switchLanguage('pt')}
+                    className={`${styles.languageOption} ${locale === 'pt' ? styles.languageOptionActive : ''}`}
+                  >
+                    <FlagIcon country="br" />
+                    <span>Português</span>
+                  </button>
+                  <button 
+                    onClick={() => switchLanguage('en')}
+                    className={`${styles.languageOption} ${locale === 'en' ? styles.languageOptionActive : ''}`}
+                  >
+                    <FlagIcon country="us" />
+                    <span>English</span>
+                  </button>
+                </div>
+              )}
+            </li>
           </ul>
         </nav>
 
@@ -116,7 +206,7 @@ export default function Header() {
         </div>
         <nav className={styles.mobileNavigation}>
           <ul className={styles.mobileNavList}>
-            {menu.map((item) => (
+            {menuItems.map((item) => (
               <li key={item.href}>
                 {item.href.includes('.pdf') ? (
                   <a 
@@ -126,7 +216,7 @@ export default function Header() {
                     className={styles.mobileNavLink}
                     onClick={closeMenu}
                   >
-                    {item.label}
+                    {t(`navigation.${item.key}`)}
                   </a>
                 ) : (
                   <Link 
@@ -134,11 +224,38 @@ export default function Header() {
                     className={styles.mobileNavLink}
                     onClick={closeMenu}
                   >
-                    {item.label}
+                    {t(`navigation.${item.key}`)}
                   </Link>
                 )}
               </li>
             ))}
+            <li>
+              <div className={styles.mobileLanguageSection}>
+                <h3 className={styles.mobileLanguageTitle}>Idioma / Language</h3>
+                <div className={styles.mobileLanguageOptions}>
+                  <button 
+                    onClick={() => {
+                      switchLanguage('pt');
+                      closeMenu();
+                    }}
+                    className={`${styles.mobileLanguageOption} ${locale === 'pt' ? styles.mobileLanguageOptionActive : ''}`}
+                  >
+                    <FlagIcon country="br" />
+                    <span>Português</span>
+                  </button>
+                  <button 
+                    onClick={() => {
+                      switchLanguage('en');
+                      closeMenu();
+                    }}
+                    className={`${styles.mobileLanguageOption} ${locale === 'en' ? styles.mobileLanguageOptionActive : ''}`}
+                  >
+                    <FlagIcon country="us" />
+                    <span>English</span>
+                  </button>
+                </div>
+              </div>
+            </li>
           </ul>
         </nav>
       </div>

@@ -1,0 +1,68 @@
+{
+  "navigation": {
+    "about": "About",
+    "projects": "Projects",
+    "resume": "Resume"
+  },
+  "language": {
+    "switch": "PT",
+    "current": "EN"
+  },
+  "home": {
+    "title": "Hello, I'm Rudio",
+    "subtitle": "With solid experience in Full Stack development, I work on creating scalable, secure, and user-centered applications. In recent years, I have participated in the design and implementation of innovative features both on the front-end and back-end, ensuring performance, simple maintenance, and fluid experiences.",
+    "description": "I have expertise in technologies such as C#, .NET, PHP, Laravel, React, Node.js, and SQL/NoSQL databases, as well as experience with API development, authentication, and cloud integration. My focus is to deliver reliable and efficient digital solutions, always applying best practices and code quality.",
+    "objective": "Driven by curiosity and continuous learning, my goal is to develop solutions that connect people and technology effectively and impactfully.",
+    "cta": {
+      "projects": "View Projects",
+      "resume": "Resume"
+    }
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Some of the projects I've developed",
+    "items": {
+      "vegeta": {
+        "title": "Vegeta Final PI - Mobile API",
+        "description": "Laravel API for guitar pedal mobile app backend. Complete system with authentication, product management, reviews, comments, and product transfers between users."
+      },
+      "cybergallery": {
+        "title": "Cyber Gallery",
+        "description": "Modern and responsive photo gallery with cyberpunk design. Elegant interface for image display with visual effects and intuitive navigation."
+      },
+      "refeicoes": {
+        "title": "Meal Management System",
+        "description": "Web application for meal management with frontend and backend. Complete system for menu control, ingredients, and meal planning."
+      },
+      "tarefas": {
+        "title": "Task Management System",
+        "description": "Complete web system for task management with separate frontend and backend. Modern and intuitive interface for creating, editing, and tracking tasks."
+      },
+      "brunelly": {
+        "title": "Brunelly Baiocco Website",
+        "description": "Professional website developed for Brunelly Baiocco. Elegant and responsive design focused on personal presentation and portfolio."
+      },
+      "agcustom": {
+        "title": "AG Custom Website",
+        "description": "Corporate website for AG Custom with modern and functional design. Professional interface for presenting company services and products."
+      }
+    },
+    "types": {
+      "backend": "Backend",
+      "frontend": "Frontend",
+      "fullstack": "Full Stack"
+    },
+    "buttons": {
+      "frontend": "Frontend",
+      "backend": "Backend",
+      "demo": "Demo"
+    },
+    "badges": {
+      "destaque": "Featured"
+    },
+    "cta": {
+      "text": "Interested in collaborating on a project?",
+      "resume": "Resume"
+    }
+  }
+}

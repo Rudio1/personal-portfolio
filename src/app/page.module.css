@@ -234,4 +234,48 @@ a.secondary {
   }
 }
 
+/* Loading Skeleton Styles */
+.titleSkeleton {
+  height: 3.5rem;
+  width: 100%;
+}
+
+.ctasSkeleton {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+}
+
+.skeletonButton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+  border-radius: 128px;
+  height: 48px;
+  width: 140px;
+}
+
+@media (max-width: 600px) {
+  .ctasSkeleton {
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 300px;
+  }
+  
+  .skeletonButton {
+    height: 56px;
+    width: 100%;
+  }
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
 
