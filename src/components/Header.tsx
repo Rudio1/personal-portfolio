@@ -107,6 +107,13 @@ export default function Header() {
         className={`${styles.mobileMenu} ${isMenuOpen ? styles.open : ''}`}
         aria-hidden={!isMenuOpen}
       >
+        <div className={styles.mobileHeader}>
+          <div className={styles.mobileLogo}>
+            <Link href="/" onClick={closeMenu}>
+              <span>Rudio</span>
+            </Link>
+          </div>
+        </div>
         <nav className={styles.mobileNavigation}>
           <ul className={styles.mobileNavList}>
             {menu.map((item) => (

@@ -145,6 +145,44 @@ a.secondary {
   }
 }
 
+@media (max-width: 768px) {
+  .page {
+    padding: 40px 24px;
+    padding-bottom: 80px;
+  }
+
+  .main {
+    gap: 40px;
+  }
+
+  .profileSection {
+    gap: 28px;
+  }
+
+  .title {
+    font-size: 3rem;
+  }
+
+  .subtitle {
+    font-size: 1.15rem;
+  }
+
+  .roundImage {
+    width: 180px !important;
+    height: 180px !important;
+  }
+
+  .ctas {
+    gap: 16px;
+  }
+
+  .ctas a {
+    font-size: 16px;
+    height: 48px;
+    padding: 0 20px;
+  }
+}
+
 @media (max-width: 600px) {
   .page {
     padding: 32px;
@@ -170,22 +208,29 @@ a.secondary {
   }
 
   .roundImage {
-    width: 150px !important;
-    height: 150px !important;
+    width: 180px !important;
+    height: 180px !important;
   }
 
   .ctas {
     flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 300px;
   }
 
   .ctas a {
-    font-size: 14px;
-    height: 40px;
-    padding: 0 16px;
+    font-size: 18px;
+    height: 56px;
+    padding: 0 24px;
+    min-height: 44px; /* Apple's minimum touch target */
+    border-radius: 12px;
+    font-weight: 600;
   }
 
   a.secondary {
     min-width: auto;
+    width: 100%;
   }
 }
 
