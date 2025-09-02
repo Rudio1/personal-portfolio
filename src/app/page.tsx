@@ -4,6 +4,7 @@ import Image from 'next/image';
 import styles from "./page.module.css";
 import { useTranslations } from '../contexts/TranslationContext';
 import { LoadingText, LoadingSkeleton } from '../components/LoadingSkeleton';
+import { ExternalLink } from 'lucide-react';
 
 export default function Home() {
   const { t, isLoading } = useTranslations();
@@ -63,6 +64,7 @@ export default function Home() {
               </a>
               <a href="/curriculo/Curriculo - Rudio.pdf" target="_blank" rel="noopener noreferrer" className={styles.secondary}>
                 {t('home.cta.resume')}
+                <ExternalLink size={16} style={{ marginLeft: '8px' }} />
               </a>
             </>
           )}
