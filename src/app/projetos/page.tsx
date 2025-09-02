@@ -1,11 +1,13 @@
 // src/app/projetos/page.tsx
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
-import { ExternalLink, Github, Globe, Database, Monitor } from 'lucide-react';
+import { ExternalLink, Github, Globe, Database, Monitor, MessageCircle } from 'lucide-react';
 import styles from './projetos.module.css';
 import { useTranslations } from '../../contexts/TranslationContext';
 import { LoadingSkeleton } from '../../components/LoadingSkeleton';
+import ContactModal from '../../components/ContactModal';
 
 // Dados dos projetos baseados nos repositórios reais
 const projetos = [
@@ -81,6 +83,7 @@ const projetos = [
 
 export default function Projetos() {
   const { t, isLoading } = useTranslations();
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   
   return (
     <div className={styles.page}>
@@ -175,12 +178,26 @@ export default function Projetos() {
           <p className={styles.ctaText}>
             {isLoading ? <LoadingSkeleton lines={2} className={styles.ctaTextSkeleton} /> : t('projects.cta.text')}
           </p>
-          <a href="/curriculo/Curriculo - Rudio.pdf" target="_blank" rel="noopener noreferrer" className={styles.ctaButton}>
-            {isLoading ? <LoadingSkeleton lines={1} className={styles.ctaButtonSkeleton} /> : t('projects.cta.resume')}
-            <ExternalLink size={16} />
-          </a>
+          <div className={styles.ctaButtons}>
+            <button 
+              onClick={() => setIsContactModalOpen(true)}
+              className={styles.ctaButton}
+            >
+              {isLoading ? <LoadingSkeleton lines={1} className={styles.ctaButtonSkeleton} /> : t('projects.cta.contact')}
+              <MessageCircle size={16} />
+            </button>
+            <a href="/curriculo/Curriculo - Rudio.pdf" target="_blank" rel="noopener noreferrer" className={styles.ctaButtonSecondary}>
+              {isLoading ? <LoadingSkeleton lines={1} className={styles.ctaButtonSkeleton} /> : t('projects.cta.resume')}
+              <ExternalLink size={16} />
+            </a>
+          </div>
         </div>
       </main>
+      
+      <ContactModal 
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+      />
     </div>
   );
 }

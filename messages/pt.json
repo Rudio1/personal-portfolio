@@ -9,7 +9,7 @@
     "current": "PT"
   },
   "home": {
-    "title": "Olá, Eu sou Rudio",
+    "title": "Olá, me chamo Rudio",
     "subtitle": "Com uma sólida experiência em desenvolvimento Full Stack, atuo na criação de aplicações escaláveis, seguras e centradas no usuário. Nos últimos anos, participei do design e implementação de funcionalidades inovadoras tanto no front-end quanto no back-end, garantindo performance, manutenção simples e experiências fluídas.",
     "description": "Tenho domínio em tecnologias como C#, .NET, PHP, Laravel, React, Node.js e bancos de dados SQL/NoSQL, além de experiência com desenvolvimento de APIs, autenticação e integração em nuvem. Meu foco é entregar soluções digitais confiáveis e eficientes, sempre aplicando boas práticas e qualidade de código.",
     "objective": "Movido por curiosidade e aprendizado contínuo, meu objetivo é desenvolver soluções que conectem pessoas e tecnologia de forma efetiva e impactante.",
@@ -62,7 +62,26 @@
     },
     "cta": {
       "text": "Interessado em colaborar em um projeto?",
-      "resume": "Currículo"
+      "resume": "Currículo",
+      "contact": "Entrar em Contato"
+    }
+  },
+  "contact": {
+    "title": "Entre em Contato",
+    "name": "Nome",
+    "namePlaceholder": "Digite seu nome completo",
+    "phone": "Telefone",
+    "phonePlaceholder": "(11) 99999-9999",
+    "send": "Enviar",
+    "sending": "Enviando...",
+    "cancel": "Cancelar",
+    "success": "Contato enviado com sucesso! Entrarei em contato em breve.",
+    "error": "Erro ao enviar contato. Tente novamente.",
+    "errors": {
+      "nameRequired": "Nome é obrigatório",
+      "nameMinLength": "Nome deve ter pelo menos 2 caracteres",
+      "phoneRequired": "Telefone é obrigatório",
+      "phoneInvalid": "Formato de telefone inválido. Use: (11) 99999-9999"
     }
   }
 }

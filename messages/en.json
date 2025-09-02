@@ -62,7 +62,26 @@
     },
     "cta": {
       "text": "Interested in collaborating on a project?",
-      "resume": "Resume"
+      "resume": "Resume",
+      "contact": "Send me a message"
+    }
+  },
+  "contact": {
+    "title": "Send me a message",
+    "name": "Name",
+    "namePlaceholder": "Enter your full name",
+    "phone": "Phone",
+    "phonePlaceholder": "(11) 99999-9999",
+    "send": "Send",
+    "sending": "Sending...",
+    "cancel": "Cancel",
+    "success": "Contact sent successfully! We'll get back to you soon.",
+    "error": "Error sending contact. Please try again.",
+    "errors": {
+      "nameRequired": "Name is required",
+      "nameMinLength": "Name must have at least 2 characters",
+      "phoneRequired": "Phone is required",
+      "phoneInvalid": "Invalid phone format. Use: (11) 99999-9999"
     }
   }
 }
