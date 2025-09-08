@@ -1,27 +1,32 @@
 .header {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: #ffffff;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  max-width: 1200px;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 20px;
   z-index: 1000;
   font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 .container {
-  max-width: 1200px;
+  width: 100%;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 40px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 70px;
+  height: 80px;
 }
 
 .logo {
-  font-size: 1.8rem;
+  font-size: 2.5rem;
   font-weight: 700;
   color: #171717;
   transition: color 0.3s ease;
@@ -34,6 +39,7 @@
 .navigation {
   display: flex;
   align-items: center;
+  height: 100%;
 }
 
 .navList {
@@ -42,6 +48,8 @@
   gap: 2rem;
   margin: 0;
   padding: 0;
+  align-items: center;
+  height: 100%;
 }
 
 .navLink {
@@ -51,6 +59,9 @@
   transition: all 0.3s ease;
   position: relative;
   padding: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
 }
 
 .navLink:hover {
@@ -70,6 +81,75 @@
 
 .navLink:hover::after {
   width: 100%;
+}
+
+/* Contact Button */
+.contactButton {
+  font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #171717;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.5rem 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+.contactButton:hover {
+  color: var(--header-color);
+}
+
+.contactButton::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--header-color);
+  transition: width 0.3s ease;
+}
+
+.contactButton:hover::after {
+  width: 100%;
+}
+
+.contactButton:focus {
+  outline: 2px solid var(--header-color);
+  outline-offset: 2px;
+}
+
+.mobileContactButton {
+  font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #171717;
+  transition: color 0.3s ease;
+  display: block;
+  padding: 0.5rem 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  width: 100%;
+  text-align: left;
+  margin-top: 1rem;
+}
+
+.mobileContactButton:hover {
+  color: #3b82f6;
+}
+
+.mobileContactButton:focus {
+  outline: 2px solid var(--header-color);
+  outline-offset: 2px;
 }
 
 /* Language Button */
@@ -206,7 +286,7 @@
 .mobileHeader {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 80px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -348,8 +428,8 @@
   width: 65px; /* "Projetos" */
 }
 
-.navSkeletonResume .skeletonLine {
-  width: 70px; /* "Currículo" */
+.navSkeletonContact .skeletonLine {
+  width: 60px; /* "Contato" */
 }
 
 @keyframes navLoading {
@@ -374,8 +454,26 @@
 
 /* Responsividade para dispositivos móveis */
 @media (max-width: 768px) {
+  .header {
+    top: 0;
+    left: 0;
+    transform: none;
+    width: 100%;
+    max-width: none;
+    border-radius: 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    border-left: none;
+    border-right: none;
+    border-top: none;
+  }
+  
   .container {
-    padding: 0 1rem;
+    padding: 0 24px;
+    height: 70px;
+  }
+  
+  .mobileHeader {
+    padding: 0 24px;
   }
   
   .navigation {
@@ -387,23 +485,32 @@
   }
   
   .logo {
-    font-size: 1.5rem;
+    font-size: 2rem;
+  }
+  
+  .mobileLogo {
+    font-size: 2rem;
   }
 }
 
 
 
 @media (max-width: 480px) {
+  .container {
+    padding: 0 32px;
+    height: 70px;
+  }
+  
   .logo {
-    font-size: 1.3rem;
+    font-size: 1.8rem;
   }
   
   .mobileLogo {
-    font-size: 1.3rem;
+    font-size: 1.8rem;
   }
   
   .mobileHeader {
-    padding: 0 1rem;
+    padding: 0 32px;
   }
   
   .mobileNavigation {

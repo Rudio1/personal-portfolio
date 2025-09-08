@@ -5,6 +5,7 @@ import Image from 'next/image';
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { useTranslations } from '../contexts/TranslationContext';
+import ContactModal from './ContactModal';
 import styles from './Header.module.css';
 
 const menuItems = [
@@ -15,10 +16,6 @@ const menuItems = [
   {
     key: 'projects',
     href: '/projetos',
-  },
-  {
-    key: 'resume',
-    href: '/curriculo/Curriculo - Rudio.pdf',
   },
 ];
 
@@ -40,6 +37,7 @@ const FlagIcon = ({ country }: { country: 'br' | 'us' }) => {
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const { locale, changeLocale, t, isLoading } = useTranslations();
 
   const toggleMenu = () => {
@@ -100,171 +98,204 @@ export default function Header() {
   }, [isLanguageDropdownOpen]);
 
   return (
-    <header className={styles.header}>
-      <div className={styles.container}>
-        <div className={styles.logo}>
-          <Link href="/" onClick={closeMenu}>
-            <span>Rudio</span>
-          </Link>
-        </div>
-        
-        {/* Menu Desktop */}
-        <nav className={styles.navigation}>
-          <ul className={styles.navList}>
-            {menuItems.map((item) => (
-              <li key={item.href}>
-                {item.href.includes('.pdf') ? (
-                  <a 
-                    href={item.href} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className={styles.navLink}
-                  >
-                    {isLoading ? (
-                      <div className={`${styles.navSkeleton} ${styles[`navSkeleton${item.key.charAt(0).toUpperCase() + item.key.slice(1)}`]}`}>
-                        <div className={styles.skeletonLine}></div>
-                      </div>
-                    ) : (
-                      t(`navigation.${item.key}`)
-                    )}
-                  </a>
-                ) : (
-                  <Link href={item.href} className={styles.navLink}>
-                    {isLoading ? (
-                      <div className={`${styles.navSkeleton} ${styles[`navSkeleton${item.key.charAt(0).toUpperCase() + item.key.slice(1)}`]}`}>
-                        <div className={styles.skeletonLine}></div>
-                      </div>
-                    ) : (
-                      t(`navigation.${item.key}`)
-                    )}
-                  </Link>
-                )}
-              </li>
-            ))}
-            <li className={styles.languageDropdown}>
-              <button 
-                onClick={toggleLanguageDropdown}
-                className={styles.languageButton}
-                aria-label="Select language"
-                aria-expanded={isLanguageDropdownOpen}
-              >
-                <FlagIcon country={locale === 'pt' ? 'br' : 'us'} />
-                <span>{locale === 'pt' ? 'PT' : 'EN'}</span>
-                <ChevronDown size={14} className={`${styles.chevron} ${isLanguageDropdownOpen ? styles.chevronOpen : ''}`} />
-              </button>
-              
-              {isLanguageDropdownOpen && (
-                <div className={styles.languageDropdownMenu}>
-                  <button 
-                    onClick={() => switchLanguage('pt')}
-                    className={`${styles.languageOption} ${locale === 'pt' ? styles.languageOptionActive : ''}`}
-                  >
-                    <FlagIcon country="br" />
-                    <span>Português</span>
-                  </button>
-                  <button 
-                    onClick={() => switchLanguage('en')}
-                    className={`${styles.languageOption} ${locale === 'en' ? styles.languageOptionActive : ''}`}
-                  >
-                    <FlagIcon country="us" />
-                    <span>English</span>
-                  </button>
-                </div>
-              )}
-            </li>
-          </ul>
-        </nav>
-
-        {/* Botão Menu Mobile */}
-        <button 
-          className={styles.menuButton}
-          onClick={toggleMenu}
-          aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
-          aria-expanded={isMenuOpen}
-          aria-controls="mobile-menu"
-        >
-          {isMenuOpen ? (
-            <X size={24} className={styles.menuIcon} />
-          ) : (
-            <Menu size={24} className={styles.menuIcon} />
-          )}
-        </button>
-      </div>
-
-      {/* Menu Mobile */}
-      <div 
-        id="mobile-menu"
-        className={`${styles.mobileMenu} ${isMenuOpen ? styles.open : ''}`}
-        aria-hidden={!isMenuOpen}
-      >
-        <div className={styles.mobileHeader}>
-          <div className={styles.mobileLogo}>
+    <>
+      <header className={styles.header}>
+        <div className={styles.container}>
+          <div className={styles.logo}>
             <Link href="/" onClick={closeMenu}>
               <span>Rudio</span>
             </Link>
           </div>
-        </div>
-        <nav className={styles.mobileNavigation}>
-          <ul className={styles.mobileNavList}>
-            {menuItems.map((item) => (
-              <li key={item.href}>
-                {item.href.includes('.pdf') ? (
-                  <a 
-                    href={item.href} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className={styles.mobileNavLink}
-                    onClick={closeMenu}
-                  >
-                    {t(`navigation.${item.key}`)}
-                  </a>
-                ) : (
-                  <Link 
-                    href={item.href} 
-                    className={styles.mobileNavLink}
-                    onClick={closeMenu}
-                  >
-                    {t(`navigation.${item.key}`)}
-                  </Link>
+          
+          {/* Menu Desktop */}
+          <nav className={styles.navigation}>
+            <ul className={styles.navList}>
+              {menuItems.map((item) => (
+                <li key={item.href}>
+                  {item.href.includes('.pdf') ? (
+                    <a 
+                      href={item.href} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className={styles.navLink}
+                    >
+                      {isLoading ? (
+                        <div className={`${styles.navSkeleton} ${styles[`navSkeleton${item.key.charAt(0).toUpperCase() + item.key.slice(1)}`]}`}>
+                          <div className={styles.skeletonLine}></div>
+                        </div>
+                      ) : (
+                        t(`navigation.${item.key}`)
+                      )}
+                    </a>
+                  ) : (
+                    <Link href={item.href} className={styles.navLink}>
+                      {isLoading ? (
+                        <div className={`${styles.navSkeleton} ${styles[`navSkeleton${item.key.charAt(0).toUpperCase() + item.key.slice(1)}`]}`}>
+                          <div className={styles.skeletonLine}></div>
+                        </div>
+                      ) : (
+                        t(`navigation.${item.key}`)
+                      )}
+                    </Link>
+                  )}
+                </li>
+              ))}
+              <li>
+                <button 
+                  onClick={() => setIsContactModalOpen(true)}
+                  className={styles.contactButton}
+                >
+                  {isLoading ? (
+                    <div className={`${styles.navSkeleton} ${styles.navSkeletonContact}`}>
+                      <div className={styles.skeletonLine}></div>
+                    </div>
+                  ) : (
+                    t('navigation.contact')
+                  )}
+                </button>
+              </li>
+              <li className={styles.languageDropdown}>
+                <button 
+                  onClick={toggleLanguageDropdown}
+                  className={styles.languageButton}
+                  aria-label="Select language"
+                  aria-expanded={isLanguageDropdownOpen}
+                >
+                  <FlagIcon country={locale === 'pt' ? 'br' : 'us'} />
+                  <span>{locale === 'pt' ? 'PT' : 'EN'}</span>
+                  <ChevronDown size={14} className={`${styles.chevron} ${isLanguageDropdownOpen ? styles.chevronOpen : ''}`} />
+                </button>
+                
+                {isLanguageDropdownOpen && (
+                  <div className={styles.languageDropdownMenu}>
+                    <button 
+                      onClick={() => switchLanguage('pt')}
+                      className={`${styles.languageOption} ${locale === 'pt' ? styles.languageOptionActive : ''}`}
+                    >
+                      <FlagIcon country="br" />
+                      <span>Português</span>
+                    </button>
+                    <button 
+                      onClick={() => switchLanguage('en')}
+                      className={`${styles.languageOption} ${locale === 'en' ? styles.languageOptionActive : ''}`}
+                    >
+                      <FlagIcon country="us" />
+                      <span>English</span>
+                    </button>
+                  </div>
                 )}
               </li>
-            ))}
-            <li>
-              <div className={styles.mobileLanguageSection}>
-                <h3 className={styles.mobileLanguageTitle}>Idioma / Language</h3>
-                <div className={styles.mobileLanguageOptions}>
-                  <button 
-                    onClick={() => {
-                      switchLanguage('pt');
-                      closeMenu();
-                    }}
-                    className={`${styles.mobileLanguageOption} ${locale === 'pt' ? styles.mobileLanguageOptionActive : ''}`}
-                  >
-                    <FlagIcon country="br" />
-                    <span>Português</span>
-                  </button>
-                  <button 
-                    onClick={() => {
-                      switchLanguage('en');
-                      closeMenu();
-                    }}
-                    className={`${styles.mobileLanguageOption} ${locale === 'en' ? styles.mobileLanguageOptionActive : ''}`}
-                  >
-                    <FlagIcon country="us" />
-                    <span>English</span>
-                  </button>
-                </div>
-              </div>
-            </li>
-          </ul>
-        </nav>
-      </div>
+            </ul>
+          </nav>
 
-      {/* Overlay para fechar menu */}
-      {isMenuOpen && (
-        <div className={styles.overlay} onClick={closeMenu}></div>
-      )}
-    </header>
+          {/* Botão Menu Mobile */}
+          <button 
+            className={styles.menuButton}
+            onClick={toggleMenu}
+            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+            aria-expanded={isMenuOpen}
+            aria-controls="mobile-menu"
+          >
+            {isMenuOpen ? (
+              <X size={24} className={styles.menuIcon} />
+            ) : (
+              <Menu size={24} className={styles.menuIcon} />
+            )}
+          </button>
+        </div>
+
+        {/* Menu Mobile */}
+        <div 
+          id="mobile-menu"
+          className={`${styles.mobileMenu} ${isMenuOpen ? styles.open : ''}`}
+          aria-hidden={!isMenuOpen}
+        >
+          <div className={styles.mobileHeader}>
+            <div className={styles.mobileLogo}>
+              <Link href="/" onClick={closeMenu}>
+                <span>Rudio</span>
+              </Link>
+            </div>
+          </div>
+          <nav className={styles.mobileNavigation}>
+            <ul className={styles.mobileNavList}>
+              {menuItems.map((item) => (
+                <li key={item.href}>
+                  {item.href.includes('.pdf') ? (
+                    <a 
+                      href={item.href} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className={styles.mobileNavLink}
+                      onClick={closeMenu}
+                    >
+                      {t(`navigation.${item.key}`)}
+                    </a>
+                  ) : (
+                    <Link 
+                      href={item.href} 
+                      className={styles.mobileNavLink}
+                      onClick={closeMenu}
+                    >
+                      {t(`navigation.${item.key}`)}
+                    </Link>
+                  )}
+                </li>
+              ))}
+              <li>
+                <button 
+                  onClick={() => {
+                    setIsContactModalOpen(true);
+                    closeMenu();
+                  }}
+                  className={styles.mobileContactButton}
+                >
+                  {t('navigation.contact')}
+                </button>
+              </li>
+              <li>
+                <div className={styles.mobileLanguageSection}>
+                  <h3 className={styles.mobileLanguageTitle}>Idioma / Language</h3>
+                  <div className={styles.mobileLanguageOptions}>
+                    <button 
+                      onClick={() => {
+                        switchLanguage('pt');
+                        closeMenu();
+                      }}
+                      className={`${styles.mobileLanguageOption} ${locale === 'pt' ? styles.mobileLanguageOptionActive : ''}`}
+                    >
+                      <FlagIcon country="br" />
+                      <span>Português</span>
+                    </button>
+                    <button 
+                      onClick={() => {
+                        switchLanguage('en');
+                        closeMenu();
+                      }}
+                      className={`${styles.mobileLanguageOption} ${locale === 'en' ? styles.mobileLanguageOptionActive : ''}`}
+                    >
+                      <FlagIcon country="us" />
+                      <span>English</span>
+                    </button>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        {/* Overlay para fechar menu */}
+        {isMenuOpen && (
+          <div className={styles.overlay} onClick={closeMenu}></div>
+        )}
+      </header>
+      
+      {/* Modal de contato renderizado fora do header */}
+      <ContactModal 
+        isOpen={isContactModalOpen}
+        onClose={() => setIsContactModalOpen(false)}
+      />
+    </>
   );
 }
 

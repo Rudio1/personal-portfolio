@@ -2,17 +2,17 @@
   "navigation": {
     "about": "About",
     "projects": "Projects",
-    "resume": "Resume"
+    "contact": "Contact"
   },
   "language": {
     "switch": "PT",
     "current": "EN"
   },
   "home": {
-    "title": "Hello, I'm Rudio",
-    "subtitle": "With solid experience in Full Stack development, I work on creating scalable, secure, and user-centered applications. In recent years, I have participated in the design and implementation of innovative features both on the front-end and back-end, ensuring performance, simple maintenance, and fluid experiences.",
-    "description": "I have expertise in technologies such as C#, .NET, PHP, Laravel, React, Node.js, and SQL/NoSQL databases, as well as experience with API development, authentication, and cloud integration. My focus is to deliver reliable and efficient digital solutions, always applying best practices and code quality.",
-    "objective": "Driven by curiosity and continuous learning, my goal is to develop solutions that connect people and technology effectively and impactfully.",
+    "title": "Hello, I'm\nGuilherme Rudio",
+    "subtitle": "Full stack with solid experience in\n scalable applications, APIs and Cloud.\n Clean code, reliable solutions and\n user focus. Always learning and evolving.",
+    "description": "",
+    "objective": "",
     "cta": {
       "projects": "View Projects",
       "resume": "Resume"
