@@ -18,6 +18,14 @@ export function LoadingSkeleton({ lines = 1, className = '' }: LoadingSkeletonPr
   );
 }
 
+export function LoadingSkeletonInline({ className = '' }: { className?: string }) {
+  return (
+    <span className={`${styles.skeleton} ${className}`}>
+      <span className={styles.skeletonLine}></span>
+    </span>
+  );
+}
+
 export function LoadingText({ className = '' }: { className?: string }) {
   return (
     <div className={`${styles.skeletonText} ${className}`}>

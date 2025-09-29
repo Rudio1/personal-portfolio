@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { ExternalLink, Github, Globe, Database, Monitor, MessageCircle } from 'lucide-react';
 import styles from './projetos.module.css';
 import { useTranslations } from '../../contexts/TranslationContext';
-import { LoadingSkeleton } from '../../components/LoadingSkeleton';
+import { LoadingSkeleton, LoadingSkeletonInline } from '../../components/LoadingSkeleton';
 import ContactModal from '../../components/ContactModal';
 
 // Dados dos projetos baseados nos repositórios reais
@@ -28,25 +28,58 @@ const projetos = [
     tecnologias: ['Next.js', 'TypeScript', 'Responsive Design', 'AWS S3 Bucket', 'GSAP'],
     imagem: '/cybergallery.png',
     github: 'https://github.com/Rudio1/cyberGallery',
-    demo: null,
+    demo: 'https://cybergallery1.netlify.app/',
     destaque: true,
     tipo: 'frontend',
     icone: <Globe size={20} />
   },
   {
     id: 3,
+    key: 'website-cecis',
+    tecnologias: ['Next.js', 'C#', '.NET', 'SQL Server', 'Entity Framework', 'JWT'],
+    imagem: '/cecis.png',
+    github: null,
+    demo: 'https://www.cecis.com.br/',
+    destaque: true,
+    tipo: 'fullstack',
+    icone: <Globe size={20} />
+  },
+  {
+    id: 4,
+    key: 'agcustom',
+    tecnologias: ['Next.js', 'React', 'CSS', 'JavaScript', 'Responsive Design'],
+    imagem: '/ag-custom.png',
+    github: 'https://github.com/Rudio1/website_AG-Custom',
+    demo: 'https://website-ag-custom.vercel.app/',
+    destaque: true,
+    tipo: 'frontend',
+    icone: <Globe size={20} />
+  },
+  {
+    id: 5,
+    key: 'psi-amanda',
+    tecnologias: ['Next.js', 'React', 'CSS', 'JavaScript', 'Responsive Design'],
+    imagem: '/psi-amanda.png',
+    github: null,
+    demo: 'https://psi-amanda.rudio1.com.br/',
+    destaque: true,
+    tipo: 'frontend',
+    icone: <Globe size={20} />
+  },
+  {
+    id: 6,
     key: 'refeicoes',
     tecnologias: ['React', 'Node.js', 'Express', 'TypeScript', 'Next.js', 'SQL Server', 'JWT'],
     imagem: '/refeicoes.png',
     github: 'https://github.com/Rudio1/front-meals',
     githubBackend: 'https://github.com/Rudio1/api-meals',
     demo: null,
-    destaque: true,
+    destaque: false,
     tipo: 'fullstack',
     icone: <Monitor size={20} />
   },
   {
-    id: 4,
+    id: 7,
     key: 'tarefas',
     tecnologias: ['C#', '.NET', 'SQL Server', 'Entity Framework', 'JWT'],
     imagem: '/tarefas.png',
@@ -58,23 +91,12 @@ const projetos = [
     icone: <Monitor size={20} />
   },
   {
-    id: 5,
+    id: 8,
     key: 'brunelly',
     tecnologias: ['Next.js', 'Responsive Design'],
     imagem: '/brunelly.png',
     github: 'https://github.com/Rudio1/website_brunelly_baiocco',
-    demo: null,
-    destaque: false,
-    tipo: 'frontend',
-    icone: <Globe size={20} />
-  },
-  {
-    id: 6,
-    key: 'agcustom',
-    tecnologias: ['HTML', 'CSS', 'JavaScript', 'Responsive Design'],
-    imagem: '/ag-custom.png',
-    github: 'https://github.com/Rudio1/website_AG-Custom',
-    demo: null,
+    demo: 'https://website-brunelly-baiocco-ivory.vercel.app/',
     destaque: false,
     tipo: 'frontend',
     icone: <Globe size={20} />
@@ -93,7 +115,7 @@ export default function Projetos() {
             {isLoading ? <LoadingSkeleton lines={1} className={styles.titleSkeleton} /> : t('projects.title')}
           </h1>
           <p className={styles.subtitle}>
-            {isLoading ? <LoadingSkeleton lines={2} className={styles.subtitleSkeleton} /> : t('projects.subtitle')}
+            {isLoading ? <LoadingSkeletonInline className={styles.subtitleSkeleton} /> : t('projects.subtitle')}
           </p>
         </div>
         
@@ -125,7 +147,7 @@ export default function Projetos() {
                   {isLoading ? <LoadingSkeleton lines={1} className={styles.projetoTituloSkeleton} /> : t(`projects.items.${projeto.key}.title`)}
                 </h3>
                 <p className={styles.projetoDescricao}>
-                  {isLoading ? <LoadingSkeleton lines={3} className={styles.projetoDescricaoSkeleton} /> : t(`projects.items.${projeto.key}.description`)}
+                  {isLoading ? <LoadingSkeletonInline className={styles.projetoDescricaoSkeleton} /> : t(`projects.items.${projeto.key}.description`)}
                 </p>
                 
                 <div className={styles.tecnologias}>
@@ -137,15 +159,17 @@ export default function Projetos() {
                 </div>
                 
                 <div className={styles.projetoLinks}>
-                  <a 
-                    href={projeto.github} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className={`${styles.linkButton} ${styles.frontendButton}`}
-                  >
-                    <Github size={16} />
-                    {isLoading ? <LoadingSkeleton lines={1} className={styles.buttonSkeleton} /> : t('projects.buttons.frontend')}
-                  </a>
+                  {projeto.github && (
+                    <a 
+                      href={projeto.github} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className={`${styles.linkButton} ${projeto.tipo === 'backend' ? styles.backendButton : styles.frontendButton}`}
+                    >
+                      {projeto.tipo === 'backend' ? <Database size={16} /> : <Github size={16} />}
+                      {isLoading ? <LoadingSkeleton lines={1} className={styles.buttonSkeleton} /> : t(`projects.buttons.${projeto.tipo === 'backend' ? 'backend' : 'frontend'}`)}
+                    </a>
+                  )}
                   {projeto.githubBackend && (
                     <a 
                       href={projeto.githubBackend} 
@@ -176,7 +200,7 @@ export default function Projetos() {
         
         <div className={styles.ctaSection}>
           <p className={styles.ctaText}>
-            {isLoading ? <LoadingSkeleton lines={2} className={styles.ctaTextSkeleton} /> : t('projects.cta.text')}
+            {isLoading ? <LoadingSkeletonInline className={styles.ctaTextSkeleton} /> : t('projects.cta.text')}
           </p>
           <div className={styles.ctaButtons}>
             <button 

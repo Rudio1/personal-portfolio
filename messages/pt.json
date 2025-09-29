@@ -45,6 +45,14 @@
       "agcustom": {
         "title": "Website AG Custom",
         "description": "Website corporativo para AG Custom com design moderno e funcional. Interface profissional para apresentação de serviços e produtos da empresa."
+      },
+      "psi-amanda": {
+        "title": "Website Psicóloga Amanda",
+        "description": "Website profissional desenvolvido para Psicóloga Amanda. Design elegante e responsivo com foco em apresentação dos serviços de psicologia e agendamento de consultas."
+      },
+      "website-cecis": {
+        "title": "Website Ceci's",
+        "description": "Website profissional desenvolvido para Ceci's. Design elegante e responsivo com foco em apresentação dos serviços e produtos da empresa."
       }
     },
     "types": {
