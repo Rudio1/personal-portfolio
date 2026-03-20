@@ -1,112 +1,19 @@
-// src/app/projetos/page.tsx
 'use client';
 
-import { useState } from 'react';
-import Image from 'next/image';
-import { ExternalLink, Github, Globe, Database, Monitor, MessageCircle } from 'lucide-react';
+import { useState, useCallback } from 'react';
+import { ExternalLink, MessageCircle } from 'lucide-react';
 import styles from './projetos.module.css';
 import { useTranslations } from '../../contexts/TranslationContext';
 import { LoadingSkeleton, LoadingSkeletonInline } from '../../components/LoadingSkeleton';
 import ContactModal from '../../components/ContactModal';
-
-// Dados dos projetos baseados nos repositórios reais
-const projetos = [
-  {
-    id: 1,
-    key: 'vegeta',
-    tecnologias: ['Laravel', 'PHP', 'MySQL', 'API REST', 'JWT'],
-    imagem: '/vegeta.png',
-    github: 'https://github.com/frotaitalo/vegeta-final-pi',
-    demo: null,
-    destaque: true,
-    tipo: 'backend',
-    icone: <Database size={20} />
-  },
-  {
-    id: 2,
-    key: 'cybergallery',
-    tecnologias: ['Next.js', 'TypeScript', 'Responsive Design', 'AWS S3 Bucket', 'GSAP'],
-    imagem: '/cybergallery.png',
-    github: 'https://github.com/Rudio1/cyberGallery',
-    demo: 'https://cybergallery1.netlify.app/',
-    destaque: true,
-    tipo: 'frontend',
-    icone: <Globe size={20} />
-  },
-  {
-    id: 3,
-    key: 'website-cecis',
-    tecnologias: ['Next.js', 'C#', '.NET', 'SQL Server', 'Entity Framework', 'JWT'],
-    imagem: '/cecis.png',
-    github: null,
-    demo: 'https://www.cecis.com.br/',
-    destaque: true,
-    tipo: 'fullstack',
-    icone: <Globe size={20} />
-  },
-  {
-    id: 4,
-    key: 'agcustom',
-    tecnologias: ['Next.js', 'React', 'CSS', 'JavaScript', 'Responsive Design'],
-    imagem: '/ag-custom.png',
-    github: 'https://github.com/Rudio1/website_AG-Custom',
-    demo: 'https://website-ag-custom.vercel.app/',
-    destaque: true,
-    tipo: 'frontend',
-    icone: <Globe size={20} />
-  },
-  {
-    id: 5,
-    key: 'psi-amanda',
-    tecnologias: ['Next.js', 'React', 'CSS', 'JavaScript', 'Responsive Design'],
-    imagem: '/psi-amanda.png',
-    github: null,
-    demo: 'https://psi-amanda.rudio1.com.br/',
-    destaque: true,
-    tipo: 'frontend',
-    icone: <Globe size={20} />
-  },
-  {
-    id: 6,
-    key: 'refeicoes',
-    tecnologias: ['React', 'Node.js', 'Express', 'TypeScript', 'Next.js', 'SQL Server', 'JWT'],
-    imagem: '/refeicoes.png',
-    github: 'https://github.com/Rudio1/front-meals',
-    githubBackend: 'https://github.com/Rudio1/api-meals',
-    demo: null,
-    destaque: false,
-    tipo: 'fullstack',
-    icone: <Monitor size={20} />
-  },
-  {
-    id: 7,
-    key: 'tarefas',
-    tecnologias: ['C#', '.NET', 'SQL Server', 'Entity Framework', 'JWT'],
-    imagem: '/tarefas.png',
-    github: 'https://github.com/Rudio1/FrontEndTaskAPI',
-    githubBackend: 'https://github.com/Rudio1/CrudTaskAPI',
-    demo: null,
-    destaque: false,
-    tipo: 'fullstack',
-    icone: <Monitor size={20} />
-  },
-  {
-    id: 8,
-    key: 'brunelly',
-    tecnologias: ['Next.js', 'Responsive Design'],
-    imagem: '/brunelly.png',
-    github: 'https://github.com/Rudio1/website_brunelly_baiocco',
-    demo: 'https://website-brunelly-baiocco-ivory.vercel.app/',
-    destaque: false,
-    tipo: 'frontend',
-    icone: <Globe size={20} />
-  }
-];
+import { ProjetoCard } from '../../components/ProjetoCard';
+import { projetos } from '../../data/projetos';
 
 export default function Projetos() {
   const { t, isLoading } = useTranslations();
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
-  
+  const handleCloseModal = useCallback(() => setIsContactModalOpen(false), []);
+
   return (
     <div className={styles.page}>
       <main className={styles.main}>
@@ -118,92 +25,30 @@ export default function Projetos() {
             {isLoading ? <LoadingSkeletonInline className={styles.subtitleSkeleton} /> : t('projects.subtitle')}
           </p>
         </div>
-        
+
         <div className={styles.projetosGrid}>
           {projetos.map((projeto) => (
-            <article key={projeto.id} className={`${styles.projetoCard} ${projeto.destaque ? styles.destaque : ''}`}>
-              <div className={styles.projetoImagem}>
-                <Image
-                  src={projeto.imagem}
-                  alt={`${projeto.key} - Screenshot do projeto`}
-                  width={400}
-                  height={250}
-                  className={styles.imagem}
-                  priority={projeto.destaque}
-                />
-                {projeto.destaque && (
-                  <div className={styles.badgeDestaque}>
-                    <span>{isLoading ? <LoadingSkeleton lines={1} className={styles.badgeSkeleton} /> : t('projects.badges.destaque')}</span>
-                  </div>
-                )}
-                <div className={styles.tipoBadge}>
-                  {projeto.icone}
-                  <span>{isLoading ? <LoadingSkeleton lines={1} className={styles.badgeSkeleton} /> : t(`projects.types.${projeto.tipo}`)}</span>
-                </div>
-              </div>
-              
-              <div className={styles.projetoConteudo}>
-                <h3 className={styles.projetoTitulo}>
-                  {isLoading ? <LoadingSkeleton lines={1} className={styles.projetoTituloSkeleton} /> : t(`projects.items.${projeto.key}.title`)}
-                </h3>
-                <p className={styles.projetoDescricao}>
-                  {isLoading ? <LoadingSkeletonInline className={styles.projetoDescricaoSkeleton} /> : t(`projects.items.${projeto.key}.description`)}
-                </p>
-                
-                <div className={styles.tecnologias}>
-                  {projeto.tecnologias.map((tech) => (
-                    <span key={tech} className={styles.techTag}>
-                      {tech}
-                    </span>
-                  ))}
-                </div>
-                
-                <div className={styles.projetoLinks}>
-                  {projeto.github && (
-                    <a 
-                      href={projeto.github} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className={`${styles.linkButton} ${projeto.tipo === 'backend' ? styles.backendButton : styles.frontendButton}`}
-                    >
-                      {projeto.tipo === 'backend' ? <Database size={16} /> : <Github size={16} />}
-                      {isLoading ? <LoadingSkeleton lines={1} className={styles.buttonSkeleton} /> : t(`projects.buttons.${projeto.tipo === 'backend' ? 'backend' : 'frontend'}`)}
-                    </a>
-                  )}
-                  {projeto.githubBackend && (
-                    <a 
-                      href={projeto.githubBackend} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className={`${styles.linkButton} ${styles.backendButton}`}
-                    >
-                      <Database size={16} />
-                      {isLoading ? <LoadingSkeleton lines={1} className={styles.buttonSkeleton} /> : t('projects.buttons.backend')}
-                    </a>
-                  )}
-                  {projeto.demo && (
-                    <a 
-                      href={projeto.demo} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className={`${styles.linkButton} ${styles.demoButton}`}
-                    >
-                      <Globe size={16} />
-                      {isLoading ? <LoadingSkeleton lines={1} className={styles.buttonSkeleton} /> : t('projects.buttons.demo')}
-                    </a>
-                  )}
-                </div>
-              </div>
-            </article>
+            <ProjetoCard
+              key={projeto.id}
+              projeto={projeto}
+              title={t(`projects.items.${projeto.key}.title`)}
+              description={t(`projects.items.${projeto.key}.description`)}
+              tipoLabel={t(`projects.types.${projeto.tipo}`)}
+              destaqueLabel={t('projects.badges.destaque')}
+              frontendButtonLabel={t('projects.buttons.frontend')}
+              backendButtonLabel={t('projects.buttons.backend')}
+              demoButtonLabel={t('projects.buttons.demo')}
+              isLoading={isLoading}
+            />
           ))}
         </div>
-        
+
         <div className={styles.ctaSection}>
           <p className={styles.ctaText}>
             {isLoading ? <LoadingSkeletonInline className={styles.ctaTextSkeleton} /> : t('projects.cta.text')}
           </p>
           <div className={styles.ctaButtons}>
-            <button 
+            <button
               onClick={() => setIsContactModalOpen(true)}
               className={styles.ctaButton}
             >
@@ -217,12 +62,8 @@ export default function Projetos() {
           </div>
         </div>
       </main>
-      
-      <ContactModal 
-        isOpen={isContactModalOpen}
-        onClose={() => setIsContactModalOpen(false)}
-      />
+
+      <ContactModal isOpen={isContactModalOpen} onClose={handleCloseModal} />
     </div>
   );
 }
-
