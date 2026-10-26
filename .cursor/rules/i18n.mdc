@@ -1,0 +1,15 @@
+---
+description: Textos pt/en e TranslationContext
+globs: messages/**/*.json,src/contexts/**/*.tsx,src/components/Header.tsx
+alwaysApply: false
+---
+
+# Idioma
+
+Catálogos: `messages/pt.json` e `messages/en.json`. Leitura: `t('a.b.c')` em `TranslationContext`. Locale em `localStorage` (`locale`), padrão `pt`. Sem prefixo de URL.
+
+- A mesma chave entra nos dois JSON. Valor lido por `t` é string.
+- Chave de projeto: `projects.items.<key>.title` e `.description`, com `<key>` igual à de `src/data/projetos.ts`.
+- Não importar os JSON nos componentes. Quem carrega é o provider.
+- Não configurar `next-intl` nem mudar `<html lang>`.
+- O Header escreve PT/EN no JSX. O objeto `language` dos JSON não é usado; não apague essas chaves sem pedido.

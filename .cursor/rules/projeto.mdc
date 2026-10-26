@@ -1,0 +1,19 @@
+---
+description: Contrato do portfólio para qualquer alteração
+alwaysApply: true
+---
+
+# Portfólio Rudio
+
+Antes de editar, leia `AGENTS.md`. Mapa: `docs/README.md`. Decisões: `docs/decisions/`.
+
+Este repositório é um site Next.js (App Router em `src/app`) com textos em `messages/`, projetos estáticos em `src/data/projetos.ts` e um proxy `POST /api/contact`. Não há banco, auth, services nem testes.
+
+- Altere só o que o pedido pede. Sugestão extra fica no relatório, sem código.
+- Procure implementação existente antes de criar arquivo, rota ou dependência.
+- Não crie camada nova nem adote `next-intl`: a lib está no `package.json` e o código não a importa.
+- Não mova `ProjetoData`, o CSS de `ProjetoCard` nem o `fetch` da API externa para o client.
+- `API_URL` e `API_KEY` ficam em `process.env` dentro de `src/app/api/contact/route.ts`. Sem valores na documentação ou no log.
+- Dúvida de estrutura ou de contrato da API externa: pare e pergunte.
+- Valide com `npm run lint`. Use `npm run build` se tipos, rotas ou a API mudarem. Não há script de teste.
+- Se comportamento, contrato ou conteúdo mudou, atualize `docs/features/` e `docs/changelog/CHANGELOG.md`.

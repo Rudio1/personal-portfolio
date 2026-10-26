@@ -26,33 +26,29 @@
         "title": "Vegeta Final PI - Mobile API",
         "description": "Laravel API for guitar pedal mobile app backend. Complete system with authentication, product management, reviews, comments, and product transfers between users."
       },
-      "cybergallery": {
-        "title": "Cyber Gallery",
-        "description": "Modern and responsive photo gallery with cyberpunk design. Elegant interface for image display with visual effects and intuitive navigation."
+      "agropulse": {
+        "title": "AgroPulse",
+        "description": "Integrated farm management system. It brings companies, units, and operations together, with indicators for day-to-day decisions in the field."
       },
-      "refeicoes": {
-        "title": "Meal Management System",
-        "description": "Web application for meal management with frontend and backend. Complete system for menu control, ingredients, and meal planning."
+      "ag-clinical": {
+        "title": "AG Clinical",
+        "description": "Platform for running a clinic, with scheduling, the patient electronic record, and finance tied to daily operations."
       },
-      "tarefas": {
-        "title": "Task Management System",
-        "description": "Complete web system for task management with separate frontend and backend. Modern and intuitive interface for creating, editing, and tracking tasks."
-      },
-      "brunelly": {
-        "title": "Brunelly Baiocco Website",
-        "description": "Professional website developed for Brunelly Baiocco. Elegant and responsive design focused on personal presentation and portfolio."
-      },
-      "agcustom": {
-        "title": "AG Custom Website",
-        "description": "Corporate website for AG Custom with modern and functional design. Professional interface for presenting company services and products."
+      "vae-mobility": {
+        "title": "VAE Mobility",
+        "description": "VAE Mobility website presenting electric motorcycles and tricycles, with a model catalog and WhatsApp support."
       },
       "psi-amanda": {
-        "title": "Psychologist Amanda Website",
-        "description": "Professional website developed for Psychologist Amanda. Elegant and responsive design focused on psychology services presentation and appointment scheduling."
+        "title": "Psychologist Amanda Rudio",
+        "description": "Online psychotherapy website for psychologist Amanda Rudio, focused on self-esteem, self-confidence, and care for adult and elderly women."
       },
-      "website-cecis": {
-        "title": "Ceci's Website",
-        "description": "Professional website developed for Ceci's. Elegant and responsive design focused on company services and products presentation."
+      "trafego": {
+        "title": "Alexandre Baiocco — Traffic Management",
+        "description": "Traffic management website for local businesses, brands, and professionals, focused on Meta Ads, Google Ads, and tracking."
+      },
+      "agcustom": {
+        "title": "AG Custom",
+        "description": "AG Custom website presenting custom websites, mobile apps, and systems."
       }
     },
     "types": {
