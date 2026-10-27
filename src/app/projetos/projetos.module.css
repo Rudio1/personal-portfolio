@@ -1,535 +1,248 @@
-/* src/app/projetos/projetos.module.css */
 .page {
-  display: grid;
-  grid-template-rows: 20px 1fr 20px;
-  align-items: center;
-  justify-items: center;
-  min-height: 100svh;
-  padding: 80px 80px 80px 120px;
-  gap: 64px;
-  font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
+  padding: 24px 32px 96px;
 }
 
 .main {
+  width: min(1120px, 100%);
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 64px;
-  grid-row-start: 2;
-  align-items: center;
-  text-align: center;
-  width: 100%;
-  max-width: 1200px;
 }
 
 .header {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  align-items: center;
-  text-align: center;
+  gap: 16px;
+  max-width: 38rem;
 }
 
 .title {
-  font-size: 3.5rem;
-  font-weight: 700;
-  color: var(--foreground);
-  margin: 0;
-  line-height: 1.2;
-}
-
-.highlight {
-  color: #013750;
-  background: linear-gradient(35deg, #ff701e, #9c2801);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--fg);
 }
 
 .subtitle {
-  font-size: 1.25rem;
-  color: var(--foreground);
-  opacity: 0.8;
-  margin: 0;
-  max-width: 600px;
+  font-size: 1.0625rem;
   line-height: 1.6;
+  color: var(--fg-muted);
 }
 
-.projetosGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-  gap: 48px;
-  width: 100%;
-}
-
-.projetoCard {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  overflow: hidden;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-  contain: paint;
-}
-
-.projetoCard:hover {
-  transform: translateY(-8px);
-  border-color: var(--button-secondary-hover);
-  box-shadow: 0 16px 48px rgba(var(--button-secondary-hover), 0.2);
-}
-
-.projetoCard.destaque {
-  border-color: var(--header-color);
-  box-shadow: 0 8px 32px rgba(255, 136, 0, 0.2);
-}
-
-.projetoCard.destaque:hover {
-  box-shadow: 0 20px 60px rgba(255, 136, 0, 0.3);
-}
-
-.projetoImagem {
-  position: relative;
-  width: 100%;
-  height: 250px;
-  overflow: hidden;
-}
-
-.imagem {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.25s ease;
-}
-
-.projetoCard:hover .imagem {
-  transform: scale(1.05);
-}
-
-.badgeDestaque {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-  background: linear-gradient(35deg, #ff701e, #9c2801);
-  color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 0.875rem;
-  font-weight: 600;
-  box-shadow: 0 4px 16px rgba(255, 136, 0, 0.3);
-}
-
-.tipoBadge {
-  position: absolute;
-  top: 16px;
-  left: 16px;
-  background: rgba(0, 0, 0, 0.85);
-  color: white;
-  padding: 8px 12px;
-  border-radius: 20px;
-  font-size: 0.75rem;
-  font-weight: 500;
+.list {
   display: flex;
-  align-items: center;
-  gap: 6px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  flex-direction: column;
+  gap: 48px;
 }
 
-.projetoConteudo {
-  padding: 32px;
+.case {
+  scroll-margin-top: 120px;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: transparent;
+  transition: border-color var(--duration-hover) var(--ease-standard);
 }
 
-.projetoTitulo {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: var(--foreground);
-  margin: 0;
-  line-height: 1.3;
+.imageWrap {
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--bg-raised);
 }
 
-.projetoDescricao {
-  font-size: 1rem;
-  color: var(--foreground);
-  opacity: 0.8;
-  margin: 0;
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  transform: scale(1);
+  transition: transform var(--duration-hover) var(--ease-standard);
+}
+
+.caseBody {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 8px 8px 8px;
+}
+
+.meta {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.caseTitle {
+  font-size: clamp(1.5rem, 2vw, 2rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+}
+
+.caseDescription {
+  font-size: 1.0625rem;
   line-height: 1.6;
+  color: var(--fg-muted);
+  max-width: 38rem;
 }
 
 .tecnologias {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+  list-style: none;
 }
 
 .techTag {
-  background: rgba(255, 136, 0, 0.1);
-  color: var(--header-color);
-  padding: 6px 12px;
-  border-radius: 16px;
-  font-size: 0.875rem;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border: 1px solid rgba(255, 122, 26, 0.28);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.8125rem;
   font-weight: 500;
-  border: 1px solid rgba(255, 136, 0, 0.2);
-  transition: all 0.2s ease;
+  transition: border-color var(--duration-micro) var(--ease-standard);
 }
 
-.techTag:hover {
-  background: rgba(255, 136, 0, 0.2);
-  border-color: var(--header-color);
-}
-
-.projetoLinks {
+.caseLinks {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   margin-top: 8px;
-}
-
-.linkButton {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  border: 1px solid transparent;
-}
-
-.linkButton {
-  background: rgba(255, 255, 255, 0.05);
-  color: var(--foreground);
-  border-color: rgba(255, 255, 255, 0.1);
-}
-
-.linkButton:hover {
-  transform: translateY(-2px);
-}
-
-/* Botão Frontend - Cor Laranja */
-.frontendButton {
-  background: var(--header-color);
-  color: var(--background);
-  border-color: var(--header-color);
-}
-
-.frontendButton:hover {
-  background: #ff9a00;
-  box-shadow: 0 8px 24px rgba(255, 136, 0, 0.3);
-}
-
-/* Botão Backend - Cor Azul */
-.backendButton {
-  background: #3b82f6;
-  color: white;
-  border-color: #3b82f6;
-}
-
-.backendButton:hover {
-  background: #2563eb;
-  box-shadow: 0 8px 24px rgba(59, 130, 246, 0.3);
-}
-
-/* Botão Demo - Cor Verde */
-.demoButton {
-  background: #10b981;
-  color: white;
-  border-color: #10b981;
-}
-
-.demoButton:hover {
-  background: #059669;
-  box-shadow: 0 8px 24px rgba(16, 185, 129, 0.3);
 }
 
 .ctaSection {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   gap: 24px;
-  align-items: center;
-  text-align: center;
-  padding: 48px;
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
+  padding: 32px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
 }
 
 .ctaText {
   font-size: 1.125rem;
-  color: var(--foreground);
-  opacity: 0.9;
-  margin: 0;
   line-height: 1.6;
+  color: var(--fg);
+  max-width: 38rem;
 }
 
 .ctaButtons {
   display: flex;
-  gap: 16px;
-  align-items: center;
   flex-wrap: wrap;
-  justify-content: center;
+  gap: 12px;
 }
 
-.ctaButton {
-  appearance: none;
-  border-radius: 128px;
-  height: 48px;
-  padding: 0 20px;
-  border: 1px solid transparent;
+.canReveal:not(.isVisible) .imageWrap,
+.canReveal:not(.isVisible) .caseBody {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.canReveal.isVisible .imageWrap,
+.canReveal.isVisible .caseBody {
+  opacity: 1;
+  transform: none;
   transition:
-    background 0.2s,
-    color 0.2s,
-    border-color 0.2s;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 500;
-  font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
-  background: var(--foreground);
-  color: var(--background);
-  gap: 8px;
+    opacity var(--duration-enter) var(--ease-out),
+    transform var(--duration-enter) var(--ease-out);
 }
 
-.ctaButtonSecondary {
-  appearance: none;
-  border-radius: 128px;
-  height: 48px;
-  padding: 0 20px;
-  border: 1px solid var(--foreground);
-  transition:
-    background 0.2s,
-    color 0.2s,
-    border-color 0.2s;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 500;
-  font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
-  background: transparent;
-  color: var(--foreground);
-  gap: 8px;
-  text-decoration: none;
-  min-width: 158px;
+@media (min-width: 1024px) {
+  .case:nth-child(odd).canReveal.isVisible .caseBody,
+  .case:nth-child(even).canReveal.isVisible .imageWrap {
+    transition-delay: 60ms;
+  }
+
+  .case.textLed.canReveal.isVisible .caseBody {
+    transition-delay: 0ms;
+  }
 }
 
-/* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
-  .ctaButton:hover {
-    background: var(--button-primary-hover);
-    border-color: transparent;
+  .case:hover {
+    border-color: rgba(255, 122, 26, 0.4);
   }
 
-  .ctaButtonSecondary:hover {
-    background: var(--button-secondary-hover);
-    border-color: transparent;
+  .case:hover .image {
+    transform: scale(1.02);
+  }
+
+  .techTag:hover {
+    border-color: var(--accent);
   }
 }
 
-/* Responsividade */
-@media (max-width: 768px) {
+@media (min-width: 1024px) {
+  .case {
+    display: grid;
+    grid-template-columns: 7fr 5fr;
+    gap: 32px;
+    align-items: center;
+    padding: 24px;
+  }
+
+  .case:nth-child(even) {
+    grid-template-columns: 5fr 7fr;
+  }
+
+  .case:nth-child(even) .imageWrap {
+    order: 2;
+  }
+
+  .textLed,
+  .textLed:nth-child(even) {
+    grid-template-columns: minmax(0, 40rem);
+  }
+
+  .caseBody {
+    padding: 8px;
+  }
+}
+
+@media (max-width: 767px) {
   .page {
-    padding: 32px 32px 80px 48px;
+    padding: 16px 20px 48px;
   }
 
   .main {
     gap: 48px;
   }
 
-  .title {
-    font-size: 2.5rem;
-  }
-
-  .subtitle {
-    font-size: 1.1rem;
-  }
-
-  .projetosGrid {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  .projetoCard {
-    max-width: 100%;
-  }
-
-  .projetoConteudo {
-    padding: 24px;
-    gap: 20px;
-  }
-
-  .projetoTitulo {
-    font-size: 1.25rem;
-  }
-
-  .projetoDescricao {
-    font-size: 0.9rem;
-  }
-
-  .projetoLinks {
+  .caseLinks {
     flex-direction: column;
+    width: 100%;
   }
 
-  .linkButton {
-    justify-content: center;
-    padding: 14px 20px;
-  }
-
-  .ctaSection {
-    padding: 32px 24px;
+  .caseLinks a {
+    width: 100%;
   }
 
   .ctaButtons {
     flex-direction: column;
-    gap: 20px;
     width: 100%;
-    max-width: 300px;
+    max-width: 20rem;
   }
-  
-  .ctaButton,
-  .ctaButtonSecondary {
-    font-size: 18px;
-    height: 56px;
-    padding: 0 24px;
-    min-height: 44px; /* Apple's minimum touch target */
-    border-radius: 12px;
-    font-weight: 600;
+
+  .ctaButtons a,
+  .ctaButtons button {
     width: 100%;
   }
-}
 
-@media (max-width: 480px) {
-  .page {
-    padding: 24px 24px 80px 32px;
-  }
-
-  .main {
-    gap: 40px;
-  }
-
-  .title {
-    font-size: 2rem;
-  }
-
-  .subtitle {
-    font-size: 1rem;
-  }
-
-  .projetosGrid {
-    gap: 24px;
-  }
-
-  .projetoConteudo {
-    padding: 20px;
-    gap: 16px;
-  }
-
-  .tecnologias {
-    gap: 6px;
-  }
-
-  .techTag {
-    font-size: 0.8rem;
-    padding: 4px 10px;
+  .canReveal:not(.isVisible) .imageWrap,
+  .canReveal:not(.isVisible) .caseBody {
+    transform: translateY(8px);
   }
 }
-
-/* Loading Skeleton Styles */
-.titleSkeleton {
-  width: 300px;
-  height: 3.5rem;
-}
-
-.subtitleSkeleton {
-  width: 500px;
-  height: 2.5rem;
-}
-
-.projetoTituloSkeleton {
-  width: 200px;
-  height: 1.5rem;
-}
-
-.projetoDescricaoSkeleton {
-  width: 100%;
-  height: 4.5rem;
-}
-
-.badgeSkeleton {
-  width: 80px;
-  height: 1rem;
-}
-
-.buttonSkeleton {
-  width: 100px;
-  height: 1rem;
-}
-
-.ctaTextSkeleton {
-  width: 400px;
-  height: 2rem;
-}
-
-.ctaButtonSkeleton {
-  width: 150px;
-  height: 1rem;
-}
-
-/* Responsive skeleton adjustments */
-@media (max-width: 768px) {
-  .titleSkeleton {
-    width: 250px;
-    height: 2.5rem;
-  }
-  
-  .subtitleSkeleton {
-    width: 300px;
-    height: 2rem;
-  }
-  
-  .projetoTituloSkeleton {
-    width: 150px;
-    height: 1.25rem;
-  }
-  
-  .projetoDescricaoSkeleton {
-    height: 3.5rem;
-  }
-  
-  .ctaTextSkeleton {
-    width: 250px;
-    height: 1.5rem;
-  }
-}
-
-@media (max-width: 480px) {
-  .titleSkeleton {
-    width: 200px;
-    height: 2rem;
-  }
-  
-  .subtitleSkeleton {
-    width: 250px;
-    height: 1.5rem;
-  }
-  
-  .projetoTituloSkeleton {
-    width: 120px;
-    height: 1rem;
-  }
-  
-  .projetoDescricaoSkeleton {
-    height: 3rem;
-  }
-  
-  .ctaTextSkeleton {
-    width: 200px;
-    height: 1.25rem;
-  }
-}
-

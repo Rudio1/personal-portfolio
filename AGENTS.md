@@ -27,7 +27,7 @@ Tecnologias usadas no código e em `package.json`:
 - CSS Modules e CSS global
 - `lucide-react` para ícones
 - `next/font` carrega Geist e Geist Mono no layout
-- Montserrat é a família aplicada em `src/app/globals.css` e nos CSS Modules das páginas
+- Geist é a família aplicada no `body`; Geist Mono entra nos rótulos
 - Variáveis de ambiente `API_URL` e `API_KEY`, lidas somente na rota de contato
 
 `next-intl` está em `package.json` e não é importado em `src/`. O idioma em uso é o contexto próprio. Não passe a usar `next-intl` sem pedido explícito.

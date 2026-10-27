@@ -1,9 +1,17 @@
-// src/contexts/TranslationContext.tsx
 'use client';
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import ptJson from '../../messages/pt.json';
+import enJson from '../../messages/en.json';
 
-let translationsCache: { [key: string]: Record<string, unknown> } = {};
+type Locale = 'pt' | 'en';
+
+type Catalog = Record<string, unknown>;
+
+const catalogs: Record<Locale, Catalog> = {
+  pt: ptJson as Catalog,
+  en: enJson as Catalog,
+};
 
 type TranslationContextType = {
   locale: string;
@@ -16,67 +24,52 @@ const TranslationContext = createContext<TranslationContextType>({
   locale: 'pt',
   changeLocale: () => {},
   t: (key: string) => key,
-  isLoading: true
+  isLoading: false,
 });
 
+function isLocale(value: string | null): value is Locale {
+  return value === 'pt' || value === 'en';
+}
+
 export function TranslationProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocale] = useState('pt');
-  const [isLoading, setIsLoading] = useState(true);
+  const [locale, setLocale] = useState<Locale>('pt');
 
   useEffect(() => {
-
-    const savedLocale = localStorage.getItem('locale') || 'pt';
-    setLocale(savedLocale);
-    
-
-    loadTranslations();
+    const saved = localStorage.getItem('locale');
+    if (isLocale(saved)) {
+      setLocale(saved);
+    }
   }, []);
 
-  const loadTranslations = async () => {
-    if (Object.keys(translationsCache).length === 0) {
-      try {
-        const [ptTranslations, enTranslations] = await Promise.all([
-          import('../../messages/pt.json'),
-          import('../../messages/en.json')
-        ]);
-        
-        translationsCache = {
-          pt: ptTranslations.default,
-          en: enTranslations.default
-        };
-      } catch (error) {
-        console.error('Error loading translations:', error);
-      }
-    }
-    setIsLoading(false);
-  };
+  useEffect(() => {
+    document.documentElement.lang = locale;
+  }, [locale]);
 
   const changeLocale = (newLocale: string) => {
+    if (!isLocale(newLocale)) {
+      return;
+    }
     localStorage.setItem('locale', newLocale);
     setLocale(newLocale);
   };
 
-    const t = (key: string) => {
-    if (isLoading || !translationsCache[locale]) {
-      return ''; // Retorna string vazia durante o loading
-    }
-    
+  const t = (key: string) => {
     const keys = key.split('.');
-    let value: unknown = translationsCache[locale];
-    
+    let value: unknown = catalogs[locale];
+
     for (const k of keys) {
       if (value && typeof value === 'object' && value !== null && k in value) {
-        value = (value as Record<string, unknown>)[k];
+        value = (value as Catalog)[k];
       } else {
         return '';
       }
     }
-    
+
     return typeof value === 'string' ? value : '';
   };
 
   return (
-    <TranslationContext.Provider value={{ locale, changeLocale, t, isLoading }}>
+    <TranslationContext.Provider value={{ locale, changeLocale, t, isLoading: false }}>
       {children}
     </TranslationContext.Provider>
   );

@@ -1,9 +1,9 @@
-// src/components/ContactModal.tsx
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { X, Send, User, Phone } from 'lucide-react';
 import { useTranslations } from '../contexts/TranslationContext';
+import buttons from './button.module.css';
 import styles from './ContactModal.module.css';
 
 interface ContactModalProps {
@@ -13,52 +13,57 @@ interface ContactModalProps {
 
 export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const { t } = useTranslations();
+  const titleId = useId();
+  const nameErrorId = useId();
+  const phoneErrorId = useId();
+  const panelRef = useRef<HTMLDivElement>(null);
+  const onCloseRef = useRef(onClose);
+  const timeoutRef = useRef<number | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     telephone: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [submitError, setSubmitError] = useState<string>('');
-  const [errors, setErrors] = useState<{name?: string; telephone?: string}>({});
+  const [submitError, setSubmitError] = useState('');
+  const [errors, setErrors] = useState<{ name?: string; telephone?: string }>({});
+
+  onCloseRef.current = onClose;
 
   const validatePhone = (phone: string): boolean => {
     const cleanPhone = phone.replace(/\D/g, '');
-    
     const phoneRegex = /^(\d{2})?(\d{4,5})(\d{4})$/;
-    
     return phoneRegex.test(cleanPhone) && (cleanPhone.length === 10 || cleanPhone.length === 11);
   };
 
   const validateForm = (): boolean => {
-    const newErrors: {name?: string; telephone?: string} = {};
-    
+    const newErrors: { name?: string; telephone?: string } = {};
+
     if (!formData.name.trim()) {
       newErrors.name = t('contact.errors.nameRequired');
     } else if (formData.name.trim().length < 2) {
       newErrors.name = t('contact.errors.nameMinLength');
     }
-    
+
     if (!formData.telephone.trim()) {
       newErrors.telephone = t('contact.errors.phoneRequired');
     } else if (!validatePhone(formData.telephone)) {
       newErrors.telephone = t('contact.errors.phoneInvalid');
     }
-    
+
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       [name]: value
     }));
-    
-    // Limpar erro quando o usuário começar a digitar
+
     if (errors[name as keyof typeof errors]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
         [name]: undefined
       }));
@@ -67,43 +72,36 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    // Validar formulário antes de enviar
+
     if (!validateForm()) {
       return;
     }
-    
+
     setIsSubmitting(true);
     setSubmitStatus('idle');
     setSubmitError('');
 
     try {
-      const requestBody = {
-        name: formData.name.trim(),
-        telephone: formData.telephone.trim()
-      };
-
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(requestBody)
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          telephone: formData.telephone.trim()
+        })
       });
 
-
       if (response.ok) {
-        const responseData = await response.json();
         setSubmitStatus('success');
         setFormData({ name: '', telephone: '' });
-        // Fechar modal após 2 segundos
-        setTimeout(() => {
-          onClose();
+        timeoutRef.current = window.setTimeout(() => {
+          onCloseRef.current();
           setSubmitStatus('idle');
         }, 2000);
       } else {
-        const errorData = await response.text();
-        console.error('Erro da API:', response.status, errorData);
+        console.error('Erro ao enviar contato:', response.status);
         setSubmitError(t('contact.error'));
         setSubmitStatus('error');
       }
@@ -116,109 +114,159 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
     }
   };
 
-  const handleOverlayClick = (e: React.MouseEvent) => {
-    if (e.target === e.currentTarget) {
-      onClose();
-    }
-  };
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        window.clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const panel = panelRef.current;
+    const previouslyFocused = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    panel?.querySelector<HTMLElement>('input[name="name"]')?.focus();
+
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onCloseRef.current();
+        return;
+      }
+      if (e.key !== 'Tab' || !panel) return;
+
+      const focusables = Array.from(
+        panel.querySelectorAll<HTMLElement>('button:not([disabled]), input:not([disabled]), [href]')
+      );
+      if (focusables.length === 0) return;
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener('keydown', onKey);
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = previousOverflow;
+      previouslyFocused?.focus();
+    };
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
   return (
-    <div className={styles.overlay} onClick={handleOverlayClick}>
-      <div className={styles.modal}>
+    <div className={styles.overlay} onClick={(e) => {
+      if (e.target === e.currentTarget) onClose();
+    }}>
+      <div
+        className={styles.modal}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby={titleId}
+        ref={panelRef}
+      >
         <div className={styles.header}>
-          <h2 className={styles.title}>{t('contact.title')}</h2>
-          <button 
+          <h2 id={titleId} className={styles.title}>{t('contact.title')}</h2>
+          <button
+            type="button"
             className={styles.closeButton}
             onClick={onClose}
-            aria-label="Fechar modal"
+            aria-label={t('contact.close')}
           >
-            <X size={20} />
+            <X size={20} aria-hidden="true" />
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.inputGroup}>
-            <label htmlFor="name" className={styles.label}>
-              <User size={16} />
+            <label htmlFor="contact-name" className={styles.label}>
+              <User size={16} aria-hidden="true" />
               {t('contact.name')}
             </label>
-            <div className={`${styles.inputContainer} ${errors.name ? styles.inputContainerError : ''}`}>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleInputChange}
-                className={styles.input}
-                placeholder={t('contact.namePlaceholder')}
-                required
-                disabled={isSubmitting}
-              />
-            </div>
+            <input
+              type="text"
+              id="contact-name"
+              name="name"
+              value={formData.name}
+              onChange={handleInputChange}
+              className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
+              placeholder={t('contact.namePlaceholder')}
+              autoComplete="name"
+              required
+              disabled={isSubmitting}
+              aria-invalid={errors.name ? true : undefined}
+              aria-describedby={errors.name ? nameErrorId : undefined}
+            />
             {errors.name && (
-              <span className={styles.errorText}>{errors.name}</span>
+              <span id={nameErrorId} className={styles.errorText}>{errors.name}</span>
             )}
           </div>
 
           <div className={styles.inputGroup}>
-            <label htmlFor="telephone" className={styles.label}>
-              <Phone size={16} />
+            <label htmlFor="contact-telephone" className={styles.label}>
+              <Phone size={16} aria-hidden="true" />
               {t('contact.phone')}
             </label>
-            <div className={`${styles.inputContainer} ${errors.telephone ? styles.inputContainerError : ''}`}>
-              <input
-                type="tel"
-                id="telephone"
-                name="telephone"
-                value={formData.telephone}
-                onChange={handleInputChange}
-                className={styles.input}
-                placeholder={t('contact.phonePlaceholder')}
-                required
-                disabled={isSubmitting}
-              />
-            </div>
+            <input
+              type="tel"
+              id="contact-telephone"
+              name="telephone"
+              value={formData.telephone}
+              onChange={handleInputChange}
+              className={`${styles.input} ${errors.telephone ? styles.inputError : ''}`}
+              placeholder={t('contact.phonePlaceholder')}
+              autoComplete="tel"
+              required
+              disabled={isSubmitting}
+              aria-invalid={errors.telephone ? true : undefined}
+              aria-describedby={errors.telephone ? phoneErrorId : undefined}
+            />
             {errors.telephone && (
-              <span className={styles.errorText}>{errors.telephone}</span>
+              <span id={phoneErrorId} className={styles.errorText}>{errors.telephone}</span>
             )}
           </div>
 
-          {submitStatus === 'success' && (
-            <div className={styles.successMessage}>
-              {t('contact.success')}
-            </div>
-          )}
-
-          {submitStatus === 'error' && (
-            <div className={styles.errorMessage}>
-              {submitError || t('contact.error')}
-            </div>
-          )}
+          <div aria-live="polite">
+            {submitStatus === 'success' && (
+              <p className={styles.successMessage}>{t('contact.success')}</p>
+            )}
+            {submitStatus === 'error' && (
+              <p className={styles.errorMessage}>{submitError || t('contact.error')}</p>
+            )}
+          </div>
 
           <div className={styles.actions}>
             <button
               type="button"
               onClick={onClose}
-              className={styles.cancelButton}
+              className={buttons.secondary}
               disabled={isSubmitting}
             >
               {t('contact.cancel')}
             </button>
             <button
               type="submit"
-              className={styles.submitButton}
+              className={buttons.primary}
               disabled={isSubmitting || !formData.name.trim() || !formData.telephone.trim()}
             >
               {isSubmitting ? (
                 <>
-                  <div className={styles.spinner} />
+                  <span className={styles.spinner} aria-hidden="true" />
                   {t('contact.sending')}
                 </>
               ) : (
                 <>
-                  <Send size={16} />
+                  <Send size={16} aria-hidden="true" />
                   {t('contact.send')}
                 </>
               )}

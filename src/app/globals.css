@@ -1,18 +1,40 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
-
 :root {
-  --background: #000000;
-  --foreground: #ffffff;
-  --header-color: #ff8800;
-  --button-primary-hover: #c0012a;
-  --button-secondary-hover: #ffb300;
+  --bg: #090909;
+  --bg-raised: #121212;
+  --fg: #f3f0ea;
+  --fg-muted: #a39e96;
+  --fg-hover: #e4e0d8;
+  --line: rgba(243, 240, 234, 0.12);
+  --line-strong: rgba(243, 240, 234, 0.28);
+  --accent: #ff7a1a;
+  --accent-hover: #ff8f3d;
+  --accent-ink: #1a0e06;
+  --accent-soft: rgba(255, 122, 26, 0.14);
+  --danger: #e15a4a;
+  --success: #7dcea0;
+  --shadow-modal: 0 24px 80px rgba(0, 0, 0, 0.45);
+  --header-bg: rgba(9, 9, 9, 0.72);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --duration-micro: 160ms;
+  --duration-hover: 200ms;
+  --duration-nav: 300ms;
+  --duration-section: 480ms;
+  --duration-enter: 700ms;
+  --duration-modal: 240ms;
+  --duration-overlay: 200ms;
+  --duration-page: 220ms;
+  --z-header: 1000;
+  --z-overlay: 1010;
+  --z-menu: 1020;
+  --z-modal: 1100;
+  --z-skip: 1200;
+  --background: var(--bg);
+  --foreground: var(--fg);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #ffffff;
-    --foreground: #000000;
-  }
+html {
+  color-scheme: dark;
 }
 
 html,
@@ -22,12 +44,12 @@ body {
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: 'Montserrat', 'Montserrat Fallback', sans-serif;
+  color: var(--fg);
+  background: var(--bg);
+  font-family: var(--font-geist-sans), sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  padding-top: 70px; /* Espaçamento para o header fixo */
+  padding-top: 104px;
 }
 
 * {
@@ -41,8 +63,33 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.scrollSentinel {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-top: 80px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }

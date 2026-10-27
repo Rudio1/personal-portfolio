@@ -56,10 +56,10 @@ Comentários existentes estão em português e só em trechos de fluxo (menu, va
 
 ## CSS
 
-- Tokens em `:root` de `globals.css`: `--background`, `--foreground`, `--header-color`, `--button-primary-hover`, `--button-secondary-hover`.
-- Fonte aplicada: `'Montserrat', 'Montserrat Fallback', sans-serif`.
-- Classes em camelCase no CSS Module (`.projetoCard`, `.ctaButton`).
-- Estado visual por classe composta no `className`, como `` `${styles.projetoCard} ${projeto.destaque ? styles.destaque : ''}` ``.
+- Tokens em `:root` de `globals.css` (`--bg`, `--fg`, `--accent` e os demais do tema escuro). `--background` e `--foreground` apontam para `--bg` e `--fg`.
+- Fonte aplicada: `var(--font-geist-sans), sans-serif`.
+- Classes em camelCase no CSS Module (`.case`, `.ctaSection`).
+- Botão primário e secundário: `src/components/button.module.css`.
 - Ícones: componentes de `lucide-react` com prop `size`.
 
 ## Endpoints

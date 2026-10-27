@@ -15,15 +15,17 @@ Listar trabalhos com imagem, tipo, tecnologias, links de código e demo, e um CT
 
 ## Regra de negócio
 
-Cada item do array é um projeto exibido na grade, na ordem do array.
+Cada item do array é um case na lista, na ordem do array.
 
-- `destaque: true` aplica a classe `destaque`, o badge `projects.badges.destaque` e `priority` na imagem. Os demais usam `loading="lazy"`.
-- `tipo` escolhe o rótulo traduzido (`projects.types`) e o ícone via `icone`.
+- O campo `destaque` permanece no dado. A interface não mostra o badge `projects.badges.destaque` e não marca `priority` na imagem.
+- `tipo` escolhe o rótulo traduzido (`projects.types`), exibido como meta acima do título. O campo `icone` continua no dado e não escolhe mais um ícone sobre a imagem.
 - `tecnologias` são rótulos literais.
-- Link de `github`: se `tipo` é `backend`, o botão usa ícone de banco e o texto `projects.buttons.backend`; caso contrário, ícone GitHub e `projects.buttons.frontend`.
-- `githubBackend` não nulo adiciona um segundo botão de backend.
-- `demo` não nulo adiciona botão `projects.buttons.demo`.
-- `null` omite o botão. Não há botão desabilitado.
+- Link de `github`: se `tipo` é `backend`, o link usa ícone de banco e o texto `projects.buttons.backend`; caso contrário, ícone GitHub e `projects.buttons.frontend`.
+- `githubBackend` não nulo adiciona um segundo link de backend.
+- `demo` não nulo adiciona o link `projects.buttons.demo`.
+- `null` omite o link.
+- O `id` do `<article>` é a `key`, para âncoras da home.
+- `vegeta` não renderiza a imagem. Os outros cases mostram a screenshot com `sizes` e sem `priority`.
 
 Itens atuais e `key`, nesta ordem: `vegeta`, `agropulse`, `ag-clinical`, `vae-mobility`, `psi-amanda`, `trafego`, `agcustom`. Os ids vão de 1 a 7.
 
@@ -45,9 +47,8 @@ Links externos (`target="_blank"`, `rel="noopener noreferrer"`) e o modal de con
 
 ## Dependências
 
-- Tipo `ProjetoData` definido no card e importado pelos dados.
+- Tipo `ProjetoData` definido no card e importado pelos dados. `icone` aceita `database`, `globe` ou `monitor`.
 - CSS do card mora no module da página. Mudança de classe nesse CSS afeta página e card.
-- Ícones de tipo: `database` → `Database`, `globe` → `Globe`, `monitor` → `Monitor`, todos de `lucide-react`.
 
 ## Persistência e API
 
@@ -56,9 +57,10 @@ Nenhuma. Incluir um projeto é mudança de código e de arquivo estático, não 
 ## Casos de erro
 
 - `key` sem par em `projects.items.<key>`: `t()` devolve `''` e o card mostra título e descrição vazios.
-- `icone` fora de `ICONE_MAP`: o tipo TypeScript não permite; em execução o componente do ícone ficaria indefinido. Não há guarda em runtime.
 - Imagem ausente em `public/`: comportamento do `next/image` para arquivo inexistente. Tratamento específico no projeto: NÃO IDENTIFICADO.
 
 ## Observações
 
-Não há filtro, busca, ordenação por destaque nem página de detalhe. Destaque é só visual. Os sete itens atuais estão com `destaque: true`.
+Não há filtro, busca nem página de detalhe. O badge de destaque não é renderizado. Os sete itens continuam com `destaque: true` no dado.
+
+O reveal é uma vez por case, com `IntersectionObserver`. No desktop a imagem e o texto não partem no mesmo frame: o lado esquerdo sai primeiro e o outro espera 60ms. Vegeta não espera. No hover com ponteiro fino a imagem vai a `scale(1.02)` e a borda do case esquenta. O card não se desloca.

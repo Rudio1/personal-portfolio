@@ -2,31 +2,25 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import React, { useState, useEffect } from 'react';
+import { usePathname } from 'next/navigation';
+import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { useTranslations } from '../contexts/TranslationContext';
 import ContactModal from './ContactModal';
 import styles from './Header.module.css';
 
 const menuItems = [
-  {
-    key: 'about',
-    href: '/',
-  },
-  {
-    key: 'projects',
-    href: '/projetos',
-  },
+  { key: 'about', href: '/' },
+  { key: 'projects', href: '/projetos' },
 ];
 
-// Componente de Bandeira usando SVGs
 const FlagIcon = ({ country }: { country: 'br' | 'us' }) => {
   const flagSrc = country === 'br' ? '/brazil.svg' : '/usa.svg';
-  
+
   return (
-    <Image 
-      src={flagSrc} 
-      alt={`${country === 'br' ? 'Brasil' : 'Estados Unidos'} flag`}
+    <Image
+      src={flagSrc}
+      alt=""
       width={20}
       height={15}
       className={styles.flagImage}
@@ -35,14 +29,13 @@ const FlagIcon = ({ country }: { country: 'br' | 'us' }) => {
 };
 
 export default function Header() {
+  const pathname = usePathname();
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
-  const { locale, changeLocale, t, isLoading } = useTranslations();
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const [isScrolled, setIsScrolled] = useState(false);
+  const { locale, changeLocale, t } = useTranslations();
 
   const closeMenu = () => {
     setIsMenuOpen(false);
@@ -53,11 +46,18 @@ export default function Header() {
     setIsLanguageDropdownOpen(false);
   };
 
-  const toggleLanguageDropdown = () => {
-    setIsLanguageDropdownOpen(!isLanguageDropdownOpen);
-  };
+  useEffect(() => {
+    const sentinel = document.getElementById('scroll-sentinel');
+    if (!sentinel) return;
 
-  // Fechar menu ao pressionar ESC
+    const observer = new IntersectionObserver(([entry]) => {
+      setIsScrolled(!entry.isIntersecting);
+    });
+    observer.observe(sentinel);
+
+    return () => observer.disconnect();
+  }, []);
+
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -66,20 +66,28 @@ export default function Header() {
       }
     };
 
+    const menuButton = menuButtonRef.current;
+
     if (isMenuOpen) {
       document.addEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'hidden'; // Previne scroll
-    } else {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = 'hidden';
+      document.querySelector<HTMLElement>('#mobile-menu a')?.focus();
+    } else if (!document.querySelector('[role="dialog"]')) {
+      document.body.style.overflow = '';
     }
 
     return () => {
       document.removeEventListener('keydown', handleEscape);
-      document.body.style.overflow = 'unset';
+      const menu = document.getElementById('mobile-menu');
+      if (menu && document.activeElement instanceof HTMLElement && menu.contains(document.activeElement)) {
+        menuButton?.focus();
+      }
+      if (!document.querySelector('[role="dialog"]')) {
+        document.body.style.overflow = '';
+      }
     };
   }, [isMenuOpen]);
 
-  // Fechar dropdown ao clicar fora
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as Element;
@@ -97,85 +105,69 @@ export default function Header() {
     };
   }, [isLanguageDropdownOpen]);
 
+  const openContact = () => {
+    setIsContactModalOpen(true);
+  };
+
   return (
     <>
-      <header className={styles.header}>
+      <a href="#conteudo" className={styles.skipLink}>
+        {t('a11y.skip')}
+      </a>
+      <header className={`${styles.header} ${isScrolled ? styles.scrolled : ''}`}>
         <div className={styles.container}>
           <div className={styles.logo}>
             <Link href="/" onClick={closeMenu}>
               <span>Rudio</span>
             </Link>
           </div>
-          
-          {/* Menu Desktop */}
-          <nav className={styles.navigation}>
+
+          <nav className={styles.navigation} aria-label={t('a11y.mainNav')}>
             <ul className={styles.navList}>
-              {menuItems.map((item) => (
-                <li key={item.href}>
-                  {item.href.includes('.pdf') ? (
-                    <a 
-                      href={item.href} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className={styles.navLink}
+              {menuItems.map((item) => {
+                const active = pathname === item.href;
+                return (
+                  <li key={item.href}>
+                    <Link
+                      href={item.href}
+                      className={`${styles.navLink} ${active ? styles.navLinkActive : ''}`}
+                      aria-current={active ? 'page' : undefined}
                     >
-                      {isLoading ? (
-                        <div className={`${styles.navSkeleton} ${styles[`navSkeleton${item.key.charAt(0).toUpperCase() + item.key.slice(1)}`]}`}>
-                          <div className={styles.skeletonLine}></div>
-                        </div>
-                      ) : (
-                        t(`navigation.${item.key}`)
-                      )}
-                    </a>
-                  ) : (
-                    <Link href={item.href} className={styles.navLink}>
-                      {isLoading ? (
-                        <div className={`${styles.navSkeleton} ${styles[`navSkeleton${item.key.charAt(0).toUpperCase() + item.key.slice(1)}`]}`}>
-                          <div className={styles.skeletonLine}></div>
-                        </div>
-                      ) : (
-                        t(`navigation.${item.key}`)
-                      )}
+                      {t(`navigation.${item.key}`)}
                     </Link>
-                  )}
-                </li>
-              ))}
+                  </li>
+                );
+              })}
               <li>
-                <button 
-                  onClick={() => setIsContactModalOpen(true)}
-                  className={styles.contactButton}
-                >
-                  {isLoading ? (
-                    <div className={`${styles.navSkeleton} ${styles.navSkeletonContact}`}>
-                      <div className={styles.skeletonLine}></div>
-                    </div>
-                  ) : (
-                    t('navigation.contact')
-                  )}
+                <button type="button" onClick={openContact} className={styles.contactButton}>
+                  {t('navigation.contact')}
                 </button>
               </li>
               <li className={styles.languageDropdown}>
-                <button 
-                  onClick={toggleLanguageDropdown}
+                <button
+                  type="button"
+                  onClick={() => setIsLanguageDropdownOpen((open) => !open)}
                   className={styles.languageButton}
-                  aria-label="Select language"
+                  aria-label={t('a11y.selectLanguage')}
                   aria-expanded={isLanguageDropdownOpen}
                 >
                   <FlagIcon country={locale === 'pt' ? 'br' : 'us'} />
                   <span>{locale === 'pt' ? 'PT' : 'EN'}</span>
                   <ChevronDown size={14} className={`${styles.chevron} ${isLanguageDropdownOpen ? styles.chevronOpen : ''}`} />
                 </button>
-                
+
                 {isLanguageDropdownOpen && (
                   <div className={styles.languageDropdownMenu}>
-                    <button 
+                    <button
+                      type="button"
                       onClick={() => switchLanguage('pt')}
                       className={`${styles.languageOption} ${locale === 'pt' ? styles.languageOptionActive : ''}`}
                     >
                       <FlagIcon country="br" />
                       <span>Português</span>
                     </button>
-                    <button 
+                    <button
+                      type="button"
                       onClick={() => switchLanguage('en')}
                       className={`${styles.languageOption} ${locale === 'en' ? styles.languageOptionActive : ''}`}
                     >
@@ -188,11 +180,12 @@ export default function Header() {
             </ul>
           </nav>
 
-          {/* Botão Menu Mobile */}
-          <button 
+          <button
+            type="button"
+            ref={menuButtonRef}
             className={styles.menuButton}
-            onClick={toggleMenu}
-            aria-label={isMenuOpen ? "Fechar menu" : "Abrir menu"}
+            onClick={() => setIsMenuOpen((open) => !open)}
+            aria-label={isMenuOpen ? t('a11y.closeMenu') : t('a11y.openMenu')}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
           >
@@ -204,48 +197,26 @@ export default function Header() {
           </button>
         </div>
 
-        {/* Menu Mobile */}
-        <div 
+        <div
           id="mobile-menu"
           className={`${styles.mobileMenu} ${isMenuOpen ? styles.open : ''}`}
           aria-hidden={!isMenuOpen}
         >
-          <div className={styles.mobileHeader}>
-            <div className={styles.mobileLogo}>
-              <Link href="/" onClick={closeMenu}>
-                <span>Rudio</span>
-              </Link>
-            </div>
-          </div>
           <nav className={styles.mobileNavigation}>
             <ul className={styles.mobileNavList}>
               {menuItems.map((item) => (
                 <li key={item.href}>
-                  {item.href.includes('.pdf') ? (
-                    <a 
-                      href={item.href} 
-                      target="_blank" 
-                      rel="noopener noreferrer"
-                      className={styles.mobileNavLink}
-                      onClick={closeMenu}
-                    >
-                      {t(`navigation.${item.key}`)}
-                    </a>
-                  ) : (
-                    <Link 
-                      href={item.href} 
-                      className={styles.mobileNavLink}
-                      onClick={closeMenu}
-                    >
-                      {t(`navigation.${item.key}`)}
-                    </Link>
-                  )}
+                  <Link href={item.href} className={styles.mobileNavLink} onClick={closeMenu}>
+                    {t(`navigation.${item.key}`)}
+                  </Link>
                 </li>
               ))}
               <li>
-                <button 
+                <button
+                  type="button"
                   onClick={() => {
-                    setIsContactModalOpen(true);
+                    document.body.style.overflow = '';
+                    openContact();
                     closeMenu();
                   }}
                   className={styles.mobileContactButton}
@@ -255,9 +226,10 @@ export default function Header() {
               </li>
               <li>
                 <div className={styles.mobileLanguageSection}>
-                  <h3 className={styles.mobileLanguageTitle}>Idioma / Language</h3>
+                  <p className={styles.mobileLanguageTitle}>Idioma / Language</p>
                   <div className={styles.mobileLanguageOptions}>
-                    <button 
+                    <button
+                      type="button"
                       onClick={() => {
                         switchLanguage('pt');
                         closeMenu();
@@ -267,7 +239,8 @@ export default function Header() {
                       <FlagIcon country="br" />
                       <span>Português</span>
                     </button>
-                    <button 
+                    <button
+                      type="button"
                       onClick={() => {
                         switchLanguage('en');
                         closeMenu();
@@ -284,19 +257,15 @@ export default function Header() {
           </nav>
         </div>
 
-        {/* Overlay para fechar menu */}
         {isMenuOpen && (
-          <div className={styles.overlay} onClick={closeMenu}></div>
+          <div className={styles.overlay} onClick={closeMenu} />
         )}
       </header>
-      
-      {/* Modal de contato renderizado fora do header */}
-      <ContactModal 
+
+      <ContactModal
         isOpen={isContactModalOpen}
         onClose={() => setIsContactModalOpen(false)}
       />
     </>
   );
 }
-
-            

@@ -15,8 +15,8 @@ import styles from './exemplo.module.css';
 import { useTranslations } from '../contexts/TranslationContext';
 
 export default function Exemplo() {
-  const { t, isLoading } = useTranslations();
-  return <h1>{isLoading ? null : t('grupo.titulo')}</h1>;
+  const { t } = useTranslations();
+  return <h1>{t('grupo.titulo')}</h1>;
 }
 ```
 
@@ -25,4 +25,4 @@ export default function Exemplo() {
 - Imports no código atual são relativos. Não introduzir `@/` num arquivo que já usa `../`.
 - `layout.tsx` permanece Server Component e dono de `TranslationProvider` e `Header`.
 - Não editar `src/middleware.ts`: ele só chama `NextResponse.next()`.
-- Tokens globais estão em `src/app/globals.css`. Não inverter o bloco `prefers-color-scheme` sem pedido.
+- Tokens globais estão em `src/app/globals.css`. O tema é escuro e fixo. Não reintroduzir inversão em `prefers-color-scheme`.

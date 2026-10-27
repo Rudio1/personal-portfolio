@@ -6,7 +6,9 @@ A interface tem textos em português e inglês. O commit `ac15f04` descreve a in
 
 ## Decisão
 
-`TranslationProvider` carrega `messages/pt.json` e `messages/en.json` com `import()` dinâmico, guarda um cache de módulo e expõe `locale`, `changeLocale`, `t` e `isLoading`. A escolha fica em `localStorage` na chave `locale`. O padrão é `pt`. Não há prefixo de rota.
+`TranslationProvider` importa `messages/pt.json` e `messages/en.json` de forma estática e expõe `locale`, `changeLocale`, `t` e `isLoading` (sempre `false`). A escolha fica em `localStorage` na chave `locale`. O padrão no primeiro render é `pt`. Um efeito aplica `en` se o valor salvo for `en` ou `pt`. `changeLocale` ignora outro valor. Não há prefixo de rota.
+
+No cliente, `document.documentElement.lang` acompanha o locale. O HTML do servidor continua `lang="pt"`.
 
 `next-intl` está declarado em `package.json` e não é importado pela aplicação.
 
@@ -23,4 +25,4 @@ NÃO IDENTIFICADO.
 - Texto novo entra nos dois JSON, na mesma estrutura, e é lido com `t('chave.aninhada')`.
 - Não configurar `next-intl`, plugin no `next.config.ts` nem middleware de locale sem pedido explícito.
 - Não remover `next-intl` do `package.json` só porque está sem uso, sem pedido explícito.
-- `<html lang="pt">` é o comportamento atual do layout.
+- `<html lang>` no servidor é `pt`. Depois da hidratação, o provider ajusta `lang` para `pt` ou `en`.

@@ -9,7 +9,7 @@ Header fixo com marca, links, contato e idioma, nas variantes desktop e mobile.
 - `src/components/Header.tsx`
 - `src/components/Header.module.css`
 - Inclusão global: `src/app/layout.tsx`
-- Compensação do header fixo: `body { padding-top: 70px }` em `src/app/globals.css`
+- Compensação do header fixo: `body { padding-top: 104px }` no desktop e `80px` abaixo de 768px, em `src/app/globals.css`.
 
 ## Fluxo
 
@@ -22,23 +22,28 @@ Header fixo com marca, links, contato e idioma, nas variantes desktop e mobile.
 
 O botão de contato não é item desse array. Usa `navigation.contact` e abre o modal.
 
-Desktop usa `next/link` para href sem `.pdf`. Há um ramo `item.href.includes('.pdf')` que renderiza `<a target="_blank">`. Nenhum item atual contém `.pdf`. O currículo não está no menu; está nos CTAs da home e de projetos.
+Desktop usa `next/link`. O currículo não está no menu; está nos CTAs da home e de projetos.
 
-Mobile repete os mesmos itens, fecha o menu ao navegar ou ao abrir o contato, e troca idioma na própria lista.
+O link da rota atual leva `aria-current="page"` e a classe de sublinhado ativo. O Header usa `usePathname`.
+
+Mobile repete os mesmos itens, fecha o menu ao navegar ou ao abrir o contato, e troca idioma na própria lista. Ao abrir, o foco vai para o primeiro link do painel.
+
+Há um skip link para `#conteudo` antes do header.
 
 ## Comportamento de interação
 
-- Menu mobile aberto: `Escape` fecha menu e dropdown; `document.body.style.overflow` fica `hidden`. Ao fechar, volta para `unset`.
+- Menu mobile aberto: `Escape` fecha menu e dropdown. `document.body.style.overflow` fica `hidden` enquanto o menu está aberto e não há diálogo. Ao fechar o menu para abrir o contato, o overflow não é zerado por cima do modal.
 - Overlay clique fecha o menu.
 - Dropdown de idioma: clique fora do elemento com a classe `languageDropdown` fecha o painel. A dependência do efeito é só `isLanguageDropdownOpen`.
 - Troca de idioma chama `changeLocale` e fecha o dropdown. No mobile, também fecha o menu.
-- Logo `Rudio` aponta para `/` com `next/link`.
+- Logo `Rudio` aponta para `/` com `next/link`. O texto de `navigation.about` é Início / Home e também aponta para `/`.
+- Um sentinela `#scroll-sentinel` no layout sai do viewport no scroll. O header observa isso e deixa o fundo mais opaco, sem mudar a altura de 64px e sem listener de `scroll`. No mobile o `backdrop-filter` continua desligado.
 
 ## Entradas e saídas
 
-Entrada: cliques e tecla Escape. Saída: navegação client-side, modal de contato, `localStorage.locale`.
+Entrada: cliques, Tab e tecla Escape. Saída: navegação client-side, modal de contato, `localStorage.locale`.
 
-Não há indicação de rota ativa no código do Header. NÃO IDENTIFICADO se alguma classe CSS marca o link atual; o TSX não usa `usePathname`.
+O link da rota atual fica marcado. `navigation.about` não abre uma página Sobre.
 
 ## Dependências
 

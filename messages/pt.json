@@ -1,6 +1,6 @@
 {
   "navigation": {
-    "about": "Sobre",
+    "about": "Início",
     "projects": "Projetos",
     "contact": "Contato"
   },
@@ -8,7 +8,17 @@
     "switch": "EN",
     "current": "PT"
   },
+  "a11y": {
+    "skip": "Ir para o conteúdo",
+    "openMenu": "Abrir menu",
+    "closeMenu": "Fechar menu",
+    "selectLanguage": "Selecionar idioma",
+    "mainNav": "Principal"
+  },
   "home": {
+    "eyebrow": "Full stack",
+    "work": "Trabalho",
+    "portraitAlt": "Guilherme Rudio",
     "title": "Olá, me chamo\nGuilherme Rudio",
     "subtitle": "Full stack com experiência sólida em\n aplicações escaláveis, APIs e Cloud.\n Códigos limpos, soluções confiáveis e\n foco no usuário. Sempre aprendendo e evoluindo.",
     "description": "",
@@ -79,6 +89,7 @@
     "send": "Enviar",
     "sending": "Enviando...",
     "cancel": "Cancelar",
+    "close": "Fechar",
     "success": "Contato enviado com sucesso! Entrarei em contato em breve.",
     "error": "Erro ao enviar contato. Tente novamente.",
     "errors": {

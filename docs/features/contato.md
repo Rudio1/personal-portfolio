@@ -17,11 +17,11 @@ Não há página `/contato`.
 
 1. Botão de contato no Header (desktop ou mobile) ou o CTA em `/projetos` põe `isOpen` em true na sua própria instância.
 2. Com `isOpen === false` o modal retorna `null`.
-3. Clique no overlay (alvo igual ao currentTarget) ou no X chama `onClose`. O Header fecha também no ESC o menu e o dropdown de idioma; o ESC não está ligado ao modal.
+3. Clique no overlay (alvo igual ao currentTarget), no botão fechar ou Esc chama `onClose`. O foco volta ao elemento que estava ativo ao abrir.
 4. Submit chama `validateForm`. Se falhar, não há `fetch`.
 5. `POST /api/contact` com `{ name, telephone }` já com `trim`.
-6. Sucesso: mensagem `contact.success`, formulário limpo, `onClose` depois de 2 segundos.
-7. Falha: mensagem `contact.error`.
+6. Sucesso: mensagem `contact.success` em região `aria-live="polite"`, formulário limpo, `onClose` depois de 2 segundos. O timeout é cancelado no unmount.
+7. Falha: mensagem `contact.error` na mesma região.
 
 Há duas instâncias independentes. Estado de uma não sincroniza com a outra.
 
@@ -66,9 +66,9 @@ Provedor, autenticação além do header `x-api-key` e schema de resposta: NÃO 
 - A chave não pode ir para componente, JSON de mensagem, log ou repositório.
 - O client continua chamando só `/api/contact`.
 - Não há honeypot, rate limit, CSRF token nem captcha no código.
-- `responseData` no sucesso do modal é lido e não é usado na UI.
+- O painel é `role="dialog"` e `aria-modal="true"`. Tab permanece dentro dele enquanto aberto.
 
 ## Casos de erro já tratados
 
 - Validação local com mensagem por campo e limpeza do erro daquele campo ao digitar.
-- `console.error` no modal (status e corpo, ou a exceção) e na route (status e texto da externa, ou a exceção). Não há log do payload.
+- `console.error` no modal (status ou a exceção) e na route (status e texto da externa, ou a exceção). Não há log do payload nem da chave.

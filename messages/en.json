@@ -1,6 +1,6 @@
 {
   "navigation": {
-    "about": "About",
+    "about": "Home",
     "projects": "Projects",
     "contact": "Contact"
   },
@@ -8,7 +8,17 @@
     "switch": "PT",
     "current": "EN"
   },
+  "a11y": {
+    "skip": "Skip to content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "selectLanguage": "Select language",
+    "mainNav": "Main"
+  },
   "home": {
+    "eyebrow": "Full stack",
+    "work": "Work",
+    "portraitAlt": "Guilherme Rudio",
     "title": "Hello, I'm\nGuilherme Rudio",
     "subtitle": "Full stack with solid experience in\n scalable applications, APIs and Cloud.\n Clean code, reliable solutions and\n user focus. Always learning and evolving.",
     "description": "",
@@ -79,6 +89,7 @@
     "send": "Send",
     "sending": "Sending...",
     "cancel": "Cancel",
+    "close": "Close",
     "success": "Contact sent successfully! We'll get back to you soon.",
     "error": "Error sending contact. Please try again.",
     "errors": {

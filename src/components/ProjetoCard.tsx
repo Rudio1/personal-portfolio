@@ -1,18 +1,12 @@
 'use client';
 
-import { memo } from 'react';
+import { memo, useEffect, useRef } from 'react';
 import Image from 'next/image';
-import { Github, Globe, Database, Monitor } from 'lucide-react';
+import { Github, Globe, Database } from 'lucide-react';
 import styles from '../app/projetos/projetos.module.css';
-import { LoadingSkeleton, LoadingSkeletonInline } from './LoadingSkeleton';
+import buttons from './button.module.css';
 
-const ICONE_MAP = {
-  database: Database,
-  globe: Globe,
-  monitor: Monitor
-} as const;
-
-type IconType = keyof typeof ICONE_MAP;
+type IconType = 'database' | 'globe' | 'monitor';
 
 export interface ProjetoData {
   id: number;
@@ -32,11 +26,9 @@ interface ProjetoCardProps {
   title: string;
   description: string;
   tipoLabel: string;
-  destaqueLabel: string;
   frontendButtonLabel: string;
   backendButtonLabel: string;
   demoButtonLabel: string;
-  isLoading?: boolean;
 }
 
 function ProjetoCardComponent({
@@ -44,65 +36,86 @@ function ProjetoCardComponent({
   title,
   description,
   tipoLabel,
-  destaqueLabel,
   frontendButtonLabel,
   backendButtonLabel,
   demoButtonLabel,
-  isLoading = false
 }: ProjetoCardProps) {
-  const IconComponent = ICONE_MAP[projeto.icone];
+  const articleRef = useRef<HTMLElement>(null);
+  const textLed = projeto.key === 'vegeta';
+
+  useEffect(() => {
+    const el = articleRef.current;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let observer: IntersectionObserver | null = null;
+    const frame = window.requestAnimationFrame(() => {
+      el.classList.add(styles.canReveal);
+      const rect = el.getBoundingClientRect();
+      const inView = rect.top < window.innerHeight * 0.8 && rect.bottom > 0;
+      if (inView) {
+        el.classList.add(styles.isVisible);
+        return;
+      }
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          if (!entry?.isIntersecting) return;
+          el.classList.add(styles.isVisible);
+          observer?.disconnect();
+        },
+        { threshold: 0.2 }
+      );
+      observer.observe(el);
+    });
+
+    return () => {
+      window.cancelAnimationFrame(frame);
+      observer?.disconnect();
+    };
+  }, []);
 
   return (
     <article
-      className={`${styles.projetoCard} ${projeto.destaque ? styles.destaque : ''}`}
+      id={projeto.key}
+      ref={articleRef}
+      className={`${styles.case} ${textLed ? styles.textLed : ''}`}
     >
-      <div className={styles.projetoImagem}>
-        <Image
-          src={projeto.imagem}
-          alt={`${projeto.key} - Screenshot do projeto`}
-          width={400}
-          height={250}
-          className={styles.imagem}
-          priority={projeto.destaque}
-          loading={projeto.destaque ? undefined : 'lazy'}
-        />
-        {projeto.destaque && (
-          <div className={styles.badgeDestaque}>
-            <span>{isLoading ? <LoadingSkeleton lines={1} className={styles.badgeSkeleton} /> : destaqueLabel}</span>
-          </div>
-        )}
-        <div className={styles.tipoBadge}>
-          <IconComponent size={20} />
-          <span>{isLoading ? <LoadingSkeleton lines={1} className={styles.badgeSkeleton} /> : tipoLabel}</span>
+      {textLed ? null : (
+        <div className={styles.imageWrap}>
+          <Image
+            src={projeto.imagem}
+            alt={title}
+            width={1200}
+            height={750}
+            sizes="(max-width: 1023px) 100vw, 640px"
+            className={styles.image}
+          />
         </div>
-      </div>
+      )}
 
-      <div className={styles.projetoConteudo}>
-        <h3 className={styles.projetoTitulo}>
-          {isLoading ? <LoadingSkeleton lines={1} className={styles.projetoTituloSkeleton} /> : title}
-        </h3>
-        <p className={styles.projetoDescricao}>
-          {isLoading ? <LoadingSkeletonInline className={styles.projetoDescricaoSkeleton} /> : description}
-        </p>
+      <div className={styles.caseBody}>
+        <p className={styles.meta}>{tipoLabel}</p>
+        <h2 className={styles.caseTitle}>{title}</h2>
+        <p className={styles.caseDescription}>{description}</p>
 
-        <div className={styles.tecnologias}>
+        <ul className={styles.tecnologias}>
           {projeto.tecnologias.map((tech) => (
-            <span key={tech} className={styles.techTag}>
+            <li key={tech} className={styles.techTag}>
               {tech}
-            </span>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        <div className={styles.projetoLinks}>
+        <div className={styles.caseLinks}>
           {projeto.github && (
             <a
               href={projeto.github}
               target="_blank"
               rel="noopener noreferrer"
-              className={`${styles.linkButton} ${projeto.tipo === 'backend' ? styles.backendButton : styles.frontendButton}`}
+              className={buttons.secondary}
             >
-              {projeto.tipo === 'backend' ? <Database size={16} /> : <Github size={16} />}
-              {isLoading ? <LoadingSkeleton lines={1} className={styles.buttonSkeleton} /> : (projeto.tipo === 'backend' ? backendButtonLabel : frontendButtonLabel)}
+              {projeto.tipo === 'backend' ? <Database size={16} aria-hidden="true" /> : <Github size={16} aria-hidden="true" />}
+              {projeto.tipo === 'backend' ? backendButtonLabel : frontendButtonLabel}
             </a>
           )}
           {projeto.githubBackend && (
@@ -110,10 +123,10 @@ function ProjetoCardComponent({
               href={projeto.githubBackend}
               target="_blank"
               rel="noopener noreferrer"
-              className={`${styles.linkButton} ${styles.backendButton}`}
+              className={buttons.secondary}
             >
-              <Database size={16} />
-              {isLoading ? <LoadingSkeleton lines={1} className={styles.buttonSkeleton} /> : backendButtonLabel}
+              <Database size={16} aria-hidden="true" />
+              {backendButtonLabel}
             </a>
           )}
           {projeto.demo && (
@@ -121,10 +134,10 @@ function ProjetoCardComponent({
               href={projeto.demo}
               target="_blank"
               rel="noopener noreferrer"
-              className={`${styles.linkButton} ${styles.demoButton}`}
+              className={buttons.secondary}
             >
-              <Globe size={16} />
-              {isLoading ? <LoadingSkeleton lines={1} className={styles.buttonSkeleton} /> : demoButtonLabel}
+              <Globe size={16} aria-hidden="true" />
+              {demoButtonLabel}
             </a>
           )}
         </div>

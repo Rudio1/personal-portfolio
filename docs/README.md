@@ -10,6 +10,7 @@ Fonte de verdade para agentes: [AGENTS.md](../AGENTS.md). Comece por ele. Esta p
 4. A feature que a tarefa toca, em [features/](features/).
 5. Decisões em [decisions/README.md](decisions/README.md) se a tarefa encostar em i18n, projetos, contato, CSS ou estrutura de pastas.
 6. [architecture/GAPS.md](architecture/GAPS.md) antes de “limpar” código que pareça inconsistente.
+7. [redesign/01-AUDIT.md](redesign/01-AUDIT.md) se a tarefa for o redesign visual. As fases só entram no código com pedido explícito. O índice delas está em [redesign/09-IMPLEMENTATION-PLAN.md](redesign/09-IMPLEMENTATION-PLAN.md).
 
 ## Onde encontrar
 
@@ -33,6 +34,7 @@ Fonte de verdade para agentes: [AGENTS.md](../AGENTS.md). Comece por ele. Esta p
 | Header | [features/navegacao.md](features/navegacao.md) |
 | Decisões | [decisions/README.md](decisions/README.md) |
 | Histórico | [changelog/CHANGELOG.md](changelog/CHANGELOG.md) |
+| Redesign (alvo visual, ainda sem obrigar o código) | [redesign/01-AUDIT.md](redesign/01-AUDIT.md) |
 | Regras do Cursor | `.cursor/rules/*.mdc` |
 
 ## Onde registrar
@@ -44,6 +46,7 @@ Fonte de verdade para agentes: [AGENTS.md](../AGENTS.md). Comece por ele. Esta p
 | Feature ainda sem documento | Novo arquivo em `docs/features/`, no mesmo formato das existentes, e uma linha na tabela deste índice |
 | Mudança de comportamento, contrato ou conteúdo | Topo de `docs/changelog/CHANGELOG.md` |
 | Inconsistência encontrada e não corrigida | `docs/architecture/GAPS.md` |
+| Fase do redesign visual | O prompt em `docs/redesign/09-IMPLEMENTATION-PLAN.md`. Não implementar fase sem pedido. Changelog de produto só quando o código mudar |
 | Regra que todo agente deve obedecer | `AGENTS.md`; detalhe operacional em `docs/rules/` ou `docs/development/` |
 
 Não copiar a mesma regra longa em dois lugares. `AGENTS.md` manda no comportamento do agente. Os outros arquivos detalham arquitetura, feature, decisão ou histórico.
@@ -59,6 +62,7 @@ docs/features/            regras de cada fluxo
 docs/development/         como implementar dentro desse mapa
 docs/changelog/           por que uma alteração entrou
 docs/guides/              como rodar
+docs/redesign/            alvo do redesign visual; o código só muda na fase pedida
 .cursor/rules/            atalhos curtos para o Cursor apontando para os documentos acima
 ```
 

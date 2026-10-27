@@ -38,16 +38,16 @@ Arquivos de configuração na raiz: `package.json`, `package-lock.json`, `next.c
 ## Como uma tela chega ao browser
 
 1. `src/app/layout.tsx` define `metadata`, aplica as classes das fontes Geist no `body`, renderiza `TranslationProvider`, `Header` e `children`.
-2. `TranslationProvider` é client. No mount lê `localStorage.locale` (fallback `pt`) e importa os dois JSON.
+2. `TranslationProvider` é client. Importa os dois JSON de forma estática. No mount lê `localStorage.locale` e, se for `pt` ou `en`, aplica. Também ajusta `document.documentElement.lang`.
 3. A página (`page.tsx` ou `projetos/page.tsx`) também é client e chama `useTranslations()`.
-4. Enquanto `isLoading` é verdadeiro, a UI mostra skeletons. `t()` devolve string vazia nesse intervalo.
+4. `isLoading` permanece `false`. `t()` já devolve texto no primeiro render, em `pt`, até o efeito trocar para `en` se for o caso.
 5. Não há layout específico em `src/app/projetos/`. A página herda só o layout raiz.
 
 ## Onde cada tipo de regra fica
 
 | Assunto | Lugar real | Não existe em |
 | --- | --- | --- |
-| Texto visível | `messages/pt.json`, `messages/en.json` | componentes, salvo aria-labels fixos no Header e no modal |
+| Texto visível | `messages/pt.json`, `messages/en.json` | componentes, salvo “Idioma / Language”, “Português” e “English” no Header |
 | Metadados de projeto | `src/data/projetos.ts` | banco, CMS |
 | Título e descrição de projeto | `messages/*.json` em `projects.items.<key>` | `projetos.ts` |
 | Validação de nome e telefone (formato) | `ContactModal.tsx` | schema compartilhado |
@@ -98,8 +98,7 @@ Não há pasta `services`, `repositories`, `models`, `entities` ou `dto`. Interf
 | Integração | Onde | Observação |
 | --- | --- | --- |
 | API de contato | `POST API_URL`, header `x-api-key: API_KEY` | URL e chave não estão no código. Contrato além de `{ name, telephone }`: NÃO IDENTIFICADO |
-| Google Fonts | `@import` em `globals.css` | Montserrat |
-| Geist | `next/font/google` em `layout.tsx` | Variáveis CSS `--font-geist-sans` e `--font-geist-mono` no `body`. Nenhum CSS consulta essas variáveis |
+| Geist e Geist Mono | `next/font/google` em `layout.tsx` | `var(--font-geist-sans)` no `body`. Mono nos rótulos |
 | Links de projetos, GitHub e currículo | `href` nos componentes e em `projetos.ts` | Abrem em nova aba com `rel="noopener noreferrer"` quando o código usa `<a target="_blank">` |
 
 ## Banco, auth, logs, testes

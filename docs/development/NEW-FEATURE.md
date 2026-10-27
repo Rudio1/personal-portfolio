@@ -42,15 +42,14 @@ Seguir [CONVENTIONS.md](CONVENTIONS.md).
 Modelo real: `src/app/projetos/page.tsx`.
 
 - `'use client'` quando houver hook.
-- `const { t, isLoading } = useTranslations()`.
-- Enquanto `isLoading`, usar `LoadingSkeleton` ou `LoadingSkeletonInline`.
+- `const { t } = useTranslations()`. `isLoading` existe e é `false`. Não usar skeleton para esperar tradução.
 - Import do CSS: `import styles from './<arquivo>.module.css'`.
-- Link interno de navegação no Header usa `next/link`. A home usa `<a href="/projetos">` para o CTA. Ao editar um arquivo, manter o tipo de link que ele já usa, salvo pedido para trocar.
+- Link interno usa `next/link`.
 
 ## 5. Projeto na grade
 
 1. Incluir objeto em `projetos` com todos os campos de `ProjetoData`. `id` numérico segue a sequência já usada no arquivo. `github`, `demo` e `githubBackend` usam `null` quando não há URL.
-2. `icone` só pode ser chave de `ICONE_MAP` em `ProjetoCard.tsx`: `database`, `globe`, `monitor`.
+2. `icone` só pode ser `database`, `globe` ou `monitor`. O card não desenha esse ícone; o tipo visível é o rótulo traduzido.
 3. `tipo` só pode ser `backend`, `frontend` ou `fullstack`.
 4. Criar `projects.items.<key>.title` e `.description` em `pt.json` e `en.json`.
 5. Colocar a imagem em `public/` e apontar `imagem` para esse caminho.

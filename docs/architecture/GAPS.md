@@ -1,6 +1,6 @@
 # Gaps e pontos de cuidado
 
-Segunda leitura depois de escrita a documentação, confrontada com o código em `src/`, `messages/`, `public/` (via arquivos versionados), `package.json` e o histórico Git. Nada disto foi corrigido. Um agente não trata um item daqui como tarefa implícita.
+Segunda leitura confrontada com o código. Itens abaixo continuam abertos. O que o redesign de 2026-10-27 fechou (tema, fonte, skeleton, badge universal, aria fixo do modal) saiu desta lista. Um agente não trata um item daqui como tarefa implícita.
 
 ## Regras que o código segue e que não estavam escritas antes
 
@@ -9,28 +9,23 @@ Passam a estar em `AGENTS.md`, `docs/architecture/` e `docs/features/`. Incluem:
 ## Código que foge do padrão mais frequente
 
 - Imports relativos em todo `src/`, com alias `@/*` configurado e sem uso.
-- Home usa `page.module.css` e `<a>` no CTA. `/projetos` usa `projetos.module.css` e `next/link` não aparece nessa página; o Header usa `next/link`.
+- Home e `/projetos` usam `next/link` nos destinos internos. O PDF continua `<a target="_blank">`.
 - `ProjetoCard.tsx` não tem CSS Module próprio. Importa `src/app/projetos/projetos.module.css`.
 - `src/data/projetos.ts` depende de um tipo exportado por um componente visual.
 - Aspas simples na maior parte dos componentes e aspas duplas em `layout.tsx`.
-- Aria-labels do Header e do modal estão fixos em português ou inglês, fora dos JSON. O restante da UI passa por `t()`.
+- Aria de menu, idioma, skip e fechar do modal vêm dos JSON. O Header ainda escreve “Português”, “English” e “Idioma / Language” no JSX.
 - Erros HTTP de `route.ts` estão em português fixo. A UI ignora esse corpo e mostra `contact.error`.
 
 ## Arquitetura inconsistente ou fácil de “consertar” sem pedido
 
 - `next-intl` está em `dependencies` e não há import em `src/` nem opção em `next.config.ts`. Motivo: NÃO IDENTIFICADO.
 - `src/middleware.ts` não altera a requisição. Motivo de existir: NÃO IDENTIFICADO.
-- `layout.tsx` carrega Geist e Geist Mono. `globals.css` aplica Montserrat. As variáveis `--font-geist-sans` e `--font-geist-mono` não aparecem em nenhum CSS.
-- Em `globals.css`, `:root` é fundo preto e texto branco. O bloco `@media (prefers-color-scheme: dark)` inverte para fundo branco e texto preto e ainda marca `color-scheme: dark`. Intenção: NÃO IDENTIFICADO. Não inverter isso numa tarefa de conteúdo.
-- `<html lang="pt">` não acompanha o locale.
-- `changeLocale` não restringe o argumento a `pt` | `en`.
+- `<html lang>` no servidor é `pt`. O provider ajusta `lang` no cliente depois da hidratação.
 - Validação de formato do telefone e tamanho mínimo do nome existem só no modal. A route só exige presença.
 - Dois `ContactModal` com estado separado (Header e página de projetos). Não há contexto de UI.
-- `Header.tsx` tem ramo para `href` contendo `.pdf`, e `menuItems` não tem PDF.
-- O grupo JSON `language` não é lido. `home.description` e `home.objective` são strings vazias e a home ainda renderiza os parágrafos.
+- O grupo JSON `language` não é lido. `home.description` e `home.objective` são strings vazias e a home não renderiza o parágrafo nesse caso.
 - `public/img-rudio.png` não é referenciado em `src/`. A home usa `public/guilherme-rudio.png`.
-- Classes `.highlight` em `page.module.css` e `projetos.module.css` não aparecem no TSX pesquisado.
-- `ContactModal` guarda `responseData` no sucesso e não usa o valor. O `setTimeout` de 2 segundos que fecha o modal não é limpo no unmount do efeito; não há efeito para isso, o timeout está no submit.
+- Imagens em `public/` sem entrada em `projetos.ts` (`brunelly.png`, `cecis.png`, `cybergallery.png`, `refeicoes.png`, `tarefas.png`) não entram no site. Não apagar sem pedido.
 
 ## Dependências e módulos sem documentação de produto
 
@@ -49,7 +44,7 @@ Home, projetos, contato, i18n e navegação têm arquivo em `docs/features/`. N�
 2. Ligar `next-intl` ou apagar a dependência por conta própria.
 3. Colocar `API_KEY` no client ou trocar o proxy por `fetch` direto no modal.
 4. Unificar validação, modais, CSS do card ou imports para `@/` no meio de um pedido pequeno.
-5. Corrigir grafia de `metadata.description` (`Portoflio digital`), o `lang`, o media query de cor ou a fonte Geist como se fossem bugs já aceitos para mudança.
+5. Reverter o tema escuro, a fonte Geist, o `lang` no cliente ou a description do metadata. Isso foi fechado no redesign de 2026-10-27, não é bug pendente.
 6. Remover middleware, chave JSON, classe CSS ou imagem não referenciada.
 7. Assumir que existe teste e inventar Jest.
 8. Documentar a API externa com campos que `route.ts` não envia.
