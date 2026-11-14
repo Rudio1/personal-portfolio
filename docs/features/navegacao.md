@@ -17,14 +17,18 @@ Header fixo com marca, links, contato e idioma, nas variantes desktop e mobile.
 
 | `key` | `href` | Texto |
 | --- | --- | --- |
-| `about` | `/` | `navigation.about` |
-| `projects` | `/projetos` | `navigation.projects` |
+| `aboutMe` | `/#sobre` | `navigation.aboutMe` |
+| `projects` | `/#projetos` | `navigation.projects` |
+| `experience` | `/#experiencia` | `navigation.experience` |
+| `stack` | `/#stack` | `navigation.stack` |
+
+Os links levam às seções da home. Em `/projetos`, o mesmo link volta para a home na seção certa.
 
 O botão de contato não é item desse array. Usa `navigation.contact` e abre o modal.
 
 Desktop usa `next/link`. O currículo não está no menu; está nos CTAs da home e de projetos.
 
-O link da rota atual leva `aria-current="page"` e a classe de sublinhado ativo. O Header usa `usePathname`.
+Só “Projetos” fica ativo (`aria-current="page"` e sublinhado), e só em `/projetos`. A marcação da seção visível na home é da fase 4. O Header usa `usePathname`.
 
 Mobile repete os mesmos itens, fecha o menu ao navegar ou ao abrir o contato, e troca idioma na própria lista. Ao abrir, o foco vai para o primeiro link do painel.
 
@@ -36,14 +40,14 @@ Há um skip link para `#conteudo` antes do header.
 - Overlay clique fecha o menu.
 - Dropdown de idioma: clique fora do elemento com a classe `languageDropdown` fecha o painel. A dependência do efeito é só `isLanguageDropdownOpen`.
 - Troca de idioma chama `changeLocale` e fecha o dropdown. No mobile, também fecha o menu.
-- Logo `Rudio` aponta para `/` com `next/link`. O texto de `navigation.about` é Início / Home e também aponta para `/`.
+- Logo `Rudio` aponta para `/` com `next/link`. `navigation.about` (Início / Home) não é mais usado no menu e continua nos JSON.
 - Um sentinela `#scroll-sentinel` no layout sai do viewport no scroll. O header observa isso e deixa o fundo mais opaco, sem mudar a altura de 64px e sem listener de `scroll`. No mobile o `backdrop-filter` continua desligado.
 
 ## Entradas e saídas
 
 Entrada: cliques, Tab e tecla Escape. Saída: navegação client-side, modal de contato, `localStorage.locale`.
 
-O link da rota atual fica marcado. `navigation.about` não abre uma página Sobre.
+O link de projetos fica marcado em `/projetos`.
 
 ## Dependências
 

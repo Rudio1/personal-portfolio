@@ -2,7 +2,10 @@
   "navigation": {
     "about": "Home",
     "projects": "Projects",
-    "contact": "Contact"
+    "contact": "Contact",
+    "aboutMe": "About",
+    "experience": "Experience",
+    "stack": "Stack"
   },
   "language": {
     "switch": "PT",
@@ -38,15 +41,21 @@
       },
       "agropulse": {
         "title": "AgroPulse",
-        "description": "Integrated farm management system. It brings companies, units, and operations together, with indicators for day-to-day decisions in the field."
+        "description": "Integrated farm management system. It brings companies, units, and operations together, with indicators for day-to-day decisions in the field.",
+        "category": "Web system · Farm management",
+        "features": "Integrated management of companies, units and operations\nDecision indicators\nWorkflows designed for field routines"
       },
       "ag-clinical": {
         "title": "AG Clinical",
-        "description": "Platform for running a clinic, with scheduling, the patient electronic record, and finance tied to daily operations."
+        "description": "Platform for running a clinic, with scheduling, the patient electronic record, and finance tied to daily operations.",
+        "category": "SaaS platform · Clinic management",
+        "features": "Integrated scheduling\nElectronic patient records\nFinances tied to operations\nOpen sign-up and member invites by email"
       },
       "vae-mobility": {
         "title": "VAE Mobility",
-        "description": "VAE Mobility website presenting electric motorcycles and tricycles, with a model catalog and WhatsApp support."
+        "description": "VAE Mobility website presenting electric motorcycles and tricycles, with a model catalog and WhatsApp support.",
+        "category": "Company website and catalog",
+        "features": "Catalog by category: motorcycles and tricycles\nFeatured models with price or “on request”\nSpec sheet per model: motor, battery and range\nQuote requests and WhatsApp contact\nFAQ"
       },
       "psi-amanda": {
         "title": "Psychologist Amanda Rudio",
@@ -98,5 +107,86 @@
       "phoneRequired": "Phone is required",
       "phoneInvalid": "Invalid phone format. Use: (11) 99999-9999"
     }
+  },
+  "hero": {
+    "label": "Full Stack Developer · Espírito Santo, Brazil",
+    "name": "Guilherme Rudio",
+    "tagline": "I build web systems end to end: from database modeling to the interface, through APIs, integrations and deployment.",
+    "cta": {
+      "projects": "View projects",
+      "contact": "Get in touch"
+    },
+    "scroll": "Scroll"
+  },
+  "about": {
+    "title": "About",
+    "p1": "I've been working in software development since 2022, when I started as a backend intern with PHP and Laravel. Today I'm a full stack developer at Grupo Águia Branca, in Vitória, Brazil, where I build and maintain systems with React, Next.js, PHP and C#.",
+    "p2": "My work sits between the interface and the data: versioned REST APIs, OAuth and JWT authentication, permission control, third-party integrations, optimized queries and CI/CD pipelines that take all of it to production.",
+    "p3": "I also worked on N3 support, handling tickets for systems in use. That's where I learned to write code with the next maintainer in mind.",
+    "facts": {
+      "since": "Since 2022",
+      "role": "Full Stack · Grupo Águia Branca",
+      "education": "Education · Universidade Centro Leste, 2024",
+      "english": "English · KNN Idiomas"
+    }
+  },
+  "featured": {
+    "title": "Selected projects",
+    "all": "View all projects",
+    "labels": {
+      "features": "Features",
+      "problem": "Problem",
+      "role": "Role",
+      "results": "Results",
+      "stack": "Stack"
+    }
+  },
+  "experience": {
+    "title": "Experience",
+    "present": "present",
+    "items": {
+      "aguia-branca": {
+        "role": "Full Stack Developer",
+        "location": "Vitória, Brazil",
+        "description": "Building and maintaining systems with React, Next.js, PHP and C#. REST APIs, internal and external system integration, authentication (OAuth, JWT), permission control and API versioning. Code review, Git Flow and CI/CD with Azure DevOps. Responsive, accessible landing pages."
+      },
+      "trinks": {
+        "role": "Junior Full Stack Developer",
+        "location": "Remote",
+        "description": "New features and maintenance of production applications with JavaScript and .NET. Building and evolving REST APIs, data extraction and query optimization. Code review, merges, CI/CD and Git Flow within the team."
+      },
+      "code-and-app": {
+        "role": "Backend Intern",
+        "location": "Vitória, Brazil",
+        "description": "Features and maintenance in PHP and Laravel with SQL databases. N3 support: handling and resolving technical tickets. Agile team using Scrum."
+      }
+    }
+  },
+  "stack": {
+    "title": "Stack",
+    "intro": "Tools I use day to day, grouped by the role they play in a system.",
+    "categories": {
+      "backend": "Backend",
+      "frontend": "Frontend",
+      "database": "Databases",
+      "cloud": "Cloud",
+      "tools": "Tools & infra"
+    }
+  },
+  "contactSection": {
+    "title": "Contact",
+    "headline": "Let's build something that actually works.",
+    "text": "Have a system to get off the ground, an API to integrate or a full stack role to fill? Reach me through one of the channels below, or leave your phone number and I'll get back to you.",
+    "form": "Leave my phone number",
+    "channels": {
+      "email": "Email",
+      "linkedin": "LinkedIn",
+      "github": "GitHub",
+      "resume": "Resume"
+    }
+  },
+  "footer": {
+    "built": "Built with Next.js and TypeScript",
+    "top": "Back to top"
   }
 }

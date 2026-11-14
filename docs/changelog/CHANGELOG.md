@@ -4,6 +4,101 @@ Registro de mudanças de comportamento, contrato, conteúdo publicado ou estrutu
 
 Não usar uma linha solta do tipo "bug corrigido". Cada entrada precisa dizer o que mudou, por quê, onde e qual o efeito.
 
+## 2026-11-14 — Redesign v2, fase 3: home em página única
+
+### Alteração
+
+A home passou a ter sete blocos: Hero, Sobre, Projetos selecionados, Experiência, Stack, Contato e Footer.
+- **Menu:** aponta para as seções (`/#sobre`, `/#projetos`, `/#experiencia`, `/#stack`). O botão Contato continua abrindo o modal.
+- **Destaque:** o campo `destaque` de `projetos.ts` passou a escolher os três cases da home. `/projetos` continua com os sete.
+- **Footer:** aparece nas duas rotas.
+- **Contato:** a seção nova lista e-mail, LinkedIn, GitHub e currículo, e abre o mesmo formulário de antes.
+
+### Motivação
+
+Fase 3 do plano em `docs/redesign-v2/PLANO.md`. Os textos vêm do rascunho aprovado em `docs/redesign-v2/CONTEUDO.md`, com base no currículo e nos sites publicados.
+
+### Arquivos/Módulos afetados
+
+- **Novos:** `src/components/SectionHeading`, `About`, `FeaturedProjects`, `Experience`, `Stack`, `ContactSection` e `Footer` (`.tsx` + `.module.css`), `src/data/experiencia.ts`, `src/data/stack.ts`
+- **Alterados:** `src/app/page.tsx`, `src/app/page.module.css` (reescritos), `src/app/layout.tsx`, `src/app/globals.css`, `src/components/Header.tsx`, `src/data/projetos.ts`, `messages/pt.json`, `messages/en.json`
+- **Documentação:** `docs/features/home.md`, `navegacao.md`, `contato.md`, `projetos.md`, `docs/architecture/GAPS.md`, `docs/redesign-v2/`
+
+### Impacto
+
+O contrato `POST /api/contact`, as validações, a troca de idioma e a rota `/projetos` com as âncoras `#<key>` não mudaram.
+- **Saiu da home:** a lista “Trabalho” e a fileira de logos.
+- **Cases da home:** mostram descrição, funcionalidades e stack. Problema, papel e resultados ficam ocultos até o autor informar.
+- **Classes CSS:** as antigas de `page.module.css` saíram junto com a reescrita da página.
+- **Chaves JSON:** as antigas continuam nos arquivos.
+
+### Banco de dados
+
+Não há banco neste repositório. Nenhuma alteração.
+
+### Breaking changes
+
+Nenhuma para URLs. O link “Início” do menu deu lugar a “Sobre” (`/#sobre`).
+
+## 2026-11-14 — Redesign v2, fase 2: design system
+
+### Alteração
+
+Paleta, fontes e botões do redesign v2 (Modern Editorial Engineering). O fundo passou a `#0B0D0F` e o acento laranja deu lugar ao lima `#B8F36B`. Space Grotesk entra nos títulos, Inter no texto e JetBrains Mono nos rótulos. O botão primário é lima com texto escuro e raio de 6px. `globals.css` ganhou escalas de tipo, espaço, raio e movimento e a classe `.container`.
+
+### Motivação
+
+Fase 2 do plano aprovado em `docs/redesign-v2/PLANO.md`. A decisão está em `docs/decisions/0007-modern-editorial-engineering.md`.
+
+### Arquivos/Módulos afetados
+
+- `src/app/globals.css`, `src/app/layout.tsx`
+- `src/components/button.module.css`, `src/components/Header.module.css`, `src/components/ContactModal.module.css`
+- `src/app/page.module.css`, `src/app/projetos/projetos.module.css`
+- `.claude/launch.json` (dev server para a checagem visual)
+- `AGENTS.md`, `docs/decisions/`, `docs/architecture/`, `docs/development/CONVENTIONS.md`, `docs/rules/escopo.md`, `docs/redesign-v2/PLANO.md`
+
+### Impacto
+
+Só a aparência mudou. Layout, textos, rotas, troca de idioma e o contrato `POST /api/contact` continuam iguais. As classes das fontes saíram do `body` e foram para o `<html>`.
+
+### Banco de dados
+
+Não há banco neste repositório. Nenhuma alteração.
+
+### Breaking changes
+
+Nenhuma.
+
+## 2026-11-14 — Configuração do Claude Code
+
+### Alteração
+
+O repositório passou a ter configuração para o Claude Code: `CLAUDE.md` na raiz importa `AGENTS.md`; `.claude/rules/` traz as regras de UI, idioma e contato com escopo por caminho; `.claude/settings.json` libera `npm run lint`, `npm run build`, `npm run dev` e leitura de git, e bloqueia a leitura de `.env*`.
+
+### Motivação
+
+O desenvolvimento migrou do Cursor para o Claude Code. O contrato continua sendo `AGENTS.md`; só mudou a porta de entrada da ferramenta.
+
+### Arquivos/Módulos afetados
+
+- `CLAUDE.md`
+- `.claude/rules/ui.md`, `.claude/rules/i18n.md`, `.claude/rules/contato.md`
+- `.claude/settings.json`
+- `docs/README.md`
+
+### Impacto
+
+Nenhum efeito no site. `.cursor/rules/` foi mantido; as regras existem nas duas pastas e devem mudar juntas.
+
+### Banco de dados
+
+Não há banco neste repositório. Nenhuma alteração.
+
+### Breaking changes
+
+Nenhuma.
+
 ## 2026-10-27 — Motion da home, dos cases e da troca de rota
 
 ### Alteração

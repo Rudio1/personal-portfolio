@@ -74,7 +74,7 @@
 }
 
 .meta {
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-family: var(--font-mono);
   font-size: 0.75rem;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -107,7 +107,7 @@
 .techTag {
   background: var(--accent-soft);
   color: var(--accent);
-  border: 1px solid rgba(255, 122, 26, 0.28);
+  border: 1px solid var(--accent-line);
   border-radius: 999px;
   padding: 4px 10px;
   font-size: 0.8125rem;
@@ -173,7 +173,7 @@
 
 @media (hover: hover) and (pointer: fine) {
   .case:hover {
-    border-color: rgba(255, 122, 26, 0.4);
+    border-color: var(--accent-line-strong);
   }
 
   .case:hover .image {

@@ -13,7 +13,8 @@ O repositório não tinha ADR antes desta documentação. Os registros abaixo de
 | [0003](0003-projetos-estaticos.md) | Projetos em módulo estático e textos nos JSON |
 | [0004](0004-proxy-de-contato.md) | Contato por route handler que faz proxy |
 | [0005](0005-css-modules.md) | Estilo com CSS Modules e tokens globais |
-| [0006](0006-tema-escuro-e-geist.md) | Tema escuro fixo e Geist visível |
+| [0006](0006-tema-escuro-e-geist.md) | Tema escuro fixo e Geist visível (fonte e cor substituídas pela 0007) |
+| [0007](0007-modern-editorial-engineering.md) | Modern Editorial Engineering: paleta lima e três famílias |
 
 ## Novo ADR
 

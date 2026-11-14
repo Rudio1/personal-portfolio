@@ -8,7 +8,7 @@ export const projetos: ProjetoData[] = [
     imagem: '/vegeta.png',
     github: 'https://github.com/frotaitalo/vegeta-final-pi',
     demo: null,
-    destaque: true,
+    destaque: false,
     tipo: 'backend',
     icone: 'database'
   },
@@ -52,7 +52,7 @@ export const projetos: ProjetoData[] = [
     imagem: '/psi-amanda.png',
     github: null,
     demo: 'https://psi-amanda.rudio1.com.br/',
-    destaque: true,
+    destaque: false,
     tipo: 'frontend',
     icone: 'globe'
   },
@@ -63,7 +63,7 @@ export const projetos: ProjetoData[] = [
     imagem: '/trafego.png',
     github: null,
     demo: 'https://trafego.agcustom.com.br/',
-    destaque: true,
+    destaque: false,
     tipo: 'frontend',
     icone: 'globe'
   },
@@ -74,7 +74,7 @@ export const projetos: ProjetoData[] = [
     imagem: '/ag-custom.png',
     github: 'https://github.com/Rudio1/website_AG-Custom',
     demo: 'https://www.agcustom.com.br/',
-    destaque: true,
+    destaque: false,
     tipo: 'frontend',
     icone: 'globe'
   }

@@ -17,7 +17,9 @@ Listar trabalhos com imagem, tipo, tecnologias, links de código e demo, e um CT
 
 Cada item do array é um case na lista, na ordem do array.
 
-- O campo `destaque` permanece no dado. A interface não mostra o badge `projects.badges.destaque` e não marca `priority` na imagem.
+- O campo `destaque` escolhe os cases da seção “Projetos selecionados” da home (hoje `agropulse`, `ag-clinical`, `vae-mobility`). Em `/projetos` ele não muda nada: a página lista os sete e não mostra o badge `projects.badges.destaque`.
+- `projects.items.<key>` pode ter `category`, `features` (itens separados por `
+`), `problem`, `role` e `results`. A home lê esses campos. Campo vazio não aparece.
 - `tipo` escolhe o rótulo traduzido (`projects.types`), exibido como meta acima do título. O campo `icone` continua no dado e não escolhe mais um ícone sobre a imagem.
 - `tecnologias` são rótulos literais.
 - Link de `github`: se `tipo` é `backend`, o link usa ícone de banco e o texto `projects.buttons.backend`; caso contrário, ícone GitHub e `projects.buttons.frontend`.
@@ -61,6 +63,6 @@ Nenhuma. Incluir um projeto é mudança de código e de arquivo estático, não 
 
 ## Observações
 
-Não há filtro, busca nem página de detalhe. O badge de destaque não é renderizado. Os sete itens continuam com `destaque: true` no dado.
+Não há filtro, busca nem página de detalhe. O badge de destaque não é renderizado. Três itens têm `destaque: true`.
 
 O reveal é uma vez por case, com `IntersectionObserver`. No desktop a imagem e o texto não partem no mesmo frame: o lado esquerdo sai primeiro e o outro espera 60ms. Vegeta não espera. No hover com ponteiro fino a imagem vai a `scale(1.02)` e a borda do case esquenta. O card não se desloca.

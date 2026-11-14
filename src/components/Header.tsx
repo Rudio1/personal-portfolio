@@ -10,8 +10,10 @@ import ContactModal from './ContactModal';
 import styles from './Header.module.css';
 
 const menuItems = [
-  { key: 'about', href: '/' },
-  { key: 'projects', href: '/projetos' },
+  { key: 'aboutMe', href: '/#sobre' },
+  { key: 'projects', href: '/#projetos' },
+  { key: 'experience', href: '/#experiencia' },
+  { key: 'stack', href: '/#stack' },
 ];
 
 const FlagIcon = ({ country }: { country: 'br' | 'us' }) => {
@@ -125,7 +127,7 @@ export default function Header() {
           <nav className={styles.navigation} aria-label={t('a11y.mainNav')}>
             <ul className={styles.navList}>
               {menuItems.map((item) => {
-                const active = pathname === item.href;
+                const active = item.key === 'projects' && pathname === '/projetos';
                 return (
                   <li key={item.href}>
                     <Link

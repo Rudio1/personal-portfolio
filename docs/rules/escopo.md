@@ -17,7 +17,7 @@ Um pedido para acrescentar um campo, um projeto, um texto ou um ajuste visual n�
 - remover dependência, asset ou chave aparentemente sem uso;
 - reformatar arquivos não tocados pela regra pedida;
 - alterar cópia de outro idioma além do necessário para manter a mesma estrutura de chaves;
-- “corrigir” o media query de `globals.css`, o `lang` do HTML ou a fonte Geist.
+- “corrigir” o media query de `globals.css`, o `lang` do HTML ou as fontes da ADR 0007.
 
 Melhoria percebida fora desse conjunto vai para o relatório, sob o título **Sugestão fora do escopo**, e fica sem código.
 
