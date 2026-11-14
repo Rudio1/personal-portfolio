@@ -26,30 +26,39 @@
   text-wrap: pretty;
 }
 
+/* Fatos como canhoto: células separadas por 1px de lima */
 .facts {
   list-style: none;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  border-top: 1px solid var(--line);
+  gap: 1px;
+  border: 1px solid var(--accent-line);
+  background: var(--accent-line);
 }
 
 .fact {
+  position: relative;
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  padding: var(--space-4) 0;
-  border-bottom: 1px solid var(--line);
+  padding: var(--space-4) var(--space-5);
+  background:
+    linear-gradient(180deg, rgba(243, 244, 242, 0.035), transparent 40%),
+    rgba(11, 13, 15, 0.9);
   font-family: var(--font-mono);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--fg);
 }
 
 .fact::before {
   content: '';
   flex: none;
-  width: 6px;
-  height: 6px;
-  background: var(--accent);
+  width: 7px;
+  height: 7px;
+  border: 1px solid var(--accent);
+  transform: rotate(45deg);
 }
 
 @media (min-width: 768px) {
@@ -60,6 +69,5 @@
 
   .facts {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: var(--space-6);
   }
 }

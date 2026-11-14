@@ -23,6 +23,7 @@ export const stack: StackCategory[] = [
   {
     key: 'frontend',
     items: [
+      { name: 'Angular' },
       { name: 'React' },
       { name: 'Next.js' },
       { name: 'Vue.js' },

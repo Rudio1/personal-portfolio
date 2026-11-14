@@ -116,16 +116,24 @@
       "projects": "View projects",
       "contact": "Get in touch"
     },
-    "scroll": "Scroll"
+    "scroll": "Scroll",
+    "plate": "Portfolio",
+    "resume": "Resume",
+    "facts": {
+      "since": "Building since",
+      "projects": "Published projects",
+      "companies": "Companies",
+      "current": "Currently at"
+    }
   },
   "about": {
     "title": "About",
-    "p1": "I've been working in software development since 2022, when I started as a backend intern with PHP and Laravel. Today I'm a full stack developer at Grupo Águia Branca, in Vitória, Brazil, where I build and maintain systems with React, Next.js, PHP and C#.",
+    "p1": "I've been working in software development since 2022, when I started as a backend intern with PHP and Laravel. Today I'm a full stack developer at Autoglass, in Vitória, Brazil, where I build and evolve internal systems with Angular, C#, .NET and SQL.",
     "p2": "My work sits between the interface and the data: versioned REST APIs, OAuth and JWT authentication, permission control, third-party integrations, optimized queries and CI/CD pipelines that take all of it to production.",
     "p3": "I also worked on N3 support, handling tickets for systems in use. That's where I learned to write code with the next maintainer in mind.",
     "facts": {
       "since": "Since 2022",
-      "role": "Full Stack · Grupo Águia Branca",
+      "role": "Full Stack · Autoglass",
       "education": "Education · Universidade Centro Leste, 2024",
       "english": "English · KNN Idiomas"
     }
@@ -145,6 +153,11 @@
     "title": "Experience",
     "present": "present",
     "items": {
+      "autoglass": {
+        "role": "Full Stack Developer",
+        "location": "Vitória, Brazil",
+        "description": "Building and evolving internal systems with Angular, C#, .NET and SQL, focused on performance, scalability and code quality. .NET version migrations, new features, bug fixes, and writing and optimizing SQL queries. Technical and business refinement and agile ceremonies (planning, daily and retrospective)."
+      },
       "aguia-branca": {
         "role": "Full Stack Developer",
         "location": "Vitória, Brazil",

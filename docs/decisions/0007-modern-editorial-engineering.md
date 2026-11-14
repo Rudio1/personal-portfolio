@@ -24,9 +24,24 @@ Pedido explícito do autor no redesign v2.
 - Manter Geist e só trocar a paleta. Rejeitada: o pedido define as três famílias.
 - Biblioteca de animação (Framer Motion). Fora desta ADR: o plano aprovado segue com CSS + `IntersectionObserver`.
 
+## Revisão de 2026-11-14: atmosfera viva
+
+O autor achou o resultado plano e pediu algo “vivo”, usando como referência o projeto `copasogo` dele. Entraram:
+
+- **Segundo tom violeta (`--violet: #9d8cff`):** só na luz de fundo, no halo da arte do hero e na luz local da Experiência. O lima continua sendo o único acento de interface.
+- **Atmosfera fixa (`src/components/Atmosphere.tsx` + classes em `globals.css`):**
+  - brilhos radiais, raios cônicos, grade larga, névoa, vinheta e grão;
+  - fica atrás de todas as seções, por isso o `body` é transparente e o `html` leva `--bg`.
+- **Molduras chanfradas** (`clip-path` + diagonal em `::after`), placa (`.plate`), filete com losango (`.rule`) e fecho entre seções (`.section::after`).
+- **Tipografia dos títulos:** Space Grotesk em maiúsculas, peso 700. A família não mudou.
+- **Animações de cena** (`.sceneRise`, `.sceneRule`, `.sceneIdentity`, `.sceneFade`), todas desligadas com `prefers-reduced-motion`.
+
 ## Consequências
 
 - Não reintroduzir Geist, o laranja `#ff7a1a` nem `@import` de fonte.
 - Cor compartilhada nova entra como token em `:root`, como antes.
 - Variável de fonte nova vai no `<html>`, não no `body`.
 - A 0006 continua válida para tema escuro fixo e para o fim da inversão de cor.
+- Elemento chanfrado não usa `outline` no foco, porque o `clip-path` o cortaria. O foco é uma borda interna (`box-shadow: inset`).
+- Violeta não vira cor de texto, botão nem link.
+- Degradê só na atmosfera fixa e na arte do hero. Seções, palcos de imagem e o painel de contato usam fundo chapado: o autor reprovou a luz local por seção em 2026-11-14.

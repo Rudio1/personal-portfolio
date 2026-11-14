@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, ArrowUpRight, Github } from 'lucide-react';
 import styles from './FeaturedProjects.module.css';
+import buttons from './button.module.css';
 import SectionHeading from './SectionHeading';
 import { useTranslations } from '../contexts/TranslationContext';
 import { projetos } from '../data/projetos';
@@ -18,16 +19,13 @@ export default function FeaturedProjects() {
     <section id="projetos" className="section" aria-labelledby="projetos-title">
       <div className={styles.top}>
         <SectionHeading id="projetos-title" index="02" title={t('featured.title')} />
-        <Link href="/projetos" className={styles.allLink}>
-          {t('featured.all')}
-          <ArrowRight size={16} aria-hidden="true" />
-        </Link>
       </div>
 
       <div className={styles.list}>
         {featured.map((projeto, index) => {
           const base = `projects.items.${projeto.key}`;
           const title = t(`${base}.title`);
+          const host = projeto.demo ? new URL(projeto.demo).hostname.replace(/^www\./, '') : '';
           const features = t(`${base}.features`)
             .split('\n')
             .map((item) => item.trim())
@@ -43,14 +41,31 @@ export default function FeaturedProjects() {
               aria-labelledby={`case-${projeto.key}`}
             >
               <div className={styles.media}>
-                <Image
-                  src={projeto.imagem}
-                  alt={title}
-                  width={1200}
-                  height={750}
-                  sizes="(max-width: 1023px) 100vw, 680px"
-                  className={styles.image}
-                />
+                <div className={styles.window}>
+                  <div className={styles.windowBar} aria-hidden="true">
+                    <span className={styles.dots}>
+                      <span />
+                      <span />
+                      <span />
+                    </span>
+                    {host ? <span className={styles.url}>{host}</span> : null}
+                  </div>
+                  <div className={styles.viewport}>
+                    <Image
+                      src={projeto.imagem}
+                      alt={title}
+                      width={1200}
+                      height={750}
+                      sizes="(max-width: 1023px) 92vw, 640px"
+                      className={styles.image}
+                      style={{
+                        objectPosition: projeto.imagemFoco,
+                        transform: projeto.imagemZoom ? `scale(${projeto.imagemZoom})` : undefined,
+                        transformOrigin: projeto.imagemFoco,
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
 
               <div className={styles.body}>
@@ -114,6 +129,13 @@ export default function FeaturedProjects() {
             </article>
           );
         })}
+      </div>
+
+      <div className={styles.more}>
+        <Link href="/projetos" className={buttons.secondary}>
+          {t('featured.all')}
+          <ArrowRight size={14} aria-hidden="true" />
+        </Link>
       </div>
     </section>
   );

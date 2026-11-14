@@ -19,17 +19,22 @@ export default function Experience() {
             const current = item.end === null;
 
             return (
-              <li key={item.key} className={styles.item}>
-                <p className={styles.period}>
-                  {current ? <span className={styles.live} aria-hidden="true" /> : null}
-                  {item.start} — {item.end ?? t('experience.present')}
-                </p>
-                <div className={styles.content}>
-                  <h3 className={styles.role}>{t(`${base}.role`)}</h3>
-                  <p className={styles.company}>
-                    {item.company} · {t(`${base}.location`)}
+              <li key={item.key} className={styles.entry}>
+                <span className={`${styles.node} ${current ? styles.nodeCurrent : ''}`} aria-hidden="true" />
+                <div className={styles.item}>
+                  <p className={styles.period}>
+                    <span>
+                      {item.start} —{item.end ? ` ${item.end}` : ''}
+                    </span>
+                    {current ? <span className={styles.live}>{t('experience.present')}</span> : null}
                   </p>
-                  <p className={styles.description}>{t(`${base}.description`)}</p>
+                  <div className={styles.content}>
+                    <h3 className={styles.role}>{t(`${base}.role`)}</h3>
+                    <p className={styles.company}>
+                      {item.company} · {t(`${base}.location`)}
+                    </p>
+                    <p className={styles.description}>{t(`${base}.description`)}</p>
+                  </div>
                 </div>
               </li>
             );

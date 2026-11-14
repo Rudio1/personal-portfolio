@@ -116,16 +116,24 @@
       "projects": "Ver projetos",
       "contact": "Entrar em contato"
     },
-    "scroll": "Rolar"
+    "scroll": "Rolar",
+    "plate": "Portfólio",
+    "resume": "Currículo",
+    "facts": {
+      "since": "Desenvolvendo desde",
+      "projects": "Projetos publicados",
+      "companies": "Empresas",
+      "current": "Hoje em"
+    }
   },
   "about": {
     "title": "Sobre",
-    "p1": "Trabalho com desenvolvimento de software desde 2022, quando comecei como estagiário backend em PHP e Laravel. Hoje sou desenvolvedor full stack no Grupo Águia Branca, em Vitória, onde desenvolvo e mantenho sistemas com React, Next.js, PHP e C#.",
+    "p1": "Trabalho com desenvolvimento de software desde 2022, quando comecei como estagiário backend em PHP e Laravel. Hoje sou desenvolvedor full stack na Autoglass, em Vitória, onde desenvolvo e evoluo sistemas internos com Angular, C#, .NET e SQL.",
     "p2": "Meu trabalho fica entre a interface e o dado: APIs REST versionadas, autenticação com OAuth e JWT, controle de permissões, integração com serviços de terceiros, queries otimizadas e pipelines de CI/CD que levam tudo isso para produção.",
     "p3": "Passei também pela sustentação (N3), atendendo chamados de sistemas em uso. Foi ali que aprendi a escrever código pensando em quem vai mantê-lo depois.",
     "facts": {
       "since": "Desde 2022",
-      "role": "Full Stack · Grupo Águia Branca",
+      "role": "Full Stack · Autoglass",
       "education": "Formação · Universidade Centro Leste, 2024",
       "english": "Inglês · KNN Idiomas"
     }
@@ -145,6 +153,11 @@
     "title": "Experiência",
     "present": "atual",
     "items": {
+      "autoglass": {
+        "role": "Desenvolvedor Full Stack",
+        "location": "Vitória/ES",
+        "description": "Desenvolvimento e evolução de sistemas internos com Angular, C#, .NET e SQL, com foco em performance, escalabilidade e qualidade de código. Migração de versões de sistemas .NET, novas funcionalidades, correção de bugs e escrita e otimização de queries SQL. Refinamento técnico e de negócio e cerimônias ágeis (planning, daily e retrospectiva)."
+      },
       "aguia-branca": {
         "role": "Desenvolvedor Full Stack",
         "location": "Vitória/ES",

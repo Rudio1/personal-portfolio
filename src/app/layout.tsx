@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import Atmosphere from "../components/Atmosphere";
 import { TranslationProvider } from "../contexts/TranslationContext";
 
 const spaceGrotesk = Space_Grotesk({
@@ -43,6 +44,7 @@ export default function RootLayout({
   return (
     <html lang="pt" className={`${spaceGrotesk.variable} ${inter.variable} ${jetbrainsMono.variable}`}>
       <body>
+        <Atmosphere />
         <TranslationProvider>
           <div id="scroll-sentinel" className="scrollSentinel" aria-hidden="true" />
           <Header />

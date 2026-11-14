@@ -1,36 +1,72 @@
 .primary,
 .secondary {
+  --frame-line: var(--line-strong);
   appearance: none;
+  position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  height: 48px;
-  padding: 0 20px;
-  border-radius: var(--radius-sm);
-  border: 1px solid transparent;
-  font-family: inherit;
-  font-size: var(--text-base);
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 1px solid var(--frame-line);
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
   font-weight: 500;
-  letter-spacing: -0.005em;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   line-height: 1.25;
   text-decoration: none;
   cursor: pointer;
+  clip-path: polygon(0 0, calc(100% - var(--chamfer)) 0, 100% var(--chamfer), 100% 100%, 0 100%);
+  box-shadow: inset 0 1px 0 rgba(243, 244, 242, 0.1);
   transition:
     background-color var(--duration-hover) var(--ease-standard),
     border-color var(--duration-hover) var(--ease-standard),
     color var(--duration-hover) var(--ease-standard);
 }
 
+/* Diagonal do chanfro */
+.primary::after,
+.secondary::after {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: calc(100% + 1px - var(--chamfer));
+  width: calc(var(--chamfer) * 1.4142);
+  height: 1px;
+  background: var(--frame-line);
+  transform: rotate(45deg);
+  transform-origin: 0 0;
+  pointer-events: none;
+}
+
 .primary {
+  --frame-line: var(--accent);
   background: var(--accent);
   color: var(--accent-ink);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.35),
+    0 0 32px rgba(184, 243, 107, 0.18);
 }
 
 .secondary {
-  background: transparent;
+  background:
+    linear-gradient(180deg, rgba(243, 244, 242, 0.04), transparent 50%),
+    rgba(18, 22, 25, 0.82);
   color: var(--fg);
-  border-color: var(--line);
+}
+
+/* O clip-path corta o outline: foco vira borda interna */
+.primary:focus-visible,
+.secondary:focus-visible {
+  outline: none;
+  box-shadow: inset 0 0 0 2px var(--accent);
+}
+
+.primary:focus-visible {
+  box-shadow: inset 0 0 0 2px var(--accent-ink);
 }
 
 .primary:disabled,
@@ -41,11 +77,12 @@
 
 @media (hover: hover) and (pointer: fine) {
   .primary:hover:not(:disabled) {
+    --frame-line: var(--accent-hover);
     background: var(--accent-hover);
   }
 
   .secondary:hover:not(:disabled) {
-    background: var(--bg-raised);
-    border-color: var(--line-strong);
+    --frame-line: var(--accent-line-strong);
+    color: var(--accent);
   }
 }

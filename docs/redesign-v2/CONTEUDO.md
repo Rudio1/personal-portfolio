@@ -2,6 +2,8 @@
 
 Rascunho escrito em 2026-11-14.
 
+**Currículo atualizado (2026-11-14):** o autor está na Autoglass desde 10/2025 (Full Stack, Vitória/ES: Angular, C#, .NET, SQL, migração de versões .NET). A Águia Branca vai de 03/2025 a 10/2025. O PDF em `public/curriculo/` foi trocado por essa versão, e a seção 3 abaixo ficou desatualizada: valem `src/data/experiencia.ts` e `messages/`.
+
 **Decisões do autor (2026-11-14):** frase do hero A; Sobre aprovado, sem citar a AG Custom e sem o curso; só as três experiências de desenvolvimento; TypeScript na stack; GitHub `Rudio1`. Isso já entrou em `messages/`. Os campos ⚠ “Problema” e ✍ “Papel” e “Resultados” dos projetos **não** entraram: aguardam o autor.
 
 **Fontes usadas:**

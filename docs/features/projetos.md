@@ -18,6 +18,7 @@ Listar trabalhos com imagem, tipo, tecnologias, links de código e demo, e um CT
 Cada item do array é um case na lista, na ordem do array.
 
 - O campo `destaque` escolhe os cases da seção “Projetos selecionados” da home (hoje `agropulse`, `ag-clinical`, `vae-mobility`). Em `/projetos` ele não muda nada: a página lista os sete e não mostra o badge `projects.badges.destaque`.
+- `ProjetoData` tem os campos opcionais `imagemFoco` e `imagemZoom`, que enquadram a imagem só na home.
 - `projects.items.<key>` pode ter `category`, `features` (itens separados por `
 `), `problem`, `role` e `results`. A home lê esses campos. Campo vazio não aparece.
 - `tipo` escolhe o rótulo traduzido (`projects.types`), exibido como meta acima do título. O campo `icone` continua no dado e não escolhe mais um ícone sobre a imagem.
