@@ -13,6 +13,8 @@ export interface ProjetoData {
   key: string;
   tecnologias: string[];
   imagem: string;
+  imagemFoco?: string;
+  imagemZoom?: number;
   github: string | null;
   githubBackend?: string | null;
   demo: string | null;

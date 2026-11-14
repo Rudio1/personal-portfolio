@@ -35,7 +35,9 @@ Fonte de verdade para agentes: [AGENTS.md](../AGENTS.md). Comece por ele. Esta p
 | Decisões | [decisions/README.md](decisions/README.md) |
 | Histórico | [changelog/CHANGELOG.md](changelog/CHANGELOG.md) |
 | Redesign (alvo visual, ainda sem obrigar o código) | [redesign/01-AUDIT.md](redesign/01-AUDIT.md) |
-| Regras do Cursor | `.cursor/rules/*.mdc` |
+| Redesign v2 — Modern Editorial Engineering (aprovado; em execução por fase) | [redesign-v2/PLANO.md](redesign-v2/PLANO.md) |
+| Regras do Claude Code | `CLAUDE.md` (importa `AGENTS.md`), `.claude/rules/*.md`, `.claude/settings.json` |
+| Regras do Cursor (legado) | `.cursor/rules/*.mdc` |
 
 ## Onde registrar
 
@@ -63,6 +65,9 @@ docs/development/         como implementar dentro desse mapa
 docs/changelog/           por que uma alteração entrou
 docs/guides/              como rodar
 docs/redesign/            alvo do redesign visual; o código só muda na fase pedida
+CLAUDE.md                 entrada do Claude Code; importa AGENTS.md
+.claude/rules/            regras por caminho para o Claude Code (cópia de .cursor/rules/)
+.claude/settings.json     permissões do Claude Code no projeto
 .cursor/rules/            atalhos curtos para o Cursor apontando para os documentos acima
 ```
 

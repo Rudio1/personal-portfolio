@@ -8,7 +8,7 @@ export const projetos: ProjetoData[] = [
     imagem: '/vegeta.png',
     github: 'https://github.com/frotaitalo/vegeta-final-pi',
     demo: null,
-    destaque: true,
+    destaque: false,
     tipo: 'backend',
     icone: 'database'
   },
@@ -17,6 +17,8 @@ export const projetos: ProjetoData[] = [
     key: 'agropulse',
     tecnologias: ['Next.js', 'React', 'CSS', 'JavaScript', 'Responsive Design'],
     imagem: '/agropulse.png',
+    imagemFoco: 'left center',
+    imagemZoom: 1.7,
     github: null,
     demo: 'https://agropulse.net.br/',
     destaque: true,
@@ -28,6 +30,8 @@ export const projetos: ProjetoData[] = [
     key: 'ag-clinical',
     tecnologias: ['Vue', 'Vite'],
     imagem: '/ag-clinical.png',
+    imagemFoco: 'left center',
+    imagemZoom: 1.5,
     github: null,
     demo: 'https://clinical.agcustom.com.br/',
     destaque: true,
@@ -39,6 +43,7 @@ export const projetos: ProjetoData[] = [
     key: 'vae-mobility',
     tecnologias: ['Next.js', 'React', 'Dotnet Core', 'SQL Server'],
     imagem: '/vae-mobility.png',
+    imagemFoco: 'center top',
     github: null,
     demo: 'https://www.vaemobility.com.br/',
     destaque: true,
@@ -52,7 +57,7 @@ export const projetos: ProjetoData[] = [
     imagem: '/psi-amanda.png',
     github: null,
     demo: 'https://psi-amanda.rudio1.com.br/',
-    destaque: true,
+    destaque: false,
     tipo: 'frontend',
     icone: 'globe'
   },
@@ -63,7 +68,7 @@ export const projetos: ProjetoData[] = [
     imagem: '/trafego.png',
     github: null,
     demo: 'https://trafego.agcustom.com.br/',
-    destaque: true,
+    destaque: false,
     tipo: 'frontend',
     icone: 'globe'
   },
@@ -74,7 +79,7 @@ export const projetos: ProjetoData[] = [
     imagem: '/ag-custom.png',
     github: 'https://github.com/Rudio1/website_AG-Custom',
     demo: 'https://www.agcustom.com.br/',
-    destaque: true,
+    destaque: false,
     tipo: 'frontend',
     icone: 'globe'
   }

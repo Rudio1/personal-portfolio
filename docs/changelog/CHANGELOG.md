@@ -4,6 +4,201 @@ Registro de mudanças de comportamento, contrato, conteúdo publicado ou estrutu
 
 Não usar uma linha solta do tipo "bug corrigido". Cada entrada precisa dizer o que mudou, por quê, onde e qual o efeito.
 
+## 2026-11-14 — Autoglass, currículo novo e seções sem degradê local
+
+### Alteração
+
+- **Experiência:** a Autoglass entrou como cargo atual (10/2025 até hoje). A Águia Branca passou a terminar em 10/2025.
+- **Sobre:** o texto, o fato “Full Stack · Autoglass”, o rótulo do hero e o canhoto agora citam a Autoglass. O canhoto mostra 04 empresas.
+- **Stack:** Angular entrou no Frontend e na linha de stack do hero.
+- **Currículo:** `public/curriculo/Curriculo - Rudio.pdf` foi trocado pela versão nova enviada pelo autor.
+- **Visual:** saiu a luz em degradê de cada seção (`.section::before`, `.stageViolet`), o brilho do palco das imagens e o do painel de contato. A atmosfera fixa do fundo continua.
+
+### Motivação
+
+O autor mudou de emprego e mandou o currículo atualizado. Ele também achou ruins os degradês aplicados por seção.
+
+### Arquivos/Módulos afetados
+
+- `src/data/experiencia.ts`, `src/data/stack.ts`, `src/app/page.tsx`, `messages/pt.json`, `messages/en.json`
+- `public/curriculo/Curriculo - Rudio.pdf`
+- `src/app/globals.css`, `src/components/Experience.tsx`, `FeaturedProjects.module.css`, `ContactSection.module.css`
+- `docs/features/home.md`, `docs/decisions/0007-modern-editorial-engineering.md`, `docs/redesign-v2/CONTEUDO.md`
+
+### Impacto
+
+Só conteúdo e aparência. Rotas, idioma e o contrato `POST /api/contact` não mudaram.
+
+### Banco de dados
+
+Não há banco neste repositório. Nenhuma alteração.
+
+### Breaking changes
+
+Nenhuma.
+
+## 2026-11-14 — Home viva: atmosfera, molduras e hero com arte própria
+
+### Alteração
+
+A home ganhou a linguagem visual do projeto de referência `copasogo`, adaptada à paleta lima.
+- **Fundo:** uma atmosfera fixa atrás de todas as seções, com brilho lima e violeta, raios, grade, névoa e grão. Ela substitui as guias e a grade da versão anterior.
+- **Hero:** faixa superior, placa, nome em maiúsculas com tinta em degradê, mostrador SVG próprio com o retrato e as camadas UI, API, DB e Cloud, e um canhoto com quatro dados verificáveis.
+- **Seções:** placa `§ NN`, número fantasma, títulos em maiúsculas, filete com losango e fecho entre seções.
+- **Componentes:** botões e cartões chanfrados, a Experiência em trilho com losangos e o Contato em painel de destaque.
+
+### Motivação
+
+O autor achou a versão anterior sem vida e pediu algo no nível do projeto `copasogo`.
+
+### Arquivos/Módulos afetados
+
+- **Novos:** `src/components/Atmosphere.tsx`, `src/components/HeroArt.tsx`, `src/components/HeroArt.module.css`
+- **Alterados:**
+  - `src/app/globals.css`, `src/app/layout.tsx`, `src/app/page.tsx`, `src/app/page.module.css`
+  - `src/components/button.module.css`, `SectionHeading`, `FeaturedProjects`, `Experience`, `Stack.module.css`, `About.module.css`, `ContactSection.module.css`
+  - `messages/pt.json`, `messages/en.json` (`hero.plate`, `hero.resume`, `hero.facts.*`)
+- **Documentação:** `docs/decisions/0007-modern-editorial-engineering.md` (revisão), `docs/features/home.md`
+
+### Impacto
+
+Visual. Os botões do formulário de contato e de `/projetos` também ficaram chanfrados, porque usam `button.module.css`. Textos aprovados, rotas, idioma e o contrato `POST /api/contact` não mudaram. Nenhuma dependência nova.
+
+### Banco de dados
+
+Não há banco neste repositório. Nenhuma alteração.
+
+### Breaking changes
+
+Nenhuma.
+
+## 2026-11-14 — Home: Stack em linhas, imagens emolduradas e fundo contínuo
+
+### Alteração
+
+- **Stack:** a grade de colunas desiguais deu lugar a cinco linhas alinhadas. A categoria fica à esquerda e as tecnologias em chips à direita.
+- **Imagens dos cases:** entram numa janela de navegador com o domínio do projeto, sobre um palco com grade e brilho. AgroPulse e AG Clinical foram recortados para mostrar o painel da marca em vez do formulário branco de login.
+- **Fundo:** uma grade de 64px e brilhos suaves atravessam a home inteira. No desktop, duas guias verticais com um marcador lima em cada seção ligam uma seção à outra. A grade que existia só no hero saiu.
+
+### Motivação
+
+Pedido do autor: a Stack estava desalinhada, as imagens estavam fracas e as seções pareciam soltas.
+
+### Arquivos/Módulos afetados
+
+- `src/components/Stack.tsx`, `Stack.module.css`
+- `src/components/FeaturedProjects.tsx`, `FeaturedProjects.module.css`
+- `src/components/SectionHeading.module.css`, `src/app/page.module.css`
+- `src/components/ProjetoCard.tsx` (campos opcionais `imagemFoco` e `imagemZoom` em `ProjetoData`), `src/data/projetos.ts`
+- `docs/features/home.md`, `docs/features/projetos.md`
+
+### Impacto
+
+Só visual na home. `/projetos` não usa os campos novos. Textos, rotas e contato não mudaram.
+
+### Banco de dados
+
+Não há banco neste repositório. Nenhuma alteração.
+
+### Breaking changes
+
+Nenhuma.
+
+## 2026-11-14 — Redesign v2, fase 3: home em página única
+
+### Alteração
+
+A home passou a ter sete blocos: Hero, Sobre, Projetos selecionados, Experiência, Stack, Contato e Footer.
+- **Menu:** aponta para as seções (`/#sobre`, `/#projetos`, `/#experiencia`, `/#stack`). O botão Contato continua abrindo o modal.
+- **Destaque:** o campo `destaque` de `projetos.ts` passou a escolher os três cases da home. `/projetos` continua com os sete.
+- **Footer:** aparece nas duas rotas.
+- **Contato:** a seção nova lista e-mail, LinkedIn, GitHub e currículo, e abre o mesmo formulário de antes.
+
+### Motivação
+
+Fase 3 do plano em `docs/redesign-v2/PLANO.md`. Os textos vêm do rascunho aprovado em `docs/redesign-v2/CONTEUDO.md`, com base no currículo e nos sites publicados.
+
+### Arquivos/Módulos afetados
+
+- **Novos:** `src/components/SectionHeading`, `About`, `FeaturedProjects`, `Experience`, `Stack`, `ContactSection` e `Footer` (`.tsx` + `.module.css`), `src/data/experiencia.ts`, `src/data/stack.ts`
+- **Alterados:** `src/app/page.tsx`, `src/app/page.module.css` (reescritos), `src/app/layout.tsx`, `src/app/globals.css`, `src/components/Header.tsx`, `src/data/projetos.ts`, `messages/pt.json`, `messages/en.json`
+- **Documentação:** `docs/features/home.md`, `navegacao.md`, `contato.md`, `projetos.md`, `docs/architecture/GAPS.md`, `docs/redesign-v2/`
+
+### Impacto
+
+O contrato `POST /api/contact`, as validações, a troca de idioma e a rota `/projetos` com as âncoras `#<key>` não mudaram.
+- **Saiu da home:** a lista “Trabalho” e a fileira de logos.
+- **Cases da home:** mostram descrição, funcionalidades e stack. Problema, papel e resultados ficam ocultos até o autor informar.
+- **Classes CSS:** as antigas de `page.module.css` saíram junto com a reescrita da página.
+- **Chaves JSON:** as antigas continuam nos arquivos.
+
+### Banco de dados
+
+Não há banco neste repositório. Nenhuma alteração.
+
+### Breaking changes
+
+Nenhuma para URLs. O link “Início” do menu deu lugar a “Sobre” (`/#sobre`).
+
+## 2026-11-14 — Redesign v2, fase 2: design system
+
+### Alteração
+
+Paleta, fontes e botões do redesign v2 (Modern Editorial Engineering). O fundo passou a `#0B0D0F` e o acento laranja deu lugar ao lima `#B8F36B`. Space Grotesk entra nos títulos, Inter no texto e JetBrains Mono nos rótulos. O botão primário é lima com texto escuro e raio de 6px. `globals.css` ganhou escalas de tipo, espaço, raio e movimento e a classe `.container`.
+
+### Motivação
+
+Fase 2 do plano aprovado em `docs/redesign-v2/PLANO.md`. A decisão está em `docs/decisions/0007-modern-editorial-engineering.md`.
+
+### Arquivos/Módulos afetados
+
+- `src/app/globals.css`, `src/app/layout.tsx`
+- `src/components/button.module.css`, `src/components/Header.module.css`, `src/components/ContactModal.module.css`
+- `src/app/page.module.css`, `src/app/projetos/projetos.module.css`
+- `.claude/launch.json` (dev server para a checagem visual)
+- `AGENTS.md`, `docs/decisions/`, `docs/architecture/`, `docs/development/CONVENTIONS.md`, `docs/rules/escopo.md`, `docs/redesign-v2/PLANO.md`
+
+### Impacto
+
+Só a aparência mudou. Layout, textos, rotas, troca de idioma e o contrato `POST /api/contact` continuam iguais. As classes das fontes saíram do `body` e foram para o `<html>`.
+
+### Banco de dados
+
+Não há banco neste repositório. Nenhuma alteração.
+
+### Breaking changes
+
+Nenhuma.
+
+## 2026-11-14 — Configuração do Claude Code
+
+### Alteração
+
+O repositório passou a ter configuração para o Claude Code: `CLAUDE.md` na raiz importa `AGENTS.md`; `.claude/rules/` traz as regras de UI, idioma e contato com escopo por caminho; `.claude/settings.json` libera `npm run lint`, `npm run build`, `npm run dev` e leitura de git, e bloqueia a leitura de `.env*`.
+
+### Motivação
+
+O desenvolvimento migrou do Cursor para o Claude Code. O contrato continua sendo `AGENTS.md`; só mudou a porta de entrada da ferramenta.
+
+### Arquivos/Módulos afetados
+
+- `CLAUDE.md`
+- `.claude/rules/ui.md`, `.claude/rules/i18n.md`, `.claude/rules/contato.md`
+- `.claude/settings.json`
+- `docs/README.md`
+
+### Impacto
+
+Nenhum efeito no site. `.cursor/rules/` foi mantido; as regras existem nas duas pastas e devem mudar juntas.
+
+### Banco de dados
+
+Não há banco neste repositório. Nenhuma alteração.
+
+### Breaking changes
+
+Nenhuma.
+
 ## 2026-10-27 — Motion da home, dos cases e da troca de rota
 
 ### Alteração

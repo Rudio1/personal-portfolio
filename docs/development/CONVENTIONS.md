@@ -57,7 +57,7 @@ Comentários existentes estão em português e só em trechos de fluxo (menu, va
 ## CSS
 
 - Tokens em `:root` de `globals.css` (`--bg`, `--fg`, `--accent` e os demais do tema escuro). `--background` e `--foreground` apontam para `--bg` e `--fg`.
-- Fonte aplicada: `var(--font-geist-sans), sans-serif`.
+- Fontes: `var(--font-body)` no `body`, `var(--font-display)` em títulos, `var(--font-mono)` em rótulos.
 - Classes em camelCase no CSS Module (`.case`, `.ctaSection`).
 - Botão primário e secundário: `src/components/button.module.css`.
 - Ícones: componentes de `lucide-react` com prop `size`.

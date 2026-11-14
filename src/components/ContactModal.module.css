@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   padding: 16px;
-  background: rgba(0, 0, 0, 0.6);
+  background: var(--scrim);
   animation: overlay-in var(--duration-overlay) linear both;
 }
 
@@ -124,12 +124,12 @@
 
 .successMessage {
   color: var(--success);
-  border: 1px solid rgba(125, 206, 160, 0.35);
+  border: 1px solid var(--accent-line);
 }
 
 .errorMessage {
   color: var(--danger);
-  border: 1px solid rgba(225, 90, 74, 0.35);
+  border: 1px solid var(--danger-line);
 }
 
 .spinner {

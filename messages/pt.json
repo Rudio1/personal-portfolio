@@ -2,7 +2,10 @@
   "navigation": {
     "about": "Início",
     "projects": "Projetos",
-    "contact": "Contato"
+    "contact": "Contato",
+    "aboutMe": "Sobre",
+    "experience": "Experiência",
+    "stack": "Stack"
   },
   "language": {
     "switch": "EN",
@@ -38,15 +41,21 @@
       },
       "agropulse": {
         "title": "AgroPulse",
-        "description": "Sistema de gestão agrícola integrada. Reúne empresas, unidades e operações, com indicadores para decisão no dia a dia do campo."
+        "description": "Sistema de gestão agrícola integrada. Reúne empresas, unidades e operações, com indicadores para decisão no dia a dia do campo.",
+        "category": "Sistema web · Gestão agrícola",
+        "features": "Gestão integrada de empresas, unidades e operações\nIndicadores para decisão\nFluxos pensados para a rotina do campo"
       },
       "ag-clinical": {
         "title": "AG Clinical",
-        "description": "Plataforma para gerenciar a clínica, com agenda, prontuário eletrônico do paciente e financeiro ligado à operação."
+        "description": "Plataforma para gerenciar a clínica, com agenda, prontuário eletrônico do paciente e financeiro ligado à operação.",
+        "category": "Plataforma SaaS · Gestão de clínicas",
+        "features": "Agenda e agendamentos integrados\nProntuário eletrônico do paciente\nFinanceiro conectado à operação\nCadastro aberto e convite de membros por e-mail"
       },
       "vae-mobility": {
         "title": "VAE Mobility",
-        "description": "Site da VAE Mobility para apresentar motocicletas e triciclos elétricos, com catálogo de modelos e atendimento pelo WhatsApp."
+        "description": "Site da VAE Mobility para apresentar motocicletas e triciclos elétricos, com catálogo de modelos e atendimento pelo WhatsApp.",
+        "category": "Site institucional e catálogo",
+        "features": "Catálogo por categoria: motocicletas e triciclos\nModelos em destaque com preço ou “consulte”\nFicha técnica por modelo: motor, bateria e autonomia\nPedido de orçamento e contato pelo WhatsApp\nPerguntas frequentes"
       },
       "psi-amanda": {
         "title": "Psicóloga Amanda Rudio",
@@ -98,5 +107,99 @@
       "phoneRequired": "Telefone é obrigatório",
       "phoneInvalid": "Formato de telefone inválido. Use: (11) 99999-9999"
     }
+  },
+  "hero": {
+    "label": "Full Stack Developer · Espírito Santo, Brasil",
+    "name": "Guilherme Rudio",
+    "tagline": "Desenvolvo sistemas web de ponta a ponta: da modelagem do banco à interface, passando por APIs, integrações e deploy.",
+    "cta": {
+      "projects": "Ver projetos",
+      "contact": "Entrar em contato"
+    },
+    "scroll": "Rolar",
+    "plate": "Portfólio",
+    "resume": "Currículo",
+    "facts": {
+      "since": "Desenvolvendo desde",
+      "projects": "Projetos publicados",
+      "companies": "Empresas",
+      "current": "Hoje em"
+    }
+  },
+  "about": {
+    "title": "Sobre",
+    "p1": "Trabalho com desenvolvimento de software desde 2022, quando comecei como estagiário backend em PHP e Laravel. Hoje sou desenvolvedor full stack na Autoglass, em Vitória, onde desenvolvo e evoluo sistemas internos com Angular, C#, .NET e SQL.",
+    "p2": "Meu trabalho fica entre a interface e o dado: APIs REST versionadas, autenticação com OAuth e JWT, controle de permissões, integração com serviços de terceiros, queries otimizadas e pipelines de CI/CD que levam tudo isso para produção.",
+    "p3": "Passei também pela sustentação (N3), atendendo chamados de sistemas em uso. Foi ali que aprendi a escrever código pensando em quem vai mantê-lo depois.",
+    "facts": {
+      "since": "Desde 2022",
+      "role": "Full Stack · Autoglass",
+      "education": "Formação · Universidade Centro Leste, 2024",
+      "english": "Inglês · KNN Idiomas"
+    }
+  },
+  "featured": {
+    "title": "Projetos selecionados",
+    "all": "Ver todos os projetos",
+    "labels": {
+      "features": "Funcionalidades",
+      "problem": "Problema",
+      "role": "Papel",
+      "results": "Resultados",
+      "stack": "Stack"
+    }
+  },
+  "experience": {
+    "title": "Experiência",
+    "present": "atual",
+    "items": {
+      "autoglass": {
+        "role": "Desenvolvedor Full Stack",
+        "location": "Vitória/ES",
+        "description": "Desenvolvimento e evolução de sistemas internos com Angular, C#, .NET e SQL, com foco em performance, escalabilidade e qualidade de código. Migração de versões de sistemas .NET, novas funcionalidades, correção de bugs e escrita e otimização de queries SQL. Refinamento técnico e de negócio e cerimônias ágeis (planning, daily e retrospectiva)."
+      },
+      "aguia-branca": {
+        "role": "Desenvolvedor Full Stack",
+        "location": "Vitória/ES",
+        "description": "Desenvolvimento e manutenção de sistemas com React, Next.js, PHP e C#. APIs REST, integração entre sistemas internos e externos, autenticação (OAuth, JWT), controle de permissões e versionamento de APIs. Code review, Git Flow e CI/CD com Azure DevOps. Landing pages responsivas e acessíveis."
+      },
+      "trinks": {
+        "role": "Desenvolvedor Full Stack Jr",
+        "location": "Remoto",
+        "description": "Novas funcionalidades e manutenção de aplicações em produção com JavaScript e .NET. Construção e evolução de APIs REST, extração de dados e otimização de queries. Code review, merge, CI/CD e Git Flow no time."
+      },
+      "code-and-app": {
+        "role": "Estagiário Backend",
+        "location": "Vitória/ES",
+        "description": "Funcionalidades e manutenção em PHP e Laravel com bancos SQL. Sustentação N3: atendimento e resolução de chamados técnicos. Time ágil com Scrum."
+      }
+    }
+  },
+  "stack": {
+    "title": "Stack",
+    "intro": "Ferramentas que uso no dia a dia, agrupadas pelo papel que cumprem no sistema.",
+    "categories": {
+      "backend": "Backend",
+      "frontend": "Frontend",
+      "database": "Banco de dados",
+      "cloud": "Cloud",
+      "tools": "Ferramentas e infra"
+    }
+  },
+  "contactSection": {
+    "title": "Contato",
+    "headline": "Vamos construir algo que funcione de verdade.",
+    "text": "Tem um sistema para tirar do papel, uma API para integrar ou uma vaga para alguém full stack? Me chame por um dos canais abaixo ou deixe seu telefone que eu retorno.",
+    "form": "Deixar meu telefone",
+    "channels": {
+      "email": "E-mail",
+      "linkedin": "LinkedIn",
+      "github": "GitHub",
+      "resume": "Currículo"
+    }
+  },
+  "footer": {
+    "built": "Feito com Next.js e TypeScript",
+    "top": "Voltar ao topo"
   }
 }

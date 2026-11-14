@@ -1,0 +1,104 @@
+/* Painel de destaque: moldura lima */
+.body {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-6);
+  padding: var(--space-6) var(--space-5);
+  border: 1px solid var(--accent-line-strong);
+  background: rgba(18, 22, 25, 0.85);
+  box-shadow: inset 0 1px 0 rgba(243, 244, 242, 0.1);
+  clip-path: polygon(0 0, calc(100% - 22px) 0, 100% 22px, 100% 100%, 0 100%);
+}
+
+.headline {
+  font-family: var(--font-display);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  color: var(--fg);
+  max-width: 18ch;
+  text-wrap: balance;
+}
+
+@media (min-width: 768px) {
+  .body {
+    padding: var(--space-8) var(--space-7);
+  }
+}
+
+.text {
+  color: var(--fg-muted);
+  max-width: 34rem;
+  text-wrap: pretty;
+}
+
+.channels {
+  list-style: none;
+  width: 100%;
+  margin-top: var(--space-5);
+  border-top: 1px solid var(--line);
+}
+
+.channel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--space-1) var(--space-4);
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--line);
+  transition: color var(--duration-hover) var(--ease-standard);
+}
+
+.channelLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--fg-muted);
+}
+
+.channelValue {
+  grid-column: 1;
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 0.75rem + 1.6vw, 1.5rem);
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  overflow-wrap: anywhere;
+}
+
+.arrow {
+  grid-column: 2;
+  grid-row: 1 / span 2;
+  color: var(--fg-muted);
+  transition: color var(--duration-hover) var(--ease-standard);
+}
+
+@media (min-width: 768px) {
+  .channel {
+    grid-template-columns: 180px minmax(0, 1fr) auto;
+  }
+
+  .channelValue {
+    grid-column: 2;
+  }
+
+  .arrow {
+    grid-column: 3;
+    grid-row: 1;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .channel:hover .channelValue,
+  .channel:hover .arrow {
+    color: var(--accent);
+  }
+}

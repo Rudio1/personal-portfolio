@@ -1,5 +1,7 @@
 # Tema escuro fixo e Geist visível
 
+> **Status:** parcialmente substituída em 2026-11-14 por [0007-modern-editorial-engineering.md](0007-modern-editorial-engineering.md). O tema escuro fixo continua valendo. Geist e o acento laranja saíram.
+
 ## Contexto
 
 O CSS aplicava Montserrat via Google Fonts e invertia as cores dentro de `prefers-color-scheme: dark`: sistema escuro via o site claro, sistema claro via o site escuro. O layout já carregava Geist e Geist Mono sem uso. O pacote `docs/redesign/` pediu um tema único e a fonte que já estava no projeto.

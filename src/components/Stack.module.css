@@ -1,0 +1,101 @@
+.top {
+  display: grid;
+  gap: var(--space-5);
+  margin-bottom: var(--space-7);
+}
+
+.intro {
+  color: var(--fg-muted);
+  max-width: 34rem;
+  text-wrap: pretty;
+}
+
+/* Painel único, chanfrado, com as cinco linhas dentro */
+.rows {
+  list-style: none;
+  position: relative;
+  padding: var(--space-2) var(--space-5);
+  border: 1px solid var(--line-strong);
+  background:
+    linear-gradient(180deg, rgba(243, 244, 242, 0.03), transparent 30%),
+    rgba(18, 22, 25, 0.82);
+  box-shadow: inset 0 1px 0 rgba(243, 244, 242, 0.08);
+  clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 0 100%);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-4);
+  padding: var(--space-5) 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.row:last-child {
+  border-bottom: 0;
+}
+
+.rowHead {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+}
+
+.rowIndex {
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  color: var(--accent);
+}
+
+.rowTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--fg);
+}
+
+.chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  background: rgba(11, 13, 15, 0.8);
+  clip-path: polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 0 100%);
+  font-size: var(--text-sm);
+  color: var(--fg);
+  white-space: nowrap;
+  transition: border-color var(--duration-hover) var(--ease-standard);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .row:hover .chip {
+    border-color: var(--line-strong);
+  }
+
+  .chip:hover {
+    border-color: var(--accent-line-strong);
+  }
+}
+
+@media (min-width: 1024px) {
+  .rows {
+    padding: var(--space-2) var(--space-7);
+  }
+
+  .row {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    gap: var(--space-8);
+    align-items: center;
+    padding: var(--space-6) 0;
+  }
+}

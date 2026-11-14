@@ -22,7 +22,9 @@ Passam a estar em `AGENTS.md`, `docs/architecture/` e `docs/features/`. Incluem:
 - `src/middleware.ts` não altera a requisição. Motivo de existir: NÃO IDENTIFICADO.
 - `<html lang>` no servidor é `pt`. O provider ajusta `lang` no cliente depois da hidratação.
 - Validação de formato do telefone e tamanho mínimo do nome existem só no modal. A route só exige presença.
-- Dois `ContactModal` com estado separado (Header e página de projetos). Não há contexto de UI.
+- Três `ContactModal` com estado separado (Header, página de projetos e seção Contato da home). Não há contexto de UI.
+- Chaves `home.title`, `home.subtitle`, `home.eyebrow`, `home.work`, `home.description`, `home.objective`, `home.cta.projects` e `navigation.about` não são mais lidas desde o redesign v2 (fase 3). `public/logos/*.svg` também deixou de ser referenciado.
+- E-mail, LinkedIn e GitHub estão escritos em `src/components/ContactSection.tsx`, não nos JSON (não são texto traduzível).
 - O grupo JSON `language` não é lido. `home.description` e `home.objective` são strings vazias e a home não renderiza o parágrafo nesse caso.
 - `public/img-rudio.png` não é referenciado em `src/`. A home usa `public/guilherme-rudio.png`.
 - Imagens em `public/` sem entrada em `projetos.ts` (`brunelly.png`, `cecis.png`, `cybergallery.png`, `refeicoes.png`, `tarefas.png`) não entram no site. Não apagar sem pedido.
@@ -44,7 +46,7 @@ Home, projetos, contato, i18n e navegação têm arquivo em `docs/features/`. N�
 2. Ligar `next-intl` ou apagar a dependência por conta própria.
 3. Colocar `API_KEY` no client ou trocar o proxy por `fetch` direto no modal.
 4. Unificar validação, modais, CSS do card ou imports para `@/` no meio de um pedido pequeno.
-5. Reverter o tema escuro, a fonte Geist, o `lang` no cliente ou a description do metadata. Isso foi fechado no redesign de 2026-10-27, não é bug pendente.
+5. Reverter o tema escuro, as fontes e a paleta da ADR 0007, o `lang` no cliente ou a description do metadata. Não é bug pendente.
 6. Remover middleware, chave JSON, classe CSS ou imagem não referenciada.
 7. Assumir que existe teste e inventar Jest.
 8. Documentar a API externa com campos que `route.ts` não envia.

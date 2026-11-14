@@ -1,0 +1,27 @@
+---
+paths:
+  - "src/**/*.{ts,tsx,css}"
+---
+
+# UI deste repositório
+
+Padrão real: Client Component com `'use client'` quando usa `useTranslations` ou estado; CSS Module importado como `styles`; texto via `t('chave')`.
+
+```tsx
+'use client';
+
+import styles from './exemplo.module.css';
+import { useTranslations } from '../contexts/TranslationContext';
+
+export default function Exemplo() {
+  const { t } = useTranslations();
+  return <h1>{t('grupo.titulo')}</h1>;
+}
+```
+
+- Página nova: `src/app/<segmento>/page.tsx` e um CSS Module na mesma pasta.
+- Componente compartilhado: `src/components/Nome.tsx`. Exceção existente: `ProjetoCard` usa `src/app/projetos/projetos.module.css`.
+- Imports no código atual são relativos. Não introduzir `@/` num arquivo que já usa `../`.
+- `layout.tsx` permanece Server Component e dono de `TranslationProvider` e `Header`.
+- Não editar `src/middleware.ts`: ele só chama `NextResponse.next()`.
+- Tokens globais estão em `src/app/globals.css`. O tema é escuro e fixo. Não reintroduzir inversão em `prefers-color-scheme`.

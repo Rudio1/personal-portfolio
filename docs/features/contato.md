@@ -7,7 +7,8 @@ Receber nome e telefone e encaminhá-los a uma API externa sem expor a chave no 
 ## Onde está
 
 - UI: `src/components/ContactModal.tsx`, `src/components/ContactModal.module.css`
-- Quem abre o modal: `src/components/Header.tsx` e `src/app/projetos/page.tsx`
+- Quem abre o modal: `src/components/Header.tsx`, `src/app/projetos/page.tsx` e `src/components/ContactSection.tsx` (seção `#contato` da home). Cada um tem a sua instância e o seu estado.
+- A seção `#contato` também lista e-mail, LinkedIn, GitHub e currículo como links diretos. Esses canais não passam pela API.
 - Proxy: `src/app/api/contact/route.ts`
 - Textos: objeto `contact` nos dois JSON
 

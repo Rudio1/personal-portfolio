@@ -1,0 +1,87 @@
+.art {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  fill: var(--fg-muted);
+}
+
+/* Retrato dentro do mostrador: círculo com borda lima e luz por baixo */
+.portrait {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 52%;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--accent-line-strong);
+  background: #000;
+  box-shadow:
+    0 0 0 8px rgba(11, 13, 15, 0.9),
+    0 0 0 9px var(--line-strong),
+    0 24px 80px rgba(157, 140, 255, 0.25);
+}
+
+.portraitImage {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .spin {
+    transform-origin: 300px 300px;
+    transform-box: view-box;
+    animation: spin 90s linear infinite;
+  }
+
+  .node {
+    animation: node 2.6s ease-in-out infinite;
+  }
+
+  .arc {
+    stroke-dasharray: 360;
+    stroke-dashoffset: 360;
+    animation: draw 1.4s var(--ease-out) 600ms forwards;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes node {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
